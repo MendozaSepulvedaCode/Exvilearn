@@ -1,7 +1,6 @@
 .over-view {
   display: flex;
   flex-direction: row;
-
 }
 .over-with-nav {
   display: flex;
@@ -22,7 +21,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   width: 100%;
 }
 
@@ -35,6 +33,7 @@
 
 .over-container-right {
   display: flex;
+  flex-direction: column;
   width: 30%;
 }
 
@@ -194,6 +193,25 @@
   overflow-y: auto;
 }
 
+.info-stats::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
+}
+
+.info-stats::-webkit-scrollbar-thumb {
+  background-color: #107acc;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+
+.info-stats::-webkit-scrollbar-thumb:hover {
+  background-color: #2d2f31;
+}
+
+.info-stats::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .info-stats table {
   width: 100%;
   border-collapse: collapse;
@@ -234,29 +252,99 @@ td {
   border-radius: 50%;
 }
 
-@media only screen and (max-width: 1060px) {
+.ant-progress .ant-progress-bg {
+  background-color: #107acc;
+}
+
+.over-balance {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.7rem;
+}
+
+.balance-container {
+  background-color: rgb(255, 255, 255);
+  background-clip: border-box;
+  border: 0px solid rgba(0, 0, 0, 0.125);
+  border-radius: 1rem;
+  box-shadow: rgba(20, 20, 20, 0.12) 0rem 0.25rem 0.375rem -0.0625rem,
+    rgba(20, 20, 20, 0.07) 0rem 0.125rem 0.25rem -0.0625rem;
+  width: 100%;
+  height: 44vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.balance-header {
+  text-align: center;
+  color: #333;
+}
+
+.balance-amount {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #5cb85c;
+}
+
+.balance-description {
+  text-align: center;
+  color: #777;
+}
+
+@media only screen and (max-width: 1300px) {
   .over-container {
     padding-right: 0;
+    flex-direction: column;
   }
 
   .over-container-left {
     width: 90%;
     margin-right: 0;
   }
+
+  .over-container-right {
+    margin-top: 3rem;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .over-balance {
+    margin-top: 0;
+  }
+
+  .balance-container {
+    width: 38vw;
+    height: 53.3vw;
+  }
 }
 
 @media only screen and (max-width: 768px) {
   .over-container {
     flex-direction: column;
-    padding: 20px;
   }
 
+  .over-with-nav {
+    padding: 18px;
+    width: 90%;
+  }
+
+  .nav-over {
+    display: none;
+  }
+  
   .over-container-left {
     width: 100%;
     margin-right: 0;
   }
 
   .over-container-right {
+    flex-direction: column;
+  }
+
+  .balance-container {
+    margin-top: 101px;
     width: 100%;
   }
 

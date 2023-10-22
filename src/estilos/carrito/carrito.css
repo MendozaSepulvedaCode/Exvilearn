@@ -288,6 +288,10 @@
     align-items: flex-start;
   }
 
+  .carrito-titulo h5 {
+    font-size: 25px;
+  }
+
   .container-info-card {
     flex-direction: column;
   }

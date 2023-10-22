@@ -11,16 +11,18 @@ function HeaderEnseña() {
   const manejoUsuarios = () => {
     const { valid } = autenticar();
 
-    if (valid) {
-      navigate("/StepByStep");
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Inicio de sesión requerido",
-        text: "Debe iniciar sesión para ser un instructor.",
-        confirmButtonColor: "#107acc",
-      });
-    }
+    navigate("/StepByStep");
+
+    // if (valid) {
+    //   navigate("/StepByStep");
+    // } else {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Inicio de sesión requerido",
+    //     text: "Debe iniciar sesión para ser un instructor.",
+    //     confirmButtonColor: "#107acc",
+    //   });
+    // }
   };
   return (
     <div className="enseña-container">

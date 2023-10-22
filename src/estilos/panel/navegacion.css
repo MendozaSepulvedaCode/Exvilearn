@@ -1,6 +1,5 @@
 .custom-barra-lateral {
   display: flex;
-  height: 100vh;
   width: auto;
   flex-direction: row;
 }

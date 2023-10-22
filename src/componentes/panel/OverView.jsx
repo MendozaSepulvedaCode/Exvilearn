@@ -12,7 +12,6 @@ import MenuLateral from "./navegacion/MenuLateral";
 import { Progress } from "antd";
 import { Input } from "antd";
 import RightMenu from "../Navbar/RightMenu";
-import Notificaciones from "./navegacion/Notificaciones";
 
 function OverView() {
   const { Search } = Input;
@@ -92,7 +91,7 @@ function OverView() {
       image: "https://storagexvilearn.blob.core.windows.net/imagenes/joven.png",
       courseName: `Curso de programacion de php: Primeros pasos, de cero a mid ${i}`,
       progress: 75,
-      rating: 4.5,
+      rating: 3.7,
     };
     data.push(item);
   }
@@ -102,7 +101,6 @@ function OverView() {
       <MenuLateral />
       <div className="over-with-nav">
         <div className="nav-over">
-          <Notificaciones />
           <RightMenu />
         </div>
         <div className="over-container">
@@ -197,7 +195,20 @@ function OverView() {
               </div>
             </div>
           </div>
-          <Profile />
+          <div className="over-container-right">
+            <div>
+              <Profile />
+            </div>
+            <div className="over-balance">
+              <div className="over-balance">
+                <div className="balance-container">
+                  <h2 className="balance-header">Balance Total</h2>
+                  <div className="balance-amount">$10,000</div>
+                  <p className="balance-description">Es tu balance del mes</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
