@@ -1,0 +1,159 @@
+.categorias {
+  padding: 20px;
+  margin-top: 3rem;
+  text-align: center;
+  width: 90vw;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.7s;
+}
+
+.categorias-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.categorias h5 {
+  font-size: 24px;
+  text-align: left;
+  font-weight: 800;
+  color: #333;
+  margin: 0;
+}
+
+.categorias p {
+  margin: 0;
+}
+
+.categorias-description {
+  font-size: 16px;
+  color: #777;
+  margin: 10px 0;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.button-pag {
+  color: #fff;
+  transition: all 0.3s;
+  background-color: #1c1d1f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  padding: 7px 16px;
+  margin: 0 10px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.button-pag:hover {
+  color: #fff;
+  background-color: #107acc;
+  transform: scale(1.1);
+}
+
+.categoria-container {
+  display: flex;
+  transition: transform 1.2s;
+}
+
+.categoria {
+  flex: 0 0 calc(25% - 20px);
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  flex-direction: row;
+  border: 2px solid #bebebe;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.categoria svg {
+  font-size: 36px;
+  margin-bottom: 10px;
+  transition: color 0.3s, transform 0.3s;
+  background-color: #107acc;
+  padding: 20px;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.categoria .nombre {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.tag-categoria {
+  margin-bottom: 0.3rem;
+  text-align: end;
+}
+
+.cantidad-cursos {
+  font-size: 14px;
+  color: #cfcfcf;
+  font-weight: 600;
+  background-color: rgba(28, 29, 31, 0.9);
+  width: 5rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.categoria:hover .cantidad-cursos {
+  color: #fff;
+}
+
+.categoria:hover .nombre {
+  color: #fff;
+}
+
+.categoria:hover {
+  background-color: #107acc;
+  border: none;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.7s;
+}
+
+.categoria:hover svg {
+  color: #107acc;
+  transform: scale(1.1);
+  background-color: #fff;
+}
+
+.descripcion-categoria {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .categorias-header {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .pagination {
+    display: none;
+  }
+
+  .categoria-container {
+    overflow-y: auto;
+  }
+
+  .categorias {
+    padding: 0;
+  }
+
+  .categoria {
+    flex: 0 0 calc(75% - 20px);
+  }
+}

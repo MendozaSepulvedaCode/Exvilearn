@@ -1,0 +1,316 @@
+.step-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  margin-bottom: 4rem;
+}
+
+.steps-container {
+  margin-top: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #107acc;
+  border-radius: 4px;
+  padding: 40px;
+  width: 55rem;
+}
+
+.step-content {
+  text-align: center;
+}
+
+.card-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.step-card {
+  flex: 1;
+  width: 5vw;
+  height: 10vh;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.phone-input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.phone-input {
+  width: 100%;
+}
+
+.form-control input {
+  width: 200%;
+}
+
+.PhoneInput {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.PhoneInputCountryIcon {
+  margin-right: 5px;
+}
+
+.input-step-dos {
+  width: 50%;
+  height: 2.2rem;
+}
+
+.react-tel-input {
+  width: 55%;
+}
+
+.ant-card .ant-card-body {
+  padding: 0;
+}
+
+.ant-card-body {
+  margin-top: -20px;
+}
+
+.boton-primer-step {
+  margin-top: 30px;
+  font-size: 14px;
+  padding: 10px 40px;
+  background-color: #107acc;
+  transition: all 0.5s;
+}
+
+.boton-primer-step:hover {
+  background-color: #1c1c1c;
+  transition: all 0.5s;
+}
+
+.step-card.selected {
+  border: 2px solid #107acc;
+}
+
+.header-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 15px;
+  border-radius: 5px;
+  height: 2rem;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.card-title {
+  flex: 1;
+  text-align: center;
+  display: block;
+}
+
+.check-icon {
+  font-size: 20px;
+  color: #107acc;
+}
+
+.descripcion-card {
+  margin-top: -2px;
+}
+
+.step-button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Step 2*/
+.step-two-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.step-content-left {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 40%;
+}
+
+.step-content-left h5 {
+  margin: 0;
+  margin-top: 10px;
+  font-size: 1.8rem;
+}
+
+.step-content-left p {
+  font-weight: 400;
+  color: #555;
+  font-size: 14px;
+}
+
+.step-content-right {
+  flex: 2;
+}
+
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-upload-label {
+  cursor: pointer;
+  color: #107acc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-upload-label p {
+  font-weight: 500;
+}
+
+.image-upload {
+  border: 2px dashed #d9d9d9;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-upload-icon {
+  font-size: 24px;
+  color: #1890ff;
+}
+
+.image-upload-input {
+  display: none;
+}
+
+.input-step-dos {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.react-tel-input .form-control {
+  border: 1px solid #d9d9d9 !important;
+  width: 530px !important;
+  height: 2.3rem !important;
+}
+
+.checkbox-group {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+}
+
+.container-check {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-select-selector {
+  height: 2.3rem !important;
+}
+
+.step-back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  font-size: 14px;
+  padding: 10px 40px;
+  background-color: #107acc;
+  transition: all 0.5s;
+}
+
+.step-back-button:hover {
+  background-color: #1c1c1c;
+  transition: all 0.5s;
+}
+
+.steps .ant-steps-item-finish .ant-steps-item-icon {
+  color: #107acc;
+}
+
+.steps .ant-steps-item-process .ant-steps-item-icon {
+  color: #107acc;
+}
+
+.steps .ant-steps-item-wait .ant-steps-item-icon {
+  color: #ccc;
+}
+
+.steps .ant-steps-item-title {
+  color: #333;
+  font-size: 18px;
+}
+
+.steps .ant-steps-item-description {
+  color: #555;
+}
+
+.ant-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ant-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #107acc;
+  border-color: #107acc;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: #fff;
+}
+
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: #107acc;
+}
+
+.ant-checkbox-input:hover + .ant-checkbox-inner {
+  border-color: #107acc;
+}
+
+.ant-checkbox-inner {
+  border-color: #ccc;
+}
+
+.ant-checkbox-inner::after {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  width: 6px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-top: 0;
+  border-left: 0;
+  content: " ";
+  position: absolute;
+  opacity: 0;
+  transition: all 0.3s ease;
+}

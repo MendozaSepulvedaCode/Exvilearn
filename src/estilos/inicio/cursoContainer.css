@@ -1,0 +1,256 @@
+.container-after-header {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 90vw;
+}
+
+.titulo-container {
+  position: relative;
+  text-align: center;
+}
+
+.titulo-destacado {
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  margin-top: 5rem;
+}
+
+.texto-destacado {
+  color: #107acc;
+  font-weight: bold;
+  background-color: #fff;
+  padding: 0 10px;
+}
+
+.curso-container {
+  min-width: 90vw;
+  white-space: normal;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+  width: auto;
+  z-index: 1;
+}
+
+.curso-list {
+  display: flex;
+  gap: 22px;
+  padding: 20px 0;
+}
+
+.scroll-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  left: 0;
+  right: 0;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  transform: translateY(-225px);
+  z-index: 100;
+}
+
+.scroll-buttons button {
+  color: #fff;
+  transition: all 0.3s;
+  background-color: #1c1d1f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  padding: 3px 14px;
+}
+
+.scroll-buttons button:hover {
+  color: #fff;
+  background-color: #107acc;
+  transform: scale(1.1);
+}
+
+#boton-card-derecha {
+  margin-right: -20px;
+}
+
+#boton-card-izquierda {
+  margin-left: -20px;
+}
+/* Cartas */
+
+.curso-card {
+  flex: 0 0 300px;
+  height: auto;
+  min-height: 22rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: rgba(251, 251, 251, 0.8);
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.curso-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.curso-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 40%;
+  object-fit: cover;
+}
+
+.category-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: rgba(189, 189, 189, 0.3);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.category-label:hover {
+  background-color: rgba(189, 189, 189, 0.7);
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 4px;
+  color: #777777;
+  background-color: #e1e1e1;
+}
+
+.tag-icon {
+  margin-right: 5px;
+  margin-top: 2px;
+}
+
+.avatar-name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  margin-left: 3px;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(108, 108, 108);
+}
+
+.curso-titulo {
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 16px;
+  margin-top: -2px;
+  color: #333;
+}
+
+/* Precio y botones */
+
+.card-end {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.price {
+  display: flex;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.botones {
+  display: flex;
+  align-items: center;
+}
+
+.botones button {
+  padding: 7px 15px;
+  border: 2px solid #107acc;
+  background-color: #107acc;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  height: 35px;
+}
+
+.cart-icon {
+  font-size: 1.1rem;
+}
+
+.check-icon-card {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.botones button:hover {
+  background-color: #1c1d1f;
+  border: 2px solid #1c1d1f;
+}
+
+@media screen and (max-width: 768px) {
+  .container-after-header h3 {
+    margin-top: 3rem;
+    font-size: 1.7rem;
+  }
+
+  .scroll-buttons {
+    display: none;
+  }
+
+  .curso-container {
+    overflow-x: auto;
+  }
+}

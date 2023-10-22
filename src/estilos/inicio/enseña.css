@@ -1,0 +1,536 @@
+@import url("https://fonts.googleapis.com/css2?family=Playball&display=swap");
+
+.enseña-container {
+  width: 90vw;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+}
+/* Header */
+.landing-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(175, 205, 234, 0.5);
+  border-radius: 0 0 10px 10px;
+  padding: 1rem 4rem;
+}
+
+.left-section {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.right-section {
+  display: flex;
+  width: 40%;
+}
+
+.heading {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.heading span {
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
+  background-color: #107acc;
+  font-family: "Playball", regular;
+}
+
+.paragraph {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  color: #1c1d1f;
+  width: 80%;
+}
+
+.features {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 5rem;
+  margin-bottom: 2rem;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+}
+
+.feature h5 {
+  font-size: 25px;
+  color: #107acc;
+  margin: 0;
+}
+
+.feature p {
+  margin: 0;
+}
+
+.unirse-profesor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #107acc;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.2rem;
+  width: 12rem;
+}
+
+.icono-unirse {
+  margin-left: 10px;
+  font-size: 25px;
+  color: #fff;
+}
+
+.unirse-profesor:hover {
+  background-color: #1c1d1f;
+}
+
+.visual {
+  max-width: 100%;
+  height: 570px;
+}
+
+/* Beneficios */
+
+.beneficios-container {
+  padding: 60px 0;
+  text-align: center;
+  border-radius: 10px;
+  width: 90vw;
+  margin: 0 auto;
+}
+
+.titulo-header-enseña {
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.beneficios-heading {
+  font-size: 3rem;
+  margin-bottom: 40px;
+  width: 50%;
+  text-align: start;
+}
+
+.beneficios-heading span {
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
+  background-color: #107acc;
+  font-family: "Playball", regular;
+}
+
+.titulo-header-enseña p {
+  font-size: 17px;
+  font-weight: 400;
+  width: 40%;
+  text-align: start;
+  line-height: 32px;
+}
+
+.titulo-header-enseña p span {
+  font-weight: bold;
+}
+
+.beneficios-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 40px;
+}
+
+.beneficio-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  max-width: 300px;
+  border: 2px solid #bebebe;
+  text-align: start;
+}
+
+.icon {
+  font-size: 36px;
+  color: #fff;
+  background-color: #107acc;
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 50%;
+}
+
+.icon svg {
+  padding-top: 12px;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Preguntas frecuentes*/
+
+.faq-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 90vw;
+  margin: 0 auto;
+  background-color: rgba(175, 205, 234, 0.5);
+  border-radius: 10px;
+}
+
+.faq-content {
+  width: 60%;
+  max-width: 800px;
+  height: 80%;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.faq-left {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-left img {
+  height: 7rem;
+  width: 8em;
+}
+
+.faq-text {
+  font-size: 35px;
+  margin: 0;
+  line-height: 75px;
+}
+
+.faq-text span {
+  font-size: 52px;
+  margin-left: -1rem;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
+  background-color: #107acc;
+  font-family: "Playball", regular;
+}
+
+.link-chat {
+  margin-top: 2rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  transition: all 0.5s;
+}
+
+.link-chat svg {
+  height: 1em;
+  width: 1em;
+  vertical-align: middle;
+  margin-right: 0.2em;
+}
+
+.link-chat:hover {
+  color: #107acc;
+  transition: all 0.5s;
+}
+
+.faq-heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.accordion-item {
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.accordion-header {
+  background-color: rgba(181, 181, 181, 0.5);
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+}
+
+.accordion-header.active {
+  background-color: rgba(181, 181, 181, 0.2);
+}
+
+.accordion-content {
+  padding: 15px 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion-content.show {
+  max-height: 1000px;
+  background-color: rgba(181, 181, 181, 0.2);
+  border-radius: 0 0 8px 8px;
+}
+
+.accordion-icon {
+  font-size: 16px;
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Contacto */
+.contact-container {
+  display: flex;
+  width: 90vw;
+  margin: 0 auto;
+  border-radius: 10px;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.left-section-end {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  border-radius: 10px 0 0 10px;
+  background-color: #107acc;
+}
+
+.image-contact {
+  height: 28rem;
+  width: 44rem;
+}
+
+.right-section-end {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 50%;
+  background-color: #107acc;
+  border-radius: 0 10px 10px 0;
+}
+
+.subscribe-message {
+  font-size: 3.3rem;
+  color: #fff;
+  width: 90%;
+}
+
+.subscribe-message h5 {
+  margin: 50px 10px;
+}
+
+.subscription-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-with-button {
+  display: flex;
+  align-items: center;
+}
+
+.email-input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 60px;
+  outline: none;
+  height: 2.4rem;
+  background-color: #4ab4ef;
+}
+
+.email-input::placeholder {
+  color: #333;
+  font-weight: 600;
+  font-size: 15px;
+  padding-left: 20px;
+}
+
+.subscribe-button {
+  background-color: #1c1d1f;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  transform: translateX(-125px);
+}
+
+.subscribe-button:hover {
+  background-color: #107acc;
+}
+
+@media screen and (max-width: 768px) {
+  .enseña-container {
+    width: 100%;
+  }
+
+  .landing-container {
+    padding: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .left-section {
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0.5rem;
+    padding: 20px;
+  }
+
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .paragraph {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .features {
+    gap: 1.8rem;
+  }
+
+  .right-section {
+    display: none;
+  }
+
+  .visual {
+    display: none;
+  }
+
+  .beneficios-heading {
+    font-size: 1.8rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .titulo-header-enseña {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .titulo-header-enseña p {
+    width: 100%;
+  }
+
+  .beneficios-heading h3 {
+    margin: 0;
+  }
+
+  .faq-heading {
+    font-size: 1.4rem;
+  }
+
+  .faq-container {
+    height: auto;
+    background: none;
+    flex-direction: column;
+  }
+
+  .faq-left {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .faq-left img {
+    height: 4rem;
+    width: 5rem;
+  }
+
+  .faq-text {
+    margin-left: 1.5rem;
+    font-size: 25px;
+    line-height: 50px;
+  }
+
+  .faq-text span {
+    font-size: 30px;
+  }
+
+  .link-chat {
+    display: none;
+  }
+
+  .faq-content {
+    width: 90%;
+    padding: 0;
+    margin-top: 2rem;
+  }
+
+  .contact-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .image-contact {
+    display: none;
+  }
+
+  .right-section-end {
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .subscribe-message {
+    align-items: center;
+    text-align: center;
+  }
+
+  .subscribe-message h5 {
+    font-size: 20px;
+    font-weight: 500;
+
+  }
+
+  .email-input {
+    margin-left: 10px;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+  }
+
+  .subscribe-button {
+    transform: translateY(-8px);
+    border-radius: 0 10px 10px 0;
+    height: 7.8vh;
+    margin-right: 11PX;
+  }
+}

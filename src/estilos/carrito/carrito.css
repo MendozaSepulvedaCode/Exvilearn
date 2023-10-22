@@ -1,0 +1,317 @@
+.carrito-de-compras {
+  display: flex;
+  flex-direction: row;
+  align-items: self-start;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px;
+  min-height: 32vh;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  justify-content: space-between;
+}
+
+.carrito-left {
+  width: 70%;
+}
+
+.detalle-orden {
+  padding-left: 2rem;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+  width: 18vw;
+}
+
+.info-card {
+  width: 20vw;
+}
+
+.carrito-titulo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carrito-titulo h5 {
+  font-size: 34px;
+  margin: 0;
+  color: #333;
+}
+
+.carrito-titulo p {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.linea-separadora {
+  width: 100%;
+  border-top: 1px solid #d1d7dc;
+  margin: 20px 0;
+}
+
+.container-info-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.items-carrito {
+  flex: 2;
+}
+
+.nombre-curso {
+  font-size: 15px;
+  font-weight: 600;
+  width: 100%;
+}
+
+.autor-curso {
+  font-size: 12px;
+}
+
+.foot-curso {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 80%;
+  line-height: 12px;
+  justify-content: space-between;
+}
+
+.lesiones-curso {
+  color: #bdbfc1;
+  padding-top: 2px;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.horas-curso {
+  color: #bdbfc1;
+  font-size: 11px;
+  font-weight: 400;
+  padding-top: px;
+}
+
+.img-curso {
+  height: 60px;
+  width: 90px;
+  margin-right: 15px;
+}
+
+.categoria-curso {
+  background-color: #1c1c1c;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 10px;
+  padding: 4px 10px;
+  width: auto;
+  height: 12px;
+  display: initial;
+}
+
+.curso-card-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 90%;
+}
+
+.acciones-curso {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-around;
+  width: 40%;
+}
+
+.eliminar-button {
+  color: #cb3234;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.precio-curso {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #107acc;
+}
+
+.precio-curso p {
+  font-size: 17px;
+  font-weight: 700;
+  margin-right: 7px;
+}
+
+.precio-curso svg {
+  transform: rotate(265deg);
+}
+
+.info-card p {
+  margin: 5px 0;
+}
+
+.btn-seguir-comprando {
+  background-color: #107acc;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.5s;
+}
+
+.btn-pagar {
+  padding: 10px;
+  background-color: #107acc;
+  transition: all 0.5s;
+}
+
+.btn-pagar:hover {
+  background-color: #1c1c1c;
+  transition: all 0.5s;
+}
+
+.btn-seguir-comprando:hover {
+  background-color: #1c1c1c;
+  transition: all 0.5s;
+}
+
+.detalle-orden p {
+  font-size: 17px;
+  color: #9a9a9a;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.detalle-orden h5 {
+  color: #333;
+  font-size: 1.58em;
+  font-weight: bold;
+  margin: 0 auto;
+  width: auto;
+}
+
+.input-promociones {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.4rem;
+}
+
+.codigo-promocional-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: auto;
+}
+
+.codigo-promocional-container h6 {
+  font-size: 15px;
+  color: #333;
+  margin: 0;
+}
+
+.codigo-input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #ddd;
+  width: 10vw;
+  outline: none;
+}
+
+.codigo-input::placeholder {
+  font-size: 0.8rem;
+}
+
+.aplicar-button {
+  background-color: #107acc;
+  color: #fff;
+  border: none;
+  padding: 7px 20px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: all 0.5s;
+  width: 6vw;
+  font-size: 0.8rem;
+}
+
+.aplicar-button:hover {
+  background-color: #1c1c1c;
+  transition: all 0.5s;
+}
+
+.promocion-agregada {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.promocion-agregada p {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.promocion-agregada button {
+  background-color: transparent;
+  color: #cb3234;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .carrito-de-compras {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .carrito-left{
+    width: 90%;
+  }
+
+  .detalle-orden {
+    width: 90%;
+    padding-left: 1rem;
+  }
+
+  .carrito-titulo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .container-info-card {
+    flex-direction: column;
+  }
+
+  .eliminar-button {
+    margin-left: 3.5rem;
+  }
+
+  .curso-card-info {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .info-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .codigo-input {
+    width: 80%;
+  }
+
+  .aplicar-button {
+    width: 30%;
+  }
+}

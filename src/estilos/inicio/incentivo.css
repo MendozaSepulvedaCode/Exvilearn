@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Playball&display=swap");
+
+.incentivo-profesor {
+  display: flex;
+  border-radius: 10px;
+  width: 90vw;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  background-color: rgba(175, 205, 234, 0.5);
+}
+
+.imagen-profesor {
+  flex: 1;
+  display: flex;
+  background-size: cover;
+  background-image: url("https://storagexvilearn.blob.core.windows.net/imagenes/joven.png");
+  width: auto;
+  padding: 0;
+  border-radius: 10px;
+}
+
+.contenido {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+}
+
+.incentivo-profesor h5 {
+  font-size: 45px;
+  color: #333;
+  margin: 0;
+  margin-bottom: 3rem;
+}
+
+.incentivo-profesor h5 span {
+  font-size: 50px;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
+  background-color: #107acc;
+  margin-left: 0.7rem;
+  font-family: "Playball", regular;
+}
+
+.aspectos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.aspecto {
+  flex: 1 1 50%;
+  display: flex;
+  text-align: start;
+  padding: 20px 0;
+}
+
+.descripcion-aspectos {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.icono {
+  font-size: 40px;
+  color: #fff;
+  background-color: #107acc;
+  padding: 20px;
+  border-radius: 50%;
+  margin-top: -0.2rem;
+}
+
+.incentivo-profesor h6 {
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+}
+
+.incentivo-profesor p {
+  font-size: 16px;
+  color: #666;
+  margin-top: 5px;
+  width: 70%;
+}
+
+.btn-unirse {
+  background-color: #107acc;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 15rem;
+  margin-top: 3rem;
+  transition: all 0.5s;
+}
+
+.btn-unirse:hover {
+  background-color: #1c1d1f;
+  transition: all 0.5s;
+}
+
+@media screen and (max-width: 1150px) {
+  .imagen-profesor {
+    display: none;
+  }
+
+  .contenido h5 {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .incentivo-profesor {
+    width: 100%;
+    border-radius: 0px;
+  }
+  .imagen-profesor {
+    display: none;
+  }
+
+  .incentivo-profesor h5 {
+    font-size: 1.8rem;
+  }
+
+  .incentivo-profesor h5 span {
+    font-size: 1.8rem;
+    margin-left: 0.7rem;
+  }
+
+  .icono {
+    margin-left: -10px;
+    margin-right: 15px;
+    margin-top: 0.2rem;
+  }
+
+  .incentivo-profesor p {
+    width: 100%;
+  }
+
+  .btn-unirse {
+    margin-top: 0;
+    margin-left: 20px;
+  }
+}
