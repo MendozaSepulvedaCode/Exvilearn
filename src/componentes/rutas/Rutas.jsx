@@ -24,7 +24,7 @@ function Rutas() {
     { path: "/PanelCursos", component: PanelCursos },
   ];
 
-  const rutasProtegidas = ["/PanelCursos"];
+  const rutasProtegidas = ["/PanelCursos", "/StepByStep" ];
 
   const ProtectedRoute = ({ path, element }) => {
     const { valid } = autenticar();
