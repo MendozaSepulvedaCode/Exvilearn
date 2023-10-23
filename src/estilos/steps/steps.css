@@ -334,6 +334,39 @@
     width: 100%;
     margin-bottom: 10px;
   }
+
+  .step-card {
+    height: auto;
+    width: auto;
+    padding: 5px;
+  } 
+
+  .header-card {
+    height: auto;
+  }
+
+  .card-group {
+    flex-direction: column;
+  }
+
+  .step-back-button {
+    background-color: transparent;
+    color: #333;
+  }
+
+  .step-back-button:hover {
+    background-color: transparent;
+    transition: all 0.5s;
+    color: #107acc;
+  }
+
+  .react-tel-input .form-control {
+    width: 73vw !important;
+  }
+
+  .ant-steps-item-container {
+    margin-left: 0.5rem;
+  }
  
 }
 
