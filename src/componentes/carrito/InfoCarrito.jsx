@@ -42,7 +42,7 @@ function InfoCarrito({ carrito, setCarrito }) {
   const pagarPost = async () => {
     try {
       await peticionPago((url) => {
-        // window.open(url, "_blank");
+        window.open(url, "_blank");
       });
     } catch (error) {
       console.error("Error al realizar el pago:", error);
