@@ -6,10 +6,12 @@ import { HiLogout } from "react-icons/hi";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { autenticar } from "../../ayudas/autenticar";
+import { useNavigate } from 'react-router-dom';
 
 const RightMenu = ({ mode, userData }) => {
   const [loading, setLoading] = useState(false);
   const [valid, setValid] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { valid } = autenticar();
@@ -22,6 +24,7 @@ const RightMenu = ({ mode, userData }) => {
       document.cookie = `${nombre}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
       setLoading(false);
       setValid(false);
+      navigate('/');
     }, 2000);
   };
 
