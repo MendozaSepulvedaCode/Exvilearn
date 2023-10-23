@@ -259,7 +259,7 @@ td {
 .over-balance {
   display: flex;
   flex-direction: column;
-  margin-top: 2.7rem;
+  margin-top: 2rem;
 }
 
 .balance-container {
@@ -276,20 +276,32 @@ td {
 }
 
 .balance-header {
-  text-align: center;
-  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 20px;
+  align-items: flex-start;
 }
 
-.balance-amount {
-  text-align: center;
-  font-size: 36px;
+.balance-header h5 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.balance-header p {
+  font-size: 2rem;
   font-weight: bold;
   color: #5cb85c;
+  margin: 0;
 }
 
-.balance-description {
-  text-align: center;
-  color: #777;
+.menu-button {
+  display: none;
+}
+
+.chart-container {
+  width: 25vw;
+  height: 7vh;
 }
 
 @media only screen and (max-width: 1300px) {
@@ -333,7 +345,7 @@ td {
   .nav-over {
     display: none;
   }
-  
+
   .over-container-left {
     width: 100%;
     margin-right: 0;
@@ -362,5 +374,21 @@ td {
 
   .over-detail-user {
     justify-content: center;
+  }
+
+  .info-stats {
+    overflow-x: auto;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .over-with-nav {
+    transform: translateX(0);
+  }
+
+  .over-with-nav.show-menu {
+    transform: translateX(100%);
   }
 }

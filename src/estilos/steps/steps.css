@@ -367,6 +367,11 @@
   .ant-steps-item-container {
     margin-left: 0.5rem;
   }
+
+  .container-check {
+    display: flex;
+    flex-direction: column;
+  }
  
 }
 

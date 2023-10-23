@@ -1,4 +1,5 @@
 import "../../estilos/panel/overview.css";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FaChalkboardTeacher,
   FaLaptop,
@@ -12,10 +13,58 @@ import MenuLateral from "./navegacion/MenuLateral";
 import { Progress } from "antd";
 import { Input } from "antd";
 import RightMenu from "../Navbar/RightMenu";
+import Chart from "chart.js/auto";
+import { Link } from "react-router-dom";
 
 function OverView() {
   const { Search } = Input;
   const onSearch = (value) => console.log(value);
+
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
+
+    const ctx = document.getElementById("balance-points").getContext("2d");
+    chartRef.current = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+        datasets: [
+          {
+            label: "Balance Mensual",
+            data: [2000, 1500, 3000, 2000, 1200, 2600],
+            borderColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            tension: 0.4,
+            pointRadius: 5,
+            borderWidth: 2,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        indexAxis: "x",
+        maintainAspectRatio: false,
+        height: "50",
+        scales: {
+          y: {
+            display: false,
+          },
+          x: {
+            display: false,
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      },
+    });
+  }, []);
 
   const getCurrentDate = () => {
     const months = [
@@ -111,9 +160,11 @@ function OverView() {
                 <p>{getCurrentDate()}</p>
               </div>
               <div className="over-header-button">
-                <button>
-                  Crear curso <AiOutlinePlus />
-                </button>
+                <Link to="/PanelCursos/panel-videos">
+                  <button>
+                    Crear curso <AiOutlinePlus />
+                  </button>
+                </Link>
               </div>
             </div>
             <div className="over-detail-user">
@@ -202,9 +253,17 @@ function OverView() {
             <div className="over-balance">
               <div className="over-balance">
                 <div className="balance-container">
-                  <h2 className="balance-header">Balance Total</h2>
-                  <div className="balance-amount">$10,000</div>
-                  <p className="balance-description">Es tu balance del mes</p>
+                  <div className="balance-header">
+                    <h5>Balance Total</h5>
+                    <p>$10,000</p>
+                  </div>
+                  <div className="chart-container">
+                    <canvas
+                      id="balance-points"
+                      width="150"
+                      height="100"
+                    ></canvas>
+                  </div>
                 </div>
               </div>
             </div>

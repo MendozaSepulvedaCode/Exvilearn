@@ -11,6 +11,7 @@ import Carrito from "../carrito/Carrito";
 import StepByStep from "../paginas/steps/StepByStep";
 import PanelCursos from "../panel/PanelCursos";
 import Almacenar from "../../ayudas/Almacenar";
+import PanelVideos from "../panel/navegacion/creacion/PanelVideos";
 import { autenticar } from "../../ayudas/autenticar";
 
 function Rutas() {
@@ -22,9 +23,10 @@ function Rutas() {
     { path: "/Carrito", component: Carrito, props: { carrito, setCarrito } },
     { path: "/StepByStep", component: StepByStep },
     { path: "/PanelCursos", component: PanelCursos },
+    { path: "/PanelCursos/panel-videos", component: PanelVideos },
   ];
 
-  const rutasProtegidas = ["/PanelCursos" ];
+  const rutasProtegidas = ["/StepByStep"];
 
   const ProtectedRoute = ({ path, element }) => {
     const { valid } = autenticar();

@@ -9,7 +9,7 @@ import {
   KeyOutlined,
 } from "@ant-design/icons";
 
-function PanelInfo({ setCurrentStep }) {
+function PanelInfo({ setCurrentStep, manejoCursoData }) {
   const [infoCurso, setInfoCurso] = useState({
     titulo: "",
     descripcion: "",
@@ -99,12 +99,20 @@ function PanelInfo({ setCurrentStep }) {
         icon: "error",
         title: "Campos incompletos",
         text: "Por favor, completa todos los campos antes de continuar.",
+        confirmButtonColor: "#107acc",
       });
       return;
     }
 
-    // Aquí puedes realizar alguna acción con los datos validados
-    // por ejemplo, enviarlos al servidor o pasar a la siguiente etapa del flujo.
+    const data = {
+      titulo: infoCurso.titulo,
+      descripcion: infoCurso.descripcion,
+      categoria: infoCurso.categoria,
+      precio: infoCurso.precio,
+    };
+
+    manejoCursoData(data);
+
     setCurrentStep(1);
     Swal.fire({
       icon: "success",
@@ -112,7 +120,6 @@ function PanelInfo({ setCurrentStep }) {
       text: "Primer paso listo",
     });
 
-    // Limpia los campos después de enviar los datos o completar la acción
     setInfoCurso({
       titulo: "",
       descripcion: "",
@@ -163,9 +170,12 @@ function PanelInfo({ setCurrentStep }) {
           <Select.Option value="" disabled>
             Categoría del curso
           </Select.Option>
-          <Select.Option value="categoria1">Programacion</Select.Option>
-          <Select.Option value="categoria2">Trading</Select.Option>
-          <Select.Option value="categoria3">Idiomas</Select.Option>
+          <Select.Option value="Programacion">Programacion</Select.Option>
+          <Select.Option value="Trading">Trading</Select.Option>
+          <Select.Option value="Idiomas">Idiomas</Select.Option>
+          <Select.Option value="Estilo">Estilo de vida</Select.Option>
+          <Select.Option value="Deportes">Deportes</Select.Option>
+          <Select.Option value="Finanzas">Finanzas</Select.Option>
         </Select>
         <div className="palabras-clave">
           <Input

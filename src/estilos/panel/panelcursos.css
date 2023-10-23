@@ -1,15 +1,14 @@
 /* Para el panel de videos*/
 .curso-steps-container {
-  width: 100%;
+  width: 70%;
 }
 
 .steps-header {
   display: flex;
   justify-content: center;
-  gap: 20px; /* Espaciado entre los steps */
-  width: 60%; /* Ancho deseado */
-  margin: 0 auto; /* Centra horizontalmente */
-  margin-top: 4rem;
+  gap: 20px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .steps-view {
@@ -24,8 +23,82 @@
   justify-content: center;
   min-height: 100vh;
   margin: 0 auto;
-  width: 50%;
+  width: 90%;
   border-radius: 8px;
+}
+
+.preview-cursos {
+  width: 30%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  border: 2px solid #107acc;
+  overflow-y: auto;
+  height: 82vh;
+}
+
+.container-info-curso {
+  padding: 20px;
+
+}
+
+.container-info-curso h5 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.preview-header-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 0.8rem;
+}
+
+.preview-header-info h6 {
+  margin: 0;
+  flex-wrap: wrap;
+  width: auto;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-right: 19px;
+}
+
+.preview-header-info p{
+  margin: 0;
+  background-color: #107acc;
+  color: #fff;
+  padding: 10px;
+  font-size: 0.8rem;
+  border-radius: 50px;
+}
+
+.preview-curso-detail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  padding: 7px;
+  margin-bottom: 10px;
+}
+
+.video-preview-detail {
+  margin-right: 0.5rem;
+}
+
+.preview-curso-detail p{
+  flex-wrap: wrap;
+}
+
+.boton-eliminar-seccion {
+  background-color: transparent;
+  color: red;
+}
+
+.botones-container {
+  margin-top: 1rem;
 }
 
 .form-container {
@@ -89,6 +162,10 @@
   font-weight: 600;
 }
 
+.boton-palabra:hover {
+  color: #fff;
+}
+
 .contenedor-palabras {
   display: flex;
   flex-direction: row;
@@ -148,7 +225,7 @@
   justify-content: center;
   min-height: 100vh;
   margin: 0 auto;
-  width: 50%;
+  width: 90%;
   border-radius: 8px;
 }
 

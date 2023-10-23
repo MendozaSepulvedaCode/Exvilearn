@@ -8,7 +8,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 
-function PanelSecciones() {
+function PanelSecciones({ manejoCursoSecciones }) {
   const [infoSeccion, setInfoSeccion] = useState({
     titulo: "",
     video: null,
@@ -117,27 +117,27 @@ function PanelSecciones() {
     }
 
     if (infoSeccion.titulo) {
-      const formData = new FormData();
-      formData.append("titulo", infoSeccion.titulo);
-      formData.append("video", infoSeccion.video);
-      formData.append("documento", infoSeccion.documento);
+      // const formData = new FormData();
+      // formData.append("titulo", infoSeccion.titulo);
+      // formData.append("video", infoSeccion.video);
+      // formData.append("documento", infoSeccion.documento);
 
-      console.log(infoSeccion.titulo, infoSeccion.video, infoSeccion.documento);
+      // fetch(import.meta.env.VITE_API_LOGIN_AZURE, {
+      //   method: "POST",
+      //   body: formData,
+      // })
+      //   .then((response) => response)
+      //   .then((data) => {
+      //     // console.log("Respuesta de la API:", data);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error al realizar la solicitud:", error);
+      //   });
 
-      fetch(import.meta.env.VITE_API_LOGIN_AZURE, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response)
-        .then((data) => {
-          // console.log("Respuesta de la API:", data);
-        })
-        .catch((error) => {
-          console.error("Error al realizar la solicitud:", error);
-        });
+      manejoCursoSecciones([...secciones, infoSeccion]);
 
       setSecciones([...secciones, infoSeccion]);
-      // Reinicia los valores de los campos
+      // // Reinicia los valores de los campos
       setInfoSeccion({
         titulo: "",
         video: null,
@@ -285,13 +285,6 @@ function PanelSecciones() {
           </Button>
           <Button className="subsection-button" type="primary">
             Agregar Subsección
-          </Button>
-          <Button
-            className="finish-button"
-            onClick={finalizarCreacion}
-            type="primary"
-          >
-            Finalizar Creación del Curso
           </Button>
         </div>
       </div>

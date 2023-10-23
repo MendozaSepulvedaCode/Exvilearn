@@ -13,16 +13,16 @@ function HeaderEnseña() {
 
     navigate("/StepByStep");
 
-    // if (valid) {
-    //   navigate("/StepByStep");
-    // } else {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Inicio de sesión requerido",
-    //     text: "Debe iniciar sesión para ser un instructor.",
-    //     confirmButtonColor: "#107acc",
-    //   });
-    // }
+    if (valid) {
+      navigate("/StepByStep");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Inicio de sesión requerido",
+        text: "Debe iniciar sesión para ser un instructor.",
+        confirmButtonColor: "#107acc",
+      });
+    }
   };
   return (
     <div className="enseña-container">
