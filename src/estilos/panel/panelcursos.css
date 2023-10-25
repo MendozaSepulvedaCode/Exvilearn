@@ -29,16 +29,14 @@
 
 .preview-cursos {
   width: 30%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   border: 2px solid #107acc;
   overflow-y: auto;
-  height: 82vh;
+  height: 88.5vh;
 }
 
 .container-info-curso {
   padding: 20px;
-
 }
 
 .container-info-curso h5 {
@@ -60,17 +58,30 @@
   flex-wrap: wrap;
   width: auto;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-right: 19px;
 }
 
-.preview-header-info p{
+.preview-header-info p {
   margin: 0;
   background-color: #107acc;
   color: #fff;
   padding: 10px;
   font-size: 0.8rem;
   border-radius: 50px;
+}
+
+.ant-steps .ant-steps-item-process .ant-steps-item-icon {
+  background-color: #107acc;
+  border-color: #107acc;
+}
+
+.ant-steps
+  .ant-steps-item-finish
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title::after {
+  background-color: #107acc;
 }
 
 .preview-curso-detail {
@@ -88,28 +99,50 @@
   margin-right: 0.5rem;
 }
 
-.preview-curso-detail p{
+.preview-curso-detail p {
   flex-wrap: wrap;
+}
+
+.seccion-arrastrable {
+  cursor: move;
 }
 
 .boton-eliminar-seccion {
   background-color: transparent;
-  color: red;
+  color: #cb3234;
+  font-size: 20px;
 }
 
 .botones-container {
   margin-top: 1rem;
 }
 
+.vacio-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 68vh;
+}
+
+.vacio-preview svg {
+  font-size: 5rem;
+  color: #d9d9d9;
+}
+
+.vacio-preview p {
+  color: #d9d9d9;
+}
+
 .form-container {
   background-color: #fff;
   border-radius: 10px;
-  border: 2px solid #007bff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 2px solid #107acc;
   padding: 20px;
   width: 100%;
   height: auto;
   min-height: 70vh;
+  margin-top: 6rem;
 }
 
 .titulo-crear-info {
@@ -136,6 +169,23 @@
 
 .categoria-input {
   width: 100%;
+}
+
+.dropzone-imagen {
+  border: 2px dashed #d9d9d9;
+  border-radius: 4px;
+  padding: 10px;
+  text-align: center;
+  margin: 20px 0;
+  cursor: pointer;
+  height: 12vh;
+  width: 20%;
+}
+
+.dropzone-imagen p {
+  margin: 0;
+  font-size: 16px;
+  color: #d9d9d9;
 }
 
 .palabras-clave {
@@ -213,8 +263,9 @@
 }
 
 .boton-info {
-  background-color: #0056b3;
+  background-color: #107acc;
   color: #fff;
+  border: none;
 }
 
 /*Para las secciones */
@@ -232,8 +283,7 @@
 .seccion-form {
   background-color: #fff;
   border-radius: 10px;
-  border: 2px solid #007bff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 2px solid #107acc;
   padding: 20px;
   width: 100%;
   height: auto;
@@ -272,7 +322,7 @@
 }
 
 .delete-video-button {
-  background-color: red;
+  background-color: #cb3234;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -291,7 +341,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-top: 20px;
 }
 
@@ -300,21 +349,32 @@
   margin-bottom: 10px;
 }
 
+.document-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ant-btn-default {
+  margin-top: 10px;
+}
+
 .document-info span {
-  margin-left: 5px;
-  margin-right: 10px;
+  padding: 4px;
+  font-size: 14px;
 }
 
 .delete-video-button-documento {
-  background-color: red;
+  background-color: #cb3234;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 5px;
   margin-left: 5px;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
 }
 
 .delete-video-button-documento:hover {
@@ -332,4 +392,5 @@
 .finish-button {
   flex: 1;
   margin-right: 10px;
+  background-color: #107acc;
 }

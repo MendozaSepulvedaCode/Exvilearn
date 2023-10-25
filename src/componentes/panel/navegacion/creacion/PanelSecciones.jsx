@@ -8,16 +8,21 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 
-function PanelSecciones({ manejoCursoSecciones }) {
+function PanelSecciones({
+  manejoCursoSecciones,
+  courseSections,
+  setCurrentStep,
+}) {
   const [infoSeccion, setInfoSeccion] = useState({
     titulo: "",
     video: null,
-    documento: null,
+    documento: [],
     subsecciones: [],
   });
 
   const [palabraContador, setPalabraContador] = useState(0);
-  const [secciones, setSecciones] = useState([]);
+
+  const [documentosPorSeccion, setDocumentosPorSeccion] = useState([]);
 
   const manejarCamvbioTitulo = (name, value) => {
     const palabras = value.trim().split(/\s+/);
@@ -78,25 +83,36 @@ function PanelSecciones({ manejoCursoSecciones }) {
   };
 
   const agregarDocumento = (e) => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = ".pdf";
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      if (file && file.type === "application/pdf") {
-        setInfoSeccion({
-          ...infoSeccion,
-          documento: file,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Archivo no válido",
-          text: "Por favor, selecciona un archivo PDF.",
-        });
-      }
-    };
-    input.click();
+    const limiteDocumentosPorSeccion = 3;
+    const documentosEnEstaSeccion = infoSeccion.documento.length || [];
+    if (documentosEnEstaSeccion < limiteDocumentosPorSeccion) {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = ".pdf";
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type === "application/pdf") {
+          const nuevosDocumentos = [...infoSeccion.documento, file];
+          setInfoSeccion({
+            ...infoSeccion,
+            documento: nuevosDocumentos,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Archivo no válido",
+            text: "Por favor, selecciona un archivo PDF.",
+          });
+        }
+      };
+      input.click();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Límite de documentos alcanzado",
+        text: "Ya ha alcanzado el límite de 3 documentos para esta sección.",
+      });
+    }
   };
 
   const validarCampos = () => {
@@ -117,32 +133,20 @@ function PanelSecciones({ manejoCursoSecciones }) {
     }
 
     if (infoSeccion.titulo) {
-      // const formData = new FormData();
-      // formData.append("titulo", infoSeccion.titulo);
-      // formData.append("video", infoSeccion.video);
-      // formData.append("documento", infoSeccion.documento);
+      manejoCursoSecciones([infoSeccion]);
 
-      // fetch(import.meta.env.VITE_API_LOGIN_AZURE, {
-      //   method: "POST",
-      //   body: formData,
-      // })
-      //   .then((response) => response)
-      //   .then((data) => {
-      //     // console.log("Respuesta de la API:", data);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error al realizar la solicitud:", error);
-      //   });
-
-      manejoCursoSecciones([...secciones, infoSeccion]);
-
-      setSecciones([...secciones, infoSeccion]);
-      // // Reinicia los valores de los campos
+      // Reinicia los valores de los campos
       setInfoSeccion({
         titulo: "",
         video: null,
-        documento: null,
+        documento: [],
       });
+
+      // Actualiza documentos por sección
+      setDocumentosPorSeccion([
+        ...documentosPorSeccion,
+        infoSeccion.documento || [],
+      ]);
 
       Swal.fire({
         icon: "success",
@@ -158,35 +162,74 @@ function PanelSecciones({ manejoCursoSecciones }) {
     }
   };
 
-  const finalizarCreacion = () => {
-    if (!validarCampos()) {
-      return;
+  const devolverStep = () => {
+    setCurrentStep((prevStep) => prevStep - 1);
+  };
+
+  // const finalizarCreacion = () => {
+  //   if (!validarCampos()) {
+  //     return;
+  //   }
+
+  //   const nuevaSeccion = {
+  //     titulo: infoSeccion.titulo,
+  //     video: infoSeccion.video ? infoSeccion.video.name : null,
+  //     documento: infoSeccion.documento ? infoSeccion.documento.name : null,
+  //   };
+
+  //   // Agregar la nueva sección al array de secciones
+  //   setSecciones([...secciones, nuevaSeccion]);
+  //   console.log("Secciones actuales:", JSON.stringify(secciones, null, 2));
+
+  //   // Limpiar la información actual
+  //   setInfoSeccion({
+  //     titulo: "",
+  //     video: null,
+  //     documento: null,
+  //     subsecciones: [],
+  //   });
+
+  //   // Mostrar alerta de éxito
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Curso creado",
+  //     text: "El curso se ha creado exitosamente.",
+  //   });
+  // };
+
+  const eliminarDocumento = (index) => {
+    const nuevosDocumentos = [...infoSeccion.documento];
+    nuevosDocumentos.splice(index, 1);
+    setInfoSeccion({ ...infoSeccion, documento: nuevosDocumentos });
+  };
+  const manejarCambioDocumento = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type === "application/pdf") {
+      if (!infoSeccion.documento) {
+        setInfoSeccion({
+          ...infoSeccion,
+          documento: [file],
+        });
+      } else if (infoSeccion.documento.length < 3) {
+        const nuevosDocumentos = [...infoSeccion.documento, file];
+        setInfoSeccion({
+          ...infoSeccion,
+          documento: nuevosDocumentos,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Límite de documentos alcanzado",
+          text: "Ya ha alcanzado el límite de 3 documentos.",
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Archivo no válido",
+        text: "Por favor, selecciona un archivo PDF.",
+      });
     }
-
-    const nuevaSeccion = {
-      titulo: infoSeccion.titulo,
-      video: infoSeccion.video ? infoSeccion.video.name : null,
-      documento: infoSeccion.documento ? infoSeccion.documento.name : null,
-    };
-
-    // Agregar la nueva sección al array de secciones
-    setSecciones([...secciones, nuevaSeccion]);
-    console.log("Secciones actuales:", JSON.stringify(secciones, null, 2));
-
-    // Limpiar la información actual
-    setInfoSeccion({
-      titulo: "",
-      video: null,
-      documento: null,
-      subsecciones: [],
-    });
-
-    // Mostrar alerta de éxito
-    Swal.fire({
-      icon: "success",
-      title: "Curso creado",
-      text: "El curso se ha creado exitosamente.",
-    });
   };
 
   return (
@@ -194,14 +237,18 @@ function PanelSecciones({ manejoCursoSecciones }) {
       <div className="seccion-form">
         <div className="input-container">
           <Input
-            placeholder="Título de la sección"
+            placeholder={`Título de la sección`}
             value={infoSeccion.titulo}
             onChange={(e) => manejarCamvbioTitulo("titulo", e.target.value)}
             addonBefore={<FontColorsOutlined />}
           />
           <p className="word-count">{palabraContador} / 10 palabras</p>
         </div>
-        <div className="video-dropzone">
+        <div
+          className="video-dropzone"
+          onDrop={manejarDrop}
+          onDragOver={manejarArrastre}
+        >
           {infoSeccion.video ? (
             <div className="video-preview-container">
               <video className="video-preview" controls>
@@ -234,21 +281,23 @@ function PanelSecciones({ manejoCursoSecciones }) {
             }}
           />
         </div>
+
         <div className="document-container">
-          {infoSeccion.documento ? (
-            <div className="document-info">
-              <FileOutlined />
-              <span>{infoSeccion.documento.name}</span>
-              <button
-                className="delete-video-button-documento btn btn-danger"
-                onClick={() =>
-                  setInfoSeccion({ ...infoSeccion, documento: null })
-                }
-              >
-                <DeleteOutlined />
-              </button>
-            </div>
-          ) : (
+          {infoSeccion.documento && infoSeccion.documento.length > 0
+            ? infoSeccion.documento.map((documento, index) => (
+                <div className="document-info" key={index}>
+                  <FileOutlined />
+                  <span>{documento.name}</span>
+                  <button
+                    className="delete-video-button-documento btn btn-danger"
+                    onClick={() => eliminarDocumento(index)}
+                  >
+                    <DeleteOutlined />
+                  </button>
+                </div>
+              ))
+            : null}
+          {infoSeccion.documento && infoSeccion.documento.length < 3 && (
             <Button icon={<FileOutlined />} onClick={agregarDocumento}>
               Añadir Documento
             </Button>
@@ -257,21 +306,7 @@ function PanelSecciones({ manejoCursoSecciones }) {
             type="file"
             accept=".pdf"
             style={{ display: "none" }}
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (file && file.type === "application/pdf") {
-                setInfoSeccion({
-                  ...infoSeccion,
-                  documento: file,
-                });
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "Archivo no válido",
-                  text: "Por favor, selecciona un archivo PDF.",
-                });
-              }
-            }}
+            onChange={manejarCambioDocumento}
           />
         </div>
 
@@ -281,10 +316,17 @@ function PanelSecciones({ manejoCursoSecciones }) {
             type="primary"
             onClick={crearOtraSeccion}
           >
-            Crear Otra Sección
+            Crear otra sección
           </Button>
           <Button className="subsection-button" type="primary">
-            Agregar Subsección
+            Agregar subsección
+          </Button>
+          <Button
+            className="subsection-button"
+            type="primary"
+            onClick={devolverStep}
+          >
+            Ir a informacion basica
           </Button>
         </div>
       </div>

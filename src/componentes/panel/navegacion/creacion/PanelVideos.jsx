@@ -5,21 +5,24 @@ import PanelInfo from "./PanelInfo";
 import PanelSecciones from "./PanelSecciones";
 import MenuLateral from "../MenuLateral";
 import RightMenu from "../../../Navbar/RightMenu";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiOutlineInbox } from "react-icons/ai";
 
 const { Step } = Steps;
 
 function PanelVideos() {
   const [currentStep, setCurrentStep] = useState(0);
   const [courseData, setCourseData] = useState(null);
-  const [courseSections, setCourseSections] = useState(null);
+  const [courseSections, setCourseSections] = useState([]);
+  const [deletedSections, setDeletedSections] = useState(0);
+  const [duracionVideo, setDuracionVideo] = useState("");
 
   const manejoCursoData = (data) => {
     setCourseData(data);
   };
 
   const manejoCursoSecciones = (secciones) => {
-    setCourseSections(secciones);
+    setCourseSections([...courseSections, ...secciones]);
+    setDeletedSections(0);
   };
 
   const steps = [
@@ -34,27 +37,52 @@ function PanelVideos() {
     },
     {
       title: "Secciones",
-      content: <PanelSecciones manejoCursoSecciones={manejoCursoSecciones} />,
+      content: (
+        <PanelSecciones
+          manejoCursoSecciones={manejoCursoSecciones}
+          courseSections={courseSections}
+          setCurrentStep={setCurrentStep}
+        />
+      ),
     },
   ];
 
   const eliminarSeccionCurso = (index) => {
-    const nuevasSecciones = [...courseSections];
-    const seccionEliminada = nuevasSecciones.splice(index, 1)[0];
+    const seccionEliminada = courseSections[index];
+    const nuevasSecciones = courseSections.filter((_, i) => i !== index);
+
     setCourseSections(nuevasSecciones);
-  
-    // Verificar si la sección eliminada tenía un video y establecerlo en null si es así
+
     if (seccionEliminada && seccionEliminada.video) {
-      setCourseData({ ...courseData, video: null });
+      setCourseData((prevData) => ({ ...prevData, video: null }));
     }
+
+    setDeletedSections((prevDeleted) => prevDeleted + 1);
   };
-  
+
+  const iniciarArrastre = (e, index) => {
+    e.dataTransfer.setData("text/plain", index);
+  };
+
+  const permitirSoltar = (e) => {
+    e.preventDefault();
+  };
+
+  const finalizarSoltar = (e, index) => {
+    e.preventDefault();
+    const indiceOrigen = e.dataTransfer.getData("text/plain");
+    const nuevasSecciones = Array.from(courseSections);
+    const [elementoArrastrado] = nuevasSecciones.splice(indiceOrigen, 1);
+    nuevasSecciones.splice(index, 0, elementoArrastrado);
+    setCourseSections(nuevasSecciones);
+  };
 
   return (
     <div className="over-view">
       <MenuLateral />
       <div className="over-with-nav">
         <div className="nav-over">
+          <h5>Panel - Creacion de curso</h5>
           <RightMenu />
         </div>
         <div className="over-container">
@@ -74,15 +102,25 @@ function PanelVideos() {
                 </div>
               )}
 
-              {courseSections &&
+              {courseSections && courseSections.length > 0 ? (
                 courseSections.map((seccion, index) => (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    draggable
+                    onDragStart={(e) => iniciarArrastre(e, index)}
+                    onDragOver={(e) => permitirSoltar(e)}
+                    onDrop={(e) => finalizarSoltar(e, index)}
+                    className="seccion-arrastrable"
+                  >
                     <div className="preview-curso-detail">
                       <video
                         width="60"
                         height="40"
                         className="video-preview-detail"
                         controls
+                        onLoadedMetadata={(e) => {
+                          setDuracionVideo(`${e.target.duration} segundos`);
+                        }}
                       >
                         <source
                           src={URL.createObjectURL(seccion.video)}
@@ -90,6 +128,7 @@ function PanelVideos() {
                         />
                         Tu navegador no soporta la etiqueta de video.
                       </video>
+                      <p>{duracionVideo}</p> 
                       <p>{seccion.titulo}</p>
                       <button
                         className="boton-eliminar-seccion"
@@ -100,7 +139,13 @@ function PanelVideos() {
                       </button>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className="vacio-preview">
+                  <AiOutlineInbox />
+                  <p>No hay vista previa aún</p>
+                </div>
+              )}
               <div className="botones-container">
                 {currentStep === steps.length - 1 && (
                   <Button onClick={() => console.log("Finalizar creación")}>

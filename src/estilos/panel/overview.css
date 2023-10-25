@@ -13,8 +13,16 @@
   height: 70px;
   margin-bottom: 25px;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+
+  align-items: center;
   width: auto;
+}
+
+.nav-over h5{
+  font-size: 1.4rem;
+  padding-left: 2rem;
+  padding-top: 1rem;
 }
 
 .over-container {

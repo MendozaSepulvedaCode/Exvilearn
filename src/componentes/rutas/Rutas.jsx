@@ -29,7 +29,7 @@ function Rutas() {
   const rutasProtegidas = [
     "/StepByStep",
     "/PanelCursos",
-    "/PanelCursos/panel-videos",
+    // "/PanelCursos/panel-videos",
   ];
 
   const ProtectedRoute = ({ path, element }) => {

@@ -15,6 +15,7 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
     descripcion: "",
     categoria: "",
     precio: "",
+    miniatura: null,
   });
 
   const [palabrasClave, setPalabrasClave] = useState([]);
@@ -26,6 +27,69 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
     const parts = value.replace(/[^\d]/g, "").split(".");
     const wholePart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.length > 1 ? `${wholePart}.${parts[1]}` : wholePart;
+  };
+
+  const manejarDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (
+      file &&
+      (file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png")
+    ) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        setInfoCurso({
+          ...infoCurso,
+          miniatura: event.target.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Archivo no válido",
+        text: "Por favor, selecciona un archivo de imagen en formato JPEG, JPG o PNG.",
+        confirmButtonColor: "#107acc",
+      });
+    }
+  };
+
+  const elegirImagen = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (
+        file &&
+        (file.type === "image/jpeg" ||
+          file.type === "image/jpg" ||
+          file.type === "image/png")
+      ) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          setInfoCurso({
+            ...infoCurso,
+            miniatura: event.target.result,
+          });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Archivo no válido",
+          text: "Por favor, selecciona un archivo de imagen en formato JPEG, JPG o PNG.",
+          confirmButtonColor: "#107acc",
+        });
+      }
+    };
+    input.click();
+  };
+
+  const manejarArrastre = (e) => {
+    e.preventDefault();
   };
 
   const manejarCambioEntrada = (name, value) => {
@@ -93,7 +157,9 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       !infoCurso.titulo ||
       !infoCurso.descripcion ||
       !infoCurso.categoria ||
-      !infoCurso.precio
+      !infoCurso.precio ||
+      !infoCurso.categoria ||
+      !infoCurso.miniatura
     ) {
       Swal.fire({
         icon: "error",
@@ -118,6 +184,7 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       icon: "success",
       title: "Informacion basica lista",
       text: "Primer paso listo",
+      confirmButtonColor: "#107acc"
     });
 
     setInfoCurso({
@@ -125,6 +192,7 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       descripcion: "",
       categoria: "",
       precio: "",
+      miniatura: "",
     });
   };
 
@@ -160,6 +228,7 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
             rows={6}
           />
         </div>
+
         <Select
           value={infoCurso.categoria}
           className="categoria-input"
@@ -177,6 +246,28 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
           <Select.Option value="Deportes">Deportes</Select.Option>
           <Select.Option value="Finanzas">Finanzas</Select.Option>
         </Select>
+
+        <div
+          className="dropzone-imagen"
+          onDrop={manejarDrop}
+          onDragOver={manejarArrastre}
+          onClick={elegirImagen}
+          style={{
+            height: infoCurso.miniatura ? "12vh" : "auto",
+            width: infoCurso.miniatura ? "20%" : "auto",
+          }}
+        >
+          {infoCurso.miniatura ? (
+            <img
+              src={infoCurso.miniatura}
+              alt="miniatura arrastrada"
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
+          ) : (
+            <p>Arrastra y suelta o elige la miniatura aquí</p>
+          )}
+        </div>
+
         <div className="palabras-clave">
           <Input
             placeholder="Palabra clave (Maximo 2 por campo y 8 en total)"
