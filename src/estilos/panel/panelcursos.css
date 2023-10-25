@@ -24,13 +24,12 @@
   min-height: 100vh;
   margin: 0 auto;
   width: 90%;
-  border-radius: 8px;
 }
 
 .preview-cursos {
   width: 30%;
-  border-radius: 10px;
-  border: 2px solid #107acc;
+  background-color: #f7f9fa;
+  border: 1px solid #d9d9d9;
   overflow-y: auto;
   height: 88.5vh;
 }
@@ -40,8 +39,11 @@
 }
 
 .container-info-curso h5 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 0;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #d9d9d9;
+  margin-bottom: 10px;
 }
 
 .preview-header-info {
@@ -50,15 +52,15 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 5px;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .preview-header-info h6 {
   margin: 0;
   flex-wrap: wrap;
   width: auto;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   margin-right: 19px;
 }
 
@@ -68,12 +70,22 @@
   color: #fff;
   padding: 10px;
   font-size: 0.8rem;
+  padding: 5px 20px;
   border-radius: 50px;
 }
 
 .ant-steps .ant-steps-item-process .ant-steps-item-icon {
   background-color: #107acc;
   border-color: #107acc;
+}
+
+.ant-btn-default {
+  border-radius: 0;
+}
+
+.btn-finalizar {
+  background-color: #107acc;
+  color: #fff;
 }
 
 .ant-steps
@@ -89,18 +101,32 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.02);
-  border-radius: 10px;
+  border-bottom: 1px solid #d9d9d9;
   padding: 7px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .video-preview-detail {
   margin-right: 0.5rem;
 }
 
-.preview-curso-detail p {
-  flex-wrap: wrap;
+.info-curso-preview {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.titulo-seccion-class {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.duracion-video-class {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888;
 }
 
 .seccion-arrastrable {
@@ -122,7 +148,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 68vh;
+  height: 62vh;
 }
 
 .vacio-preview svg {
@@ -135,14 +161,33 @@
 }
 
 .form-container {
-  background-color: #fff;
-  border-radius: 10px;
-  border: 2px solid #107acc;
+  background-color: #f7f9fa;
+  border: 1px solid #d9d9d9;
   padding: 20px;
   width: 100%;
   height: auto;
   min-height: 70vh;
   margin-top: 6rem;
+}
+
+.ant-input-group .ant-input-group-addon:first-child {
+  border-radius: 0;
+}
+
+.ant-input-group > .ant-input:last-child {
+  border-radius: 0;
+}
+
+.ant-input:placeholder-shown {
+  border-radius: 0;
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 0;
+}
+
+.ant-input {
+  border-radius: 0;
 }
 
 .titulo-crear-info {
@@ -173,7 +218,6 @@
 
 .dropzone-imagen {
   border: 2px dashed #d9d9d9;
-  border-radius: 4px;
   padding: 10px;
   text-align: center;
   margin: 20px 0;
@@ -191,29 +235,25 @@
 .palabras-clave {
   display: flex;
   margin-bottom: 15px;
+  align-items: baseline;
 }
 
 .palabras-clave input[type="text"] {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
 .boton-palabra {
   background-color: #28a745;
   border: none;
-  border-radius: 5px;
   color: #fff;
   padding: 10px;
   height: 2.8rem;
   margin-left: 10px;
   cursor: pointer;
   font-weight: 600;
-}
-
-.boton-palabra:hover {
-  color: #fff;
+  border-radius: 0;
 }
 
 .contenedor-palabras {
@@ -222,7 +262,6 @@
   width: 100%;
   min-height: 6vh;
   height: auto;
-  border-radius: 8px;
   margin-bottom: 2rem;
   padding-left: 5px;
   padding-top: 5px;
@@ -236,7 +275,6 @@
   margin-bottom: 5px;
   align-items: center;
   width: auto;
-  border-radius: 4px;
   margin-left: 4px;
   color: #fff;
   padding: 3px;
@@ -266,6 +304,7 @@
   background-color: #107acc;
   color: #fff;
   border: none;
+  border-radius: 0;
 }
 
 /*Para las secciones */
@@ -277,13 +316,11 @@
   min-height: 100vh;
   margin: 0 auto;
   width: 90%;
-  border-radius: 8px;
 }
 
 .seccion-form {
-  background-color: #fff;
-  border-radius: 10px;
-  border: 2px solid #107acc;
+  background-color: #f7f9fa;
+  border: 1px solid #d9d9d9;
   padding: 20px;
   width: 100%;
   height: auto;
@@ -297,7 +334,6 @@
   width: 100%;
   height: 300px;
   border: 2px dashed #ccc;
-  border-radius: 8px;
   cursor: pointer;
   margin-top: 20px;
   position: relative;
@@ -312,13 +348,11 @@
   position: relative;
   width: 100%;
   height: 300px;
-  border-radius: 8px;
 }
 
 .video-preview {
   width: 100%;
   height: 100%;
-  border-radius: 8px;
 }
 
 .delete-video-button {
@@ -326,7 +360,6 @@
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
   transform: translateY(-750%);
@@ -354,10 +387,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-
-.ant-btn-default {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .document-info span {
@@ -371,7 +401,6 @@
   border: none;
   padding: 5px;
   margin-left: 5px;
-  border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.5s ease;
@@ -393,4 +422,5 @@
   flex: 1;
   margin-right: 10px;
   background-color: #107acc;
+  border-radius: 0;
 }

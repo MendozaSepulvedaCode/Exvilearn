@@ -129,6 +129,32 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
     });
   };
 
+  const manejarCambioMiniatura = (e) => {
+    const file = e.target.files[0];
+    if (
+      file &&
+      (file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png")
+    ) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        setInfoCurso({
+          ...infoCurso,
+          miniatura: event.target.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Archivo no válido",
+        text: "Por favor, selecciona un archivo de imagen en formato JPEG, JPG o PNG.",
+        confirmButtonColor: "#107acc",
+      });
+    }
+  };
+
   const agregarPalabraClave = () => {
     if (nuevaPalabra && palabrasClave.length < 8) {
       // Limitar a un máximo de 8 palabras
@@ -184,7 +210,7 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       icon: "success",
       title: "Informacion basica lista",
       text: "Primer paso listo",
-      confirmButtonColor: "#107acc"
+      confirmButtonColor: "#107acc",
     });
 
     setInfoCurso({
@@ -266,6 +292,17 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
           ) : (
             <p>Arrastra y suelta o elige la miniatura aquí</p>
           )}
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                manejarCambioMiniatura(file);
+              }
+            }}
+          />
         </div>
 
         <div className="palabras-clave">

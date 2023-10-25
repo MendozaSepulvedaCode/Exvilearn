@@ -7,73 +7,50 @@ import {
   FileOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import PanelSubsecciones from "./PanelSubsecciones";
 
-function PanelSecciones({
+
+function PanelSubsecciones({
   manejoCursoSecciones,
   courseSections,
   setCurrentStep,
 }) {
-  const [infoSeccion, setInfoSeccion] = useState({
-    titulo: "",
-    video: null,
-    documento: [],
-    subsecciones: [],
+  const [infoSubSeccion, setinfoSubSeccion] = useState({
+    subTitulo: "",
+    subVideo: null,
+    subDocumento: [],
   });
 
   const [palabraContador, setPalabraContador] = useState(0);
 
-  const [documentosPorSeccion, setDocumentosPorSeccion] = useState([]);
+  const [subDocumentosPorSeccion, setsubDocumentosPorSeccion] = useState([]);
 
-  const manejarCamvbioTitulo = (name, value) => {
+  const manejarCamvbiosubTitulo = (name, value) => {
     const palabras = value.trim().split(/\s+/);
     setPalabraContador(palabras.length);
 
-    if (name === "titulo" && palabras.length > 5) {
+    if (name === "subTitulo" && palabras.length > 10) {
       return;
     }
 
-    setInfoSeccion({
-      ...infoSeccion,
-      titulo: value,
+    setinfoSubSeccion({
+      ...infoSubSeccion,
+      subTitulo: value,
     });
   };
 
   const manejarDrop = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    const extension = file.name.split(".").pop();
-
-    if (
-      extension === "mp4" ||
-      extension === "avi" ||
-      extension === "mov" ||
-      extension === "wmv" ||
-      extension === "flv" ||
-      extension === "mpg" ||
-      extension === "mpeg" ||
-      extension === "webm" ||
-      extension === "mkv"
-    ) {
-      setInfoSeccion({
-        ...infoSeccion,
-        video: file,
-      });
-    } else if (
-      extension === "mp3" ||
-      extension === "wav" ||
-      extension === "ogg" ||
-      extension === "m4a"
-    ) {
-      setInfoSeccion({
-        ...infoSeccion,
-        video: file,
+    if (file && file.type.includes("video")) {
+      setinfoSubSeccion({
+        ...infoSubSeccion,
+        subVideo: file,
       });
     } else {
       Swal.fire({
         icon: "error",
         title: "Archivo no válido",
-        text: "Por favor, selecciona un archivo de video o audio válido.",
+        text: "Por favor, selecciona un archivo de subVideo.",
       });
     }
   };
@@ -82,43 +59,43 @@ function PanelSecciones({
     e.preventDefault();
   };
 
-  const elegirVideo = () => {
+  const elegirsubVideo = () => {
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "video/*";
     input.onchange = (e) => {
       const file = e.target.files[0];
       if (file) {
-        setInfoSeccion({
-          ...infoSeccion,
-          video: file,
+        setinfoSubSeccion({
+          ...infoSubSeccion,
+          subVideo: file,
         });
       }
     };
     input.click();
   };
 
-  const eliminarVideo = () => {
-    setInfoSeccion({
-      ...infoSeccion,
-      video: null,
+  const eliminarsubVideo = () => {
+    setinfoSubSeccion({
+      ...infoSubSeccion,
+      subVideo: null,
     });
   };
 
-  const agregarDocumento = (e) => {
-    const limiteDocumentosPorSeccion = 3;
-    const documentosEnEstaSeccion = infoSeccion.documento.length || [];
-    if (documentosEnEstaSeccion < limiteDocumentosPorSeccion) {
+  const agregarsubDocumento = (e) => {
+    const limitesubDocumentosPorSeccion = 3;
+    const subDocumentosEnEstaSeccion = infoSubSeccion.subDocumento.length || [];
+    if (subDocumentosEnEstaSeccion < limitesubDocumentosPorSeccion) {
       const input = document.createElement("input");
       input.type = "file";
       input.accept = ".pdf";
       input.onchange = (e) => {
         const file = e.target.files[0];
         if (file && file.type === "application/pdf") {
-          const nuevosDocumentos = [...infoSeccion.documento, file];
-          setInfoSeccion({
-            ...infoSeccion,
-            documento: nuevosDocumentos,
+          const nuevossubDocumentos = [...infoSubSeccion.subDocumento, file];
+          setinfoSubSeccion({
+            ...infoSubSeccion,
+            subDocumento: nuevossubDocumentos,
           });
         } else {
           Swal.fire({
@@ -139,7 +116,7 @@ function PanelSecciones({
   };
 
   const validarCampos = () => {
-    if (!infoSeccion.titulo || !infoSeccion.video) {
+    if (!infoSubSeccion.subTitulo || !infoSubSeccion.subVideo) {
       Swal.fire({
         icon: "error",
         title: "Campos incompletos",
@@ -155,34 +132,30 @@ function PanelSecciones({
       return;
     }
 
-    if (infoSeccion.titulo) {
-      manejoCursoSecciones([infoSeccion]);
+    if (infoSubSeccion.subTitulo) {
+      manejoCursoSecciones([infoSubSeccion]);
 
-      setInfoSeccion({
-        titulo: "",
-        video: null,
-        documento: [],
+      setinfoSubSeccion({
+        subTitulo: "",
+        subVideo: null,
+        subDocumento: [],
       });
 
-      setPalabraContador(0);
-
       setDocumentosPorSeccion([
-        ...documentosPorSeccion,
-        infoSeccion.documento || [],
+        ...subDocumentosPorSeccion,
+        infoSubSeccion.subDocumento || [],
       ]);
 
       Swal.fire({
         icon: "success",
         title: "Sección creada",
         text: "La sección se ha creado correctamente.",
-        confirmButtonColor: "#107acc",
       });
     } else {
       Swal.fire({
         icon: "error",
         title: "Campos incompletos",
         text: "Por favor, ingresa al menos el título de la sección.",
-        confirmButtonColor: "#107acc",
       });
     }
   };
@@ -197,9 +170,9 @@ function PanelSecciones({
   //   }
 
   //   const nuevaSeccion = {
-  //     titulo: infoSeccion.titulo,
-  //     video: infoSeccion.video ? infoSeccion.video.name : null,
-  //     documento: infoSeccion.documento ? infoSeccion.documento.name : null,
+  //     subTitulo: infoSubSeccion.subTitulo,
+  //     video: infoSubSeccion.video ? infoSubSeccion.video.name : null,
+  //     subDocumento: infoSubSeccion.subDocumento ? infoSubSeccion.subDocumento.name : null,
   //   };
 
   //   // Agregar la nueva sección al array de secciones
@@ -207,10 +180,10 @@ function PanelSecciones({
   //   console.log("Secciones actuales:", JSON.stringify(secciones, null, 2));
 
   //   // Limpiar la información actual
-  //   setInfoSeccion({
-  //     titulo: "",
+  //   setinfoSubSeccion({
+  //     subTitulo: "",
   //     video: null,
-  //     documento: null,
+  //     subDocumento: null,
   //     subsecciones: [],
   //   });
 
@@ -222,24 +195,24 @@ function PanelSecciones({
   //   });
   // };
 
-  const eliminarDocumento = (index) => {
-    const nuevosDocumentos = [...infoSeccion.documento];
-    nuevosDocumentos.splice(index, 1);
-    setInfoSeccion({ ...infoSeccion, documento: nuevosDocumentos });
+  const eliminarsubDocumento = (index) => {
+    const nuevossubDocumentos = [...infoSubSeccion.subDocumento];
+    nuevossubDocumentos.splice(index, 1);
+    setinfoSubSeccion({ ...infoSubSeccion, subDocumento: nuevossubDocumentos });
   };
-  const manejarCambioDocumento = (e) => {
+  const manejarCambiosubDocumento = (e) => {
     const file = e.target.files[0];
     if (file && file.type === "application/pdf") {
-      if (!infoSeccion.documento) {
-        setInfoSeccion({
-          ...infoSeccion,
-          documento: [file],
+      if (!infoSubSeccion.subDocumento) {
+        setinfoSubSeccion({
+          ...infoSubSeccion,
+          subDocumento: [file],
         });
-      } else if (infoSeccion.documento.length < 3) {
-        const nuevosDocumentos = [...infoSeccion.documento, file];
-        setInfoSeccion({
-          ...infoSeccion,
-          documento: nuevosDocumentos,
+      } else if (infoSubSeccion.subDocumento.length < 3) {
+        const nuevossubDocumentos = [...infoSubSeccion.subDocumento, file];
+        setinfoSubSeccion({
+          ...infoSubSeccion,
+          subDocumento: nuevossubDocumentos,
         });
       } else {
         Swal.fire({
@@ -257,50 +230,85 @@ function PanelSecciones({
     }
   };
 
+  //Subsecciones
+
+  const crearOtraSubseccion = () => {
+    if (!validarCampos()) {
+      return;
+    }
+
+    if (infoSubSeccion.subTitulo) {
+      const updatedCourseSections = [...courseSections];
+      updatedCourseSections.push(infoSubSeccion);
+
+      manejoCursoSecciones(updatedCourseSections);
+
+      setinfoSubSeccion({
+        subTitulo: "",
+        subVideo: null,
+        subDocumento: [],
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Subsección agregada",
+        text: "La subsección se ha agregado correctamente.",
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Campos incompletos",
+        text: "Por favor, ingresa al menos el título de la subsección.",
+      });
+    }
+  };
+
   return (
     <div className="panel-secciones-container">
       <div className="seccion-form">
         <div className="input-container">
           <Input
-            placeholder={`Título de la sección`}
-            value={infoSeccion.titulo}
-            onChange={(e) => manejarCamvbioTitulo("titulo", e.target.value)}
+            placeholder={`Título de la Subsección`}
+            value={infoSubSeccion.subTitulo}
+            onChange={(e) =>
+              manejarCamvbiosubTitulo("subTitulo", e.target.value)
+            }
             addonBefore={<FontColorsOutlined />}
           />
-          <p className="word-count">{palabraContador} / 5 palabras</p>
+          <p className="word-count">{palabraContador} / 10 palabras</p>
         </div>
         <div
           className="video-dropzone"
           onDrop={manejarDrop}
           onDragOver={manejarArrastre}
         >
-          {infoSeccion.video ? (
+          {infoSubSeccion.subVideo ? (
             <div className="video-preview-container">
               <video className="video-preview" controls>
-                <source src={URL.createObjectURL(infoSeccion.video)} />
+                <source src={URL.createObjectURL(infoSubSeccion.subVideo)} />
               </video>
               <button
                 className="delete-video-button btn btn-danger"
-                onClick={eliminarVideo}
+                onClick={eliminarsubVideo}
               >
                 Eliminar Video
               </button>
             </div>
           ) : (
-            <span onClick={elegirVideo}>
+            <span onClick={elegirsubVideo}>
               Haz clic aquí o arrastra un video aquí
             </span>
           )}
           <input
             type="file"
-            accept="video/*, audio/*"
+            accept="video/*"
             style={{ display: "none" }}
             onChange={(e) => {
               const file = e.target.files[0];
               if (file) {
-                setInfoSeccion({
-                  ...infoSeccion,
-                  video: file,
+                setinfoSubSeccion({
+                  ...infoSubSeccion,
+                  subVideo: file,
                 });
               }
             }}
@@ -308,30 +316,31 @@ function PanelSecciones({
         </div>
 
         <div className="document-container">
-          {infoSeccion.documento && infoSeccion.documento.length > 0
-            ? infoSeccion.documento.map((documento, index) => (
+          {infoSubSeccion.subDocumento && infoSubSeccion.subDocumento.length > 0
+            ? infoSubSeccion.subDocumento.map((subDocumento, index) => (
                 <div className="document-info" key={index}>
                   <FileOutlined />
-                  <span>{documento.name}</span>
+                  <span>{subDocumento.name}</span>
                   <button
                     className="delete-video-button-documento btn btn-danger"
-                    onClick={() => eliminarDocumento(index)}
+                    onClick={() => eliminarsubDocumento(index)}
                   >
                     <DeleteOutlined />
                   </button>
                 </div>
               ))
             : null}
-          {infoSeccion.documento && infoSeccion.documento.length < 3 && (
-            <Button icon={<FileOutlined />} onClick={agregarDocumento}>
-              Añadir Documento
-            </Button>
-          )}
+          {infoSubSeccion.subDocumento &&
+            infoSubSeccion.subDocumento.length < 3 && (
+              <Button icon={<FileOutlined />} onClick={agregarsubDocumento}>
+                Añadir Documento
+              </Button>
+            )}
           <input
             type="file"
             accept=".pdf"
             style={{ display: "none" }}
-            onChange={manejarCambioDocumento}
+            onChange={manejarCambiosubDocumento}
           />
         </div>
 
@@ -341,7 +350,10 @@ function PanelSecciones({
             type="primary"
             onClick={crearOtraSeccion}
           >
-            Guardar y crear otra sección
+            Crear otra sección
+          </Button>
+          <Button className="subsection-button" type="primary">
+            Agregar otra subsección
           </Button>
           <Button
             className="subsection-button"
@@ -356,4 +368,4 @@ function PanelSecciones({
   );
 }
 
-export default PanelSecciones;
+export default PanelSubsecciones;

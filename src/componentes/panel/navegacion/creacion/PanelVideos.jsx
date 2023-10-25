@@ -6,6 +6,10 @@ import PanelSecciones from "./PanelSecciones";
 import MenuLateral from "../MenuLateral";
 import RightMenu from "../../../Navbar/RightMenu";
 import { AiFillDelete, AiOutlineInbox } from "react-icons/ai";
+import { FileOutlined, AudioOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import PanelSubsecciones from "./PanelSubsecciones";
+import Swal from "sweetalert2";
 
 const { Step } = Steps;
 
@@ -21,7 +25,11 @@ function PanelVideos() {
   };
 
   const manejoCursoSecciones = (secciones) => {
-    setCourseSections([...courseSections, ...secciones]);
+    const seccionesConDuracion = secciones.map((seccion) => ({
+      ...seccion,
+      duracionVideo: "",
+    }));
+    setCourseSections([...courseSections, ...seccionesConDuracion]);
     setDeletedSections(0);
   };
 
@@ -77,6 +85,57 @@ function PanelVideos() {
     setCourseSections(nuevasSecciones);
   };
 
+  const metaDataManejo = (e, seccion, index) => {
+    const nuevasSecciones = [...courseSections];
+    let duracion;
+
+    const extension = seccion.video.name.split(".").pop();
+    const isAudio =
+      extension === "mp3" ||
+      extension === "wav" ||
+      extension === "ogg" ||
+      extension === "m4a";
+
+    if (isAudio) {
+      duracion = "audio";
+    } else {
+      const duracionEnMinutos = Math.floor(e.target.duration / 60);
+      duracion = `${duracionEnMinutos} min`;
+    }
+    nuevasSecciones[index].duracionVideo = duracion;
+    setCourseSections(nuevasSecciones);
+  };
+
+  const finalizarCreacion = () => {
+    if (!courseData || !courseSections || courseSections.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "No hay secciones",
+        text: "Por favor, cree las secciones del curso",
+        confirmButtonColor: "#107acc",
+      });
+      return;
+    }
+
+    const data = {
+      titulo: courseData.titulo,
+      precio: parseInt(courseData.precio.replace(/\D/g, ""), 10),
+      descripcion: courseData.descripcion,
+      categoria: courseData.categoria,
+      miniatura: courseData.miniatura,
+      palabrasClave: courseData.palabrasClave,
+      secciones: courseSections.map((seccion, index) => ({
+        id: `${index + 1}`,
+        titulo: seccion.titulo,
+        video: seccion.video ? seccion.video.name : null,
+        documentos: seccion.documento.map((doc) => doc.name) || [],
+        subsecciones: seccion.subsecciones || [],
+      })),
+    };
+    console.log(JSON.stringify(data, null, 2));
+    console.log(data);
+  };
+
   return (
     <div className="over-view">
       <MenuLateral />
@@ -94,7 +153,7 @@ function PanelVideos() {
           </div>
           <div className="preview-cursos">
             <div className="container-info-curso">
-              <h5>Recuento</h5>
+              <h5>Contenido del curso</h5>
               {courseData && (
                 <div className="preview-header-info">
                   <h6>{courseData.titulo}</h6>
@@ -113,23 +172,33 @@ function PanelVideos() {
                     className="seccion-arrastrable"
                   >
                     <div className="preview-curso-detail">
-                      <video
-                        width="60"
-                        height="40"
-                        className="video-preview-detail"
-                        controls
-                        onLoadedMetadata={(e) => {
-                          setDuracionVideo(`${e.target.duration} segundos`);
-                        }}
-                      >
-                        <source
-                          src={URL.createObjectURL(seccion.video)}
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta la etiqueta de video.
-                      </video>
-                      <p>{duracionVideo}</p> 
-                      <p>{seccion.titulo}</p>
+                      {seccion.video.type.includes("audio") ? (
+                        <div className="audio-preview-detail">
+                          <AudioOutlined />
+                        </div>
+                      ) : (
+                        <video
+                          width="60"
+                          height="40"
+                          className="video-preview-detail"
+                          controls={false}
+                          onLoadedMetadata={(e) =>
+                            metaDataManejo(e, seccion, index)
+                          }
+                        >
+                          <source
+                            src={URL.createObjectURL(seccion.video)}
+                            type="video/mp4"
+                          />
+                          Tu navegador no soporta la etiqueta de video.
+                        </video>
+                      )}
+                      <div className="info-curso-preview">
+                        <p className="titulo-seccion-class">{seccion.titulo}</p>
+                        <p className="duracion-video-class">
+                          {seccion.duracionVideo}
+                        </p>
+                      </div>
                       <button
                         className="boton-eliminar-seccion"
                         onClick={() => eliminarSeccionCurso(index)}
@@ -137,6 +206,11 @@ function PanelVideos() {
                         {" "}
                         <AiFillDelete />
                       </button>
+                      <Link to="/PanelCursos/panel-videos/subsecciones">
+                        <button className="section-button" type="primary">
+                          S
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 ))
@@ -148,7 +222,7 @@ function PanelVideos() {
               )}
               <div className="botones-container">
                 {currentStep === steps.length - 1 && (
-                  <Button onClick={() => console.log("Finalizar creación")}>
+                  <Button onClick={finalizarCreacion} className="btn-finalizar">
                     Finalizar Creación
                   </Button>
                 )}

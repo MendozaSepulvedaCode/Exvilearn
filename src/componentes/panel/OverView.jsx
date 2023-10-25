@@ -150,6 +150,7 @@ function OverView() {
       <MenuLateral />
       <div className="over-with-nav">
         <div className="nav-over">
+        <h5>Panel - Vista general</h5>
           <RightMenu />
         </div>
         <div className="over-container">
