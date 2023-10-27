@@ -17,9 +17,13 @@ function StepTwo({
   setCompanyName,
   setCurrentStep,
   currentStep,
+  selectedCountry,
+  setSelectedCountry,
+  image,
+  setImage,
+  bio,
+  setBio,
 }) {
-  const [image, setImage] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState("co");
   const [isCountrySelected, setIsCountrySelected] = useState(false);
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +45,7 @@ function StepTwo({
     fetchCountries();
   }, []);
 
-  const handleImageUpload = (event) => {
+  const estadoImagen = (event) => {
     const file = event.target.files[0];
     if (!file) {
       Swal.fire("Error", "Por favor, seleccione una imagen.", "error");
@@ -61,28 +65,25 @@ function StepTwo({
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setImage(e.target.result);
-    };
-    reader.readAsDataURL(file);
+    setImage(file);
   };
 
-  const handleCountryChange = (value) => {
+  const estadoPais = (value) => {
     const country = countries.find((c) => c.name.common === value);
     if (country) {
-      setSelectedCountry(country.cca2.toLowerCase());
+      setSelectedCountry(country.name.common);
       setIsCountrySelected(true);
+      setPhoneNumber("");
     }
   };
 
-  const handleContinue = () => {
+  const estadoSeguir = () => {
     if (!image) {
       Swal.fire("Error", "Por favor, seleccione una imagen.", "error");
       return;
     }
     if (isCompany) {
-      if (!companyName || !isCountrySelected || !phoneNumber) {
+      if (!companyName || !isCountrySelected || !phoneNumber || !bio) {
         Swal.fire(
           "Error",
           "Por favor llene todos los campos requeridos para la compañía.",
@@ -101,16 +102,6 @@ function StepTwo({
       }
     }
 
-    const completedData = {
-      image: image,
-      phoneNumber: phoneNumber,
-      isCompany: isCompany,
-      companyName: companyName,
-      selectedCountry: selectedCountry,
-    };
-
-    // console.log(JSON.stringify(completedData, null, 2));
-
     setCurrentStep(currentStep + 1);
   };
 
@@ -126,12 +117,12 @@ function StepTwo({
         </div>
         <div className="step-content-right">
           <div className="image-upload-container">
-            <label htmlFor="image-upload" className="image-upload-label">
+            <label htmlFor="profile-upload" className="image-upload-label">
               {image ? (
                 <div
                   className="image-upload"
                   style={{
-                    backgroundImage: `url(${image})`,
+                    backgroundImage: `url(${URL.createObjectURL(image)})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
@@ -147,9 +138,9 @@ function StepTwo({
             </label>
             <input
               type="file"
-              id="image-upload"
+              id="profile-upload"
               className="image-upload-input"
-              onChange={handleImageUpload}
+              onChange={estadoImagen}
               required
             />
           </div>
@@ -179,13 +170,14 @@ function StepTwo({
               marginTop: "20px",
               textAlign: "initial",
             }}
-            placeholder="Seleccione su país de nacimiento"
+            placeholder={selectedCountry || "Seleccione su país de nacimiento"}
             optionFilterProp="children"
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
-            onChange={handleCountryChange}
+            onChange={estadoPais}
             required
+            value={selectedCountry}
           >
             {!loading &&
               countries.map((country, index) => (
@@ -203,8 +195,10 @@ function StepTwo({
                   required: true,
                 }}
                 value={phoneNumber}
-                country={selectedCountry}
-                onChange={(value) => setPhoneNumber(value)}
+                country="co"
+                onChange={(value, country, e, formattedValue) =>
+                  setPhoneNumber(formattedValue)
+                }
                 buttonClass="custom-phone-button"
                 required
               />
@@ -214,6 +208,8 @@ function StepTwo({
           <TextArea
             placeholder="Breve descripción del profesor"
             className="input-step-dos"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
             autoSize={{ minRows: 3, maxRows: 6 }}
             required
           />
@@ -227,7 +223,7 @@ function StepTwo({
             </button>
             <button
               type="primary"
-              onClick={handleContinue}
+              onClick={estadoSeguir}
               className="boton-primer-step"
             >
               Continuar

@@ -223,7 +223,6 @@
 .codigo-input {
   padding: 10px;
   font-size: 16px;
-  border-radius: 5px 0 0 5px;
   border: 1px solid #ddd;
   width: 10vw;
   outline: none;
@@ -238,7 +237,6 @@
   color: #fff;
   border: none;
   padding: 7px 20px;
-  border-radius: 0 5px 5px 0;
   cursor: pointer;
   transition: all 0.5s;
   width: 6vw;

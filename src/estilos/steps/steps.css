@@ -9,9 +9,7 @@
 
 .steps-container {
   margin-top: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid #107acc;
-  border-radius: 4px;
   padding: 40px;
   width: 55rem;
 }
@@ -33,7 +31,6 @@
   height: 10vh;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 8px;
   cursor: pointer;
   transition: border-color 0.3s ease;
 }
@@ -52,11 +49,11 @@
 
 .form-control input {
   width: 200%;
+  border-radius: 0;
 }
 
 .PhoneInput {
   border: 1px solid #d9d9d9;
-  border-radius: 4px;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -211,6 +208,7 @@
   border: 1px solid #d9d9d9 !important;
   width: 530px !important;
   height: 2.3rem !important;
+  border-radius: 0 !important;
 }
 
 .checkbox-group {

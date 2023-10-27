@@ -13,6 +13,8 @@ import PanelCursos from "../panel/PanelCursos";
 import Almacenar from "../../ayudas/Almacenar";
 import PanelVideos from "../panel/navegacion/creacion/PanelVideos";
 import PanelSubsecciones from "../panel/navegacion/creacion/PanelSubsecciones";
+import Categorias from "../paginas/categorias/Categorias";
+import { LoaderProvider } from "../../ayudas/Loader";
 import { autenticar } from "../../ayudas/autenticar";
 
 function Rutas() {
@@ -29,6 +31,7 @@ function Rutas() {
       path: "/PanelCursos/panel-videos/subsecciones",
       component: PanelSubsecciones,
     },
+    { path: "/categorias", component: Categorias },
   ];
 
   const rutasProtegidas = [
@@ -45,47 +48,49 @@ function Rutas() {
 
   return (
     <Router>
-      <Almacenar />
-      <Routes>
-        {routes.map((route, index) => {
-          if (rutasProtegidas.includes(route.path)) {
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  route.props ? (
-                    <ProtectedRoute
-                      path={route.path}
-                      element={React.createElement(
-                        route.component,
-                        route.props
-                      )}
-                    />
-                  ) : (
-                    <ProtectedRoute
-                      path={route.path}
-                      element={React.createElement(route.component)}
-                    />
-                  )
-                }
-              />
-            );
-          } else {
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  route.props
-                    ? React.createElement(route.component, route.props)
-                    : React.createElement(route.component)
-                }
-              />
-            );
-          }
-        })}
-      </Routes>
+      <LoaderProvider>
+        <Almacenar />
+        <Routes>
+          {routes.map((route, index) => {
+            if (rutasProtegidas.includes(route.path)) {
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    route.props ? (
+                      <ProtectedRoute
+                        path={route.path}
+                        element={React.createElement(
+                          route.component,
+                          route.props
+                        )}
+                      />
+                    ) : (
+                      <ProtectedRoute
+                        path={route.path}
+                        element={React.createElement(route.component)}
+                      />
+                    )
+                  }
+                />
+              );
+            } else {
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    route.props
+                      ? React.createElement(route.component, route.props)
+                      : React.createElement(route.component)
+                  }
+                />
+              );
+            }
+          })}
+        </Routes>
+      </LoaderProvider>
     </Router>
   );
 }

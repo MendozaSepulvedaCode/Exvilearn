@@ -1,0 +1,98 @@
+.container-full-categorias {
+  width: 90vw;
+  margin: 0 auto;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-categorias {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-categorias h5 {
+  font-size: 1.5rem;
+}
+
+.header-categorias button {
+  height: 5vh;
+  background-color: transparent;
+  border: 2px solid #107acc;
+  border-radius: 0;
+  color: #107acc;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.5s;
+}
+
+.header-categorias button:hover {
+  opacity: 0.7;
+  transition: all 0.5s;
+}
+
+.container-categorias {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.container-info-categorias-right {
+  width: 70%;
+}
+
+.container-sort-categorias-left {
+  width: 30%;
+}
+
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+}
+
+.accordion-item {
+  margin-bottom: 1rem;
+}
+
+.accordion-item-header {
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.accordion-item-body {
+  padding: 10px;
+  display: none;
+}
+
+.accordion-item-header.active {
+  border-bottom: none;
+}
+
+.accordion-item-header.active::after {
+  float: right;
+}
+
+.accordion-item-body.active {
+  display: block;
+}
+
+.accordion-item-body label {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+
+.accordion-item-body input[type="checkbox"] {
+  margin-right: 5px;
+}

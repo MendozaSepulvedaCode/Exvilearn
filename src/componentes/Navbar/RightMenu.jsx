@@ -6,12 +6,13 @@ import { HiLogout } from "react-icons/hi";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { autenticar } from "../../ayudas/autenticar";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useLoader } from "../../ayudas/Loader";
 
 const RightMenu = ({ mode, userData }) => {
-  const [loading, setLoading] = useState(false);
   const [valid, setValid] = useState(false);
   const navigate = useNavigate();
+  const { showLoader, hideLoader } = useLoader();
 
   useEffect(() => {
     const { valid } = autenticar();
@@ -19,14 +20,15 @@ const RightMenu = ({ mode, userData }) => {
   }, []);
 
   const eliminarCookie = (nombre) => {
-    setLoading(true);
-    setTimeout(() => {
-      document.cookie = `${nombre}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
-      setLoading(false);
-      setValid(false);
-      navigate('/');
-    }, 2000);
+    showLoader();
+    document.cookie = `${nombre}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    setValid(false);
+    hideLoader();
+    navigate("/");
+    window.location.reload();
   };
+
+
 
   const items = valid
     ? [
@@ -70,21 +72,7 @@ const RightMenu = ({ mode, userData }) => {
 
   return (
     <div>
-      {loading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            transform: "translateX(-47rem)",
-          }}
-        >
-          <div className="loader"></div>
-        </div>
-      ) : (
-        <Menu mode={mode} items={items} style={menuStyle} />
-      )}
+      <Menu mode={mode} items={items} style={menuStyle} />
     </div>
   );
 };

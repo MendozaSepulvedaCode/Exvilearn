@@ -4,31 +4,63 @@ import { CheckCircleOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import "../../../estilos/steps/steps.css";
 import Footer from "../../Footer/Footer";
 import "react-phone-input-2/lib/style.css";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import StepTwo from "./StepTwo";
+import { decode } from "../../../ayudas/decode";
 import Navbar from "../../Navbar/Navbar";
+import { useLoader } from "../../../ayudas/Loader";
 
 const { Step } = Steps;
 
 function StepByStep() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
-  const [isCompany, setIsCompany] = useState(null);
+  const [isCompany, setIsCompany] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [image, setImage] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState(
+    "Seleccione su pais de nacimiento"
+  );
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [isSelected, setIsSelected] = useState(false);
-  const [completedData, setCompletedData] = useState([]);
+  const [bio, setBio] = useState("");
+  const { showLoader, hideLoader } = useLoader();
 
-  const handleFinish = () => {
-    const data = {
-      phoneNumber,
-      isCompany,
-      companyName,
-      selectedCategories,
-    };
-    setCompletedData([data]);
-    navigate("/PanelCursos");
+  const postProfesor = () => {
+    if (!image) {
+      console.error("Error: La imagen es requerida.");
+      return;
+    }
+
+    const cookieName = "n2s8t9p1q6z7w";
+    const decodeToken = decode(cookieName);
+
+    const formData = new FormData();
+    formData.append("ID_Azure", decodeToken.sub);
+    formData.append("Pais", selectedCountry);
+    formData.append("Contacto", phoneNumber);
+    formData.append("Biografia", bio);
+    formData.append("image", image);
+
+    showLoader();
+    fetch("https://apiuserprofe.azurewebsites.net/new_profe", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud a la API");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        hideLoader();
+        navigate("/PanelCursos");
+      })
+      .catch((error) => {
+        hideLoader();
+        console.error("Error:", error.message);
+      });
   };
 
   const steps = [
@@ -90,6 +122,12 @@ function StepByStep() {
           setCurrentStep={setCurrentStep}
           currentStep={currentStep}
           companyName={companyName}
+          image={image}
+          setImage={setImage}
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+          bio={bio}
+          setBio={setBio}
         />
       ),
     },
@@ -143,7 +181,7 @@ function StepByStep() {
                 <button
                   className="boton-primer-step"
                   type="primary"
-                  onClick={() => navigate("/PanelCursos")}
+                  onClick={postProfesor}
                 >
                   Finalizar
                 </button>

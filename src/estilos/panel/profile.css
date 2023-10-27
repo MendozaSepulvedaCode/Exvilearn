@@ -114,7 +114,7 @@
 .boton-icono button {
   background-color: #2d2f31;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 0;
   transition: all 0.5s;
   font-size: 12px;
   padding: 3px 5px;

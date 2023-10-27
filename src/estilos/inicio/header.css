@@ -26,7 +26,6 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  border-radius: 4px;
   justify-content: space-around;
 }
 
@@ -53,7 +52,6 @@
   height: 100%;
   object-fit: fill;
   object-position: center;
-  border-radius: 0 0 4px 4px;
 }
 
 .ArrowIconContainer {
@@ -81,8 +79,8 @@
 
 .ArrowIconContainer.active {
   background-color: rgba(0, 0, 0, 0.6);
-  transform: scale(1.1); /* Ejemplo de transformación al hacer clic */
-  transition: background-color 0.3s, transform 0.3s; /* Agregar transición a las propiedades */
+  transform: scale(1.1);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .ArrowIcon {
@@ -114,27 +112,31 @@
   }
 
   .HeaderRight img {
-    object-fit: cover;
-    object-position: center 0px;
+    display: none;
   }
 
   .content-card {
     width: 100%;
-    height: 19vh;
+    height: auto;
     margin: 0px 0;
     position: static;
     border-radius: 0;
-    padding: 10px;
+    padding: 20px;
     justify-content: space-around;
+    background-color: rgba(175, 205, 234, 0.5);
   }
 
   .content-card h5 {
-    padding: 0;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    color: #333;
+    width: 90%;
   }
 
   .content-card p {
     font-size: 12px;
+    font-weight: 500;
+    width: 90%;
+    color: #333;
   }
 
   .content-card button {
