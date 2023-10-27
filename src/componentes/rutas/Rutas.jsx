@@ -14,6 +14,7 @@ import Almacenar from "../../ayudas/Almacenar";
 import PanelVideos from "../panel/navegacion/creacion/PanelVideos";
 import PanelSubsecciones from "../panel/navegacion/creacion/PanelSubsecciones";
 import Categorias from "../paginas/categorias/Categorias";
+import CursoDetail from '../paginas/detalles/CursoDetail'
 import { LoaderProvider } from "../../ayudas/Loader";
 import { autenticar } from "../../ayudas/autenticar";
 
@@ -32,6 +33,7 @@ function Rutas() {
       component: PanelSubsecciones,
     },
     { path: "/categorias", component: Categorias },
+    { path: "/detalle-curso", component: CursoDetail },
   ];
 
   const rutasProtegidas = [

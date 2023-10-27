@@ -18,6 +18,7 @@ const Almacenar = () => {
       window.history.replaceState({}, document.title, newUrl);
 
       const esTokenValido = autenticar();
+      window.location.reload();
 
       if (!esTokenValido) {
         console.error("Inicio de sesión fallido");

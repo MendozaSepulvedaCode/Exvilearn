@@ -20,8 +20,10 @@ const LeftMenu = ({ mode }) => {
   };
 
   const validarProfesor = () => {
+    showLoader();
     if (!valid) {
       redireccionar("/VistaEnseña");
+      hideLoader();
     } else {
       const cookieName = "n2s8t9p1q6z7w";
       const decodeToken = decode(cookieName);
@@ -29,8 +31,6 @@ const LeftMenu = ({ mode }) => {
       const data = {
         ID_Azure: decodeToken.sub,
       };
-
-      showLoader();
 
       fetch("https://apiuserprofe.azurewebsites.net/validate", {
         method: "POST",

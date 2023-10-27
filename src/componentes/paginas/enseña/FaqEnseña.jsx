@@ -45,7 +45,7 @@ function FaqEnseña() {
           Preguntas <br />
           <span>Frecuentes</span>
         </h5>
-        <a className="link-chat" href="/categorias">
+        <a className="link-chat" href="/detalle-curso">
           <HiOutlineLink /> ¿Necesitas ayuda? Chatea con nosotros{" "}
         </a>
       </div>
