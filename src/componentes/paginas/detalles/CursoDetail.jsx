@@ -3,7 +3,7 @@ import Footer from "../../Footer/Footer";
 import Reproductor from "./Reproductor";
 import SeccionesInfo from "./SeccionesInfo";
 import DetailInfo from "./DetailInfo";
-import { BsShareFill, BsFillSuitHeartFill } from "react-icons/bs";
+import { BsShareFill, BsSuitHeart, BsLink45Deg } from "react-icons/bs";
 import "../../../estilos/detalles/cursodetail.css";
 
 function CursoDetail() {
@@ -13,10 +13,11 @@ function CursoDetail() {
       <div className="contianer-video-detail-course">
         <div className="container-video-left">
           <div className="header-video-left">
-            <h5>Primero pasos en PHP: De cero a experto</h5>
+            <h5>Aprende estrategias de trading avanzadas</h5>
             <div className="iconos-header-detail">
+              <BsLink45Deg id="link" />
               <BsShareFill />
-              <BsFillSuitHeartFill />
+              <BsSuitHeart />
             </div>
           </div>
           <div className="container-info-curso">

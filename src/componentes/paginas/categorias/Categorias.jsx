@@ -22,7 +22,7 @@ function Categorias() {
       <Navbar />
       <div className="container-full-categorias">
         <div className="header-categorias">
-          <h5>Cursos de Programacion</h5>
+          <h5>Cursos de Trading</h5>
           <button onClick={handleFiltrarClick}>Filtrar por</button>
         </div>
         <div className="container-categorias">

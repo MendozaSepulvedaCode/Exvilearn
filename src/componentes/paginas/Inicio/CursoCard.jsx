@@ -4,6 +4,7 @@ import { RiTimeLine, RiCheckLine } from "react-icons/ri";
 import { BsPeople } from "react-icons/bs";
 import { BsBookmarks } from "react-icons/bs";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 import "../../../estilos/inicio/cursoContainer.css";
 
 const CursoCard = ({ curso, agregarAlCarrito }) => {
@@ -87,7 +88,9 @@ const CursoCard = ({ curso, agregarAlCarrito }) => {
       <div className="card-end">
         <div className="price">{curso.precio}</div>
         <div className="botones">
-          <button className="boton-comprar">Ver mas</button>
+          <Link to="/detalle-curso" onClick={() => window.scrollTo(0, 0)}>
+            <button className="boton-comprar"> Ver más</button>
+          </Link>
           <button onClick={manejoAgregarCarrito} className="boton-agregar">
             {agregado ? (
               <RiCheckLine className="check-icon-card" />

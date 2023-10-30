@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "../../../estilos/inicio/incentivo.css";
 import {
   FaRegCommentDots,
@@ -7,14 +6,9 @@ import {
   FaConnectdevelop,
   FaMedapps,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const IncentivoProfesor = () => {
-  const navigate = useNavigate();
-
-  const navigateTo = (path) => {
-    navigate(path);
-  };
-
   const aspectos = [
     {
       icono: (
@@ -40,7 +34,10 @@ const IncentivoProfesor = () => {
     },
     {
       icono: (
-        <FaTeamspeak className="icono" style={{ backgroundColor: "rgba(102, 204, 255, 1)" }} />
+        <FaTeamspeak
+          className="icono"
+          style={{ backgroundColor: "rgba(102, 204, 255, 1)" }}
+        />
       ),
       titulo: "Inspira y empodera",
       descripcion:
@@ -48,7 +45,10 @@ const IncentivoProfesor = () => {
     },
     {
       icono: (
-        <FaMedapps className="icono" style={{ backgroundColor: "rgba(102, 255, 102, 1)" }} />
+        <FaMedapps
+          className="icono"
+          style={{ backgroundColor: "rgba(102, 255, 102, 1)" }}
+        />
       ),
       titulo: "Construye un futuro brillante",
       descripcion:
@@ -60,7 +60,7 @@ const IncentivoProfesor = () => {
     <div className="incentivo-profesor">
       <div className="contenido">
         <h5>
-          ¿Por qué unirte como 
+          ¿Por qué unirte como
           <span>Profesor</span>?
         </h5>
         <div className="aspectos">
@@ -74,12 +74,10 @@ const IncentivoProfesor = () => {
             </div>
           ))}
         </div>
-        <button
-          className="btn-unirse"
-          onClick={() => navigateTo("/VistaEnseña")}
-        >
-          Únete como Profesor
-        </button>
+
+        <Link to="/VistaEnseña" onClick={() => window.scrollTo(0, 0)}>
+          <button className="btn-unirse">Únete como Profesor</button>
+        </Link>
       </div>
       <div className="imagen-profesor"></div>
     </div>

@@ -109,6 +109,7 @@ const LeftMenu = ({ mode }) => {
         {
           label: "Trading",
           key: "subitem-1",
+          onClick: () => redireccionar("/categorias"),
         },
         {
           label: "Programacion",
@@ -145,6 +146,14 @@ const LeftMenu = ({ mode }) => {
         {
           label: "Deporte",
           key: "subitem-4",
+        },
+        {
+          label: "Finanzas",
+          key: "subitem-5",
+        },
+        {
+          label: "Estilo de vida",
+          key: "subitem-6",
         },
       ],
     },

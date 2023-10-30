@@ -35,7 +35,7 @@ function Rutas() {
     { path: "/categorias", component: Categorias },
     { path: "/detalle-curso", component: CursoDetail },
   ];
-
+  
   const rutasProtegidas = [
     "/StepByStep",
     "/PanelCursos",

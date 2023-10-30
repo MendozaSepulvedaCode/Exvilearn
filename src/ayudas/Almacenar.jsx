@@ -18,7 +18,6 @@ const Almacenar = () => {
       window.history.replaceState({}, document.title, newUrl);
 
       const esTokenValido = autenticar();
-      window.location.reload();
 
       if (!esTokenValido) {
         console.error("Inicio de sesión fallido");
@@ -57,6 +56,11 @@ const Almacenar = () => {
                 );
               }
             })
+
+            .then((data) => {
+              window.location.reload();
+            })
+
             .catch((error) =>
               console.error("Error en la solicitud POST:", error)
             );
