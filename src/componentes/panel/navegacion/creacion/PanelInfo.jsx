@@ -70,10 +70,10 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       ) {
         const reader = new FileReader();
         reader.onload = function (event) {
-          setInfoCurso({
-            ...infoCurso,
+          setInfoCurso((prevInfoCurso) => ({
+            ...prevInfoCurso,
             miniatura: event.target.result,
-          });
+          }));
         };
         reader.readAsDataURL(file);
       } else {
@@ -137,14 +137,10 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
         file.type === "image/jpg" ||
         file.type === "image/png")
     ) {
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        setInfoCurso({
-          ...infoCurso,
-          miniatura: event.target.result,
-        });
-      };
-      reader.readAsDataURL(file);
+      setInfoCurso((prevInfoCurso) => ({
+        ...prevInfoCurso,
+        miniatura: file,
+      }));
     } else {
       Swal.fire({
         icon: "error",
@@ -158,8 +154,14 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
   const agregarPalabraClave = () => {
     if (nuevaPalabra && palabrasClave.length < 8) {
       // Limitar a un máximo de 8 palabras
-      setPalabrasClave([...palabrasClave, nuevaPalabra]);
-      setColoresFondo([...coloresFondo, getRandomColor()]);
+      setPalabrasClave((prevPalabrasClave) => [
+        ...prevPalabrasClave,
+        nuevaPalabra,
+      ]);
+      setColoresFondo((prevColoresFondo) => [
+        ...prevColoresFondo,
+        getRandomColor(),
+      ]);
       setNuevaPalabra("");
     }
   };
@@ -185,7 +187,8 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       !infoCurso.categoria ||
       !infoCurso.precio ||
       !infoCurso.categoria ||
-      !infoCurso.miniatura
+      !infoCurso.miniatura ||
+      palabrasClave.length === 0
     ) {
       Swal.fire({
         icon: "error",
@@ -201,6 +204,8 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       descripcion: infoCurso.descripcion,
       categoria: infoCurso.categoria,
       precio: infoCurso.precio,
+      miniatura: infoCurso.miniatura,
+      palabrasClave: palabrasClave,
     };
 
     manejoCursoData(data);
@@ -220,6 +225,7 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       precio: "",
       miniatura: "",
     });
+    setPalabrasClave([]);
   };
 
   return (
@@ -294,14 +300,10 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
           )}
           <input
             type="file"
-            accept="image/*"
+            id="miniatura-upload"
             style={{ display: "none" }}
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (file) {
-                manejarCambioMiniatura(file);
-              }
-            }}
+            onChange={manejarCambioMiniatura}
+            required
           />
         </div>
 

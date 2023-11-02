@@ -11,7 +11,11 @@ function Footer() {
     <footer className="footer-container">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>Exvilearn</h3>
+          <img
+            src="https://storagexvilearn.blob.core.windows.net/imagenes/logo-completo.png"
+            alt="Logo"
+            className="logo-completo-footer"
+          />
           <p>
             Somos una plataforma educativa que actúa como un puente digital
             entre instructores y estudiantes, permitiendo una experiencia de

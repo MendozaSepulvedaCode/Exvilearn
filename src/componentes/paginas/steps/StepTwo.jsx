@@ -67,7 +67,7 @@ function StepTwo({
 
     setImage(file);
   };
-
+  
   const estadoPais = (value) => {
     const country = countries.find((c) => c.name.common === value);
     if (country) {

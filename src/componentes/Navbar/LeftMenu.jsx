@@ -5,58 +5,33 @@ import { LuShoppingBag } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import { BookOutlined, HomeOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
+import { validarProfesor } from "../../ayudas/validarprofesor";
 import { useLoader } from "../../ayudas/Loader";
-import { autenticar } from "../../ayudas/autenticar";
-import { decode } from "../../ayudas/decode";
 
 const LeftMenu = ({ mode }) => {
   const navigate = useNavigate();
   const [cantidadCarrito, setCantidadCarrito] = useState(0);
   const { showLoader, hideLoader } = useLoader();
-  const { valid } = autenticar();
 
   const redireccionar = (ruta) => {
     navigate(ruta);
   };
 
-  const validarProfesor = () => {
+  const manejoValidacion = async () => {
     showLoader();
-    if (!valid) {
-      redireccionar("/VistaEnseña");
+    try {
+      const resultado = await validarProfesor();
+
+      if (!resultado || resultado.redireccionar) {
+        redireccionar("/VistaEnseña");
+        hideLoader();
+      } else {
+        redireccionar("/PanelCursos");
+        hideLoader();
+      }
+    } catch (error) {
+      console.error("Ocurrió un error durante la validación:", error);
       hideLoader();
-    } else {
-      const cookieName = "n2s8t9p1q6z7w";
-      const decodeToken = decode(cookieName);
-
-      const data = {
-        ID_Azure: decodeToken.sub,
-      };
-
-      fetch("https://apiuserprofe.azurewebsites.net/validate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error en la solicitud a la API");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          hideLoader();
-          if (data.Nombre && data.Apellido) {
-            redireccionar("/PanelCursos");
-          } else {
-            redireccionar("/VistaEnseña");
-          }
-        })
-        .catch((error) => {
-          hideLoader();
-          console.error("Error:", error.message);
-        });
     }
   };
 
@@ -84,7 +59,7 @@ const LeftMenu = ({ mode }) => {
       icon: <BookOutlined />,
       label: "Enseña",
       key: "item-3",
-      onClick: () => validarProfesor(),
+      onClick: () => manejoValidacion(),
     },
     {
       icon: (

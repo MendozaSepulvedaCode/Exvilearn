@@ -28,7 +28,11 @@ function NavBar({ userData }) {
       <Layout>
         <Layout.Header className="nav-header">
           <div className="logo">
-            <h3 className="brand-font">Exvilearn</h3>
+            <img
+              src="https://storagexvilearn.blob.core.windows.net/imagenes/variante-logo.png"
+              alt="Exvilearn"
+              className="logo-exvi"
+            />
           </div>
           <div className="navbar-menu">
             <div className={"leftMenu"}>

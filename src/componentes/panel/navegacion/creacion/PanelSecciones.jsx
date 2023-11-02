@@ -7,7 +7,6 @@ import {
   FileOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import PanelSubsecciones from "./PanelSubsecciones";
 
 function PanelSecciones({
   manejoCursoSecciones,

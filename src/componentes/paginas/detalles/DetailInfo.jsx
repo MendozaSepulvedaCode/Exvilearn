@@ -14,6 +14,23 @@ function DetailInfo() {
     { estrellas: 1, porcentaje: 2 },
   ];
 
+  const infoCurso = [
+    {
+      subtitulo: "Duracion del curso",
+      lista: "20hr en total",
+    },
+    {
+      subtitulo: "Descripcion",
+      lista:
+        "En esta sección, abordaremos en detalle cada uno de los aspectos clave relacionados con la creación de tu curso en Exvilearn. Desde la selección del tema y la identificación de tu audiencia hasta la filmación y edición de videos de alta calidad, aprenderás los pasos esenciales para asegurar que tu curso cumpla con los estándares de calidad de Exvilearn. También te proporcionaremos estrategias efectivas para posicionar y promocionar tu curso en el marketplace de Exvilearn, junto con valiosos consejos didácticos para mejorar continuamente tu oferta educativa. Además, te brindaremos una visión profunda del proceso de revisión de Exvilearn y te orientaremos sobre cómo realizar ajustes y mejoras en tu curso una vez que esté publicado. Al completar esta sección, tendrás una comprensión integral de los componentes fundamentales necesarios para tener éxito como instructor en la plataforma Exvilearn.",
+    },
+
+    {
+      subtitulo: "Secciones",
+      lista: "10 secciones en total",
+    },
+  ];
+
   const reseñas = [
     {
       imagen:
@@ -72,8 +89,14 @@ function DetailInfo() {
       case "descripcion":
         return (
           <div className="info-section">
-            <h6>Descripción</h6>
-            <p>Descripción del curso va aquí</p>
+            <div className="container-info-curso-detail">
+              {infoCurso.map((info, index) => (
+                <div key={index} className="info-detalle-curso">
+                  <h6>{info.subtitulo}</h6>
+                  <p>{info.lista}</p>
+                </div>
+              ))}
+            </div>
           </div>
         );
       case "reseñas":
@@ -151,7 +174,39 @@ function DetailInfo() {
         return (
           <div className="info-section">
             <h6>Instructor</h6>
-            <p>Informacion del instructor aqui</p>
+            <div className="instructor-info">
+              <img
+                src="https://storagexvilearn.blob.core.windows.net/imagenes/13877441320054662-joven.png"
+                alt="Foto de perfil"
+                className="instructor-img"
+              />
+              <div className="instructor-details">
+                <h3>Jose Mendoza</h3>
+                <p>
+                  Soy un apasionado desarrollador de software con más de 10 años
+                  de experiencia en la creación de aplicaciones web y móviles.
+                  Mi enfoque principal ha sido el desarrollo de aplicaciones con
+                  tecnologías de vanguardia como React, Node.js y MongoDB. Me
+                  encanta compartir mis conocimientos y experiencias con otros y
+                  ayudar a los estudiantes a comprender los conceptos más
+                  complejos de una manera simple y práctica. Mi objetivo es
+                  asegurarme de que mis cursos no solo enseñen habilidades
+                  técnicas, sino también la mentalidad y las mejores prácticas
+                  necesarias para tener éxito en el mundo del desarrollo de
+                  software moderno. ¡Espero verte en mis cursos y ayudarte a
+                  alcanzar tus metas de desarrollo profesional!
+                </p>
+                <p>
+                  <span>País de nacimiento:</span> Colombia
+                </p>
+                <p>
+                  <span>Cursos publicados:</span> 70
+                </p>
+                <p>
+                  <span>Rating:</span> 15
+                </p>
+              </div>
+            </div>
           </div>
         );
       default:

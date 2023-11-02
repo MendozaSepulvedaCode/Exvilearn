@@ -43,6 +43,7 @@ function StepByStep() {
     formData.append("image", image);
 
     showLoader();
+
     fetch("https://apiuserprofe.azurewebsites.net/new_profe", {
       method: "POST",
       body: formData,

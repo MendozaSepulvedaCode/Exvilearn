@@ -32,24 +32,12 @@ button {
   font-size: 1.4rem;
 }
 
-.logo {
-  width: auto;
+.logo-exvi {
+  width: 60px;
   float: left;
-  color: #107acc;
   cursor: pointer;
   margin-left: 30px;
-  text-decoration: none;
-
-  &:hover {
-    color: #4da4e6;
-    transition: all 0.2s ease-in-out;
-  }
-}
-
-.logo a {
-  display: inline-block;
-  font-size: 20px;
-  text-transform: capitalize;
+  margin-top: 14px;
 }
 
 .navbar-menu {
@@ -286,8 +274,9 @@ button {
     display: none;
   }
 
-  .logo {
+  .logo-exvi {
     margin-left: -5px;
+    margin-top: 12px;
   }
 
   .ant-drawer-title > .brand-font {

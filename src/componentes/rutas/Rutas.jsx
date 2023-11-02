@@ -12,9 +12,8 @@ import StepByStep from "../paginas/steps/StepByStep";
 import PanelCursos from "../panel/PanelCursos";
 import Almacenar from "../../ayudas/Almacenar";
 import PanelVideos from "../panel/navegacion/creacion/PanelVideos";
-import PanelSubsecciones from "../panel/navegacion/creacion/PanelSubsecciones";
 import Categorias from "../paginas/categorias/Categorias";
-import CursoDetail from '../paginas/detalles/CursoDetail'
+import CursoDetail from "../paginas/detalles/CursoDetail";
 import { LoaderProvider } from "../../ayudas/Loader";
 import { autenticar } from "../../ayudas/autenticar";
 
@@ -28,19 +27,15 @@ function Rutas() {
     { path: "/StepByStep", component: StepByStep },
     { path: "/PanelCursos", component: PanelCursos },
     { path: "/PanelCursos/panel-videos", component: PanelVideos },
-    {
-      path: "/PanelCursos/panel-videos/subsecciones",
-      component: PanelSubsecciones,
-    },
+
     { path: "/categorias", component: Categorias },
     { path: "/detalle-curso", component: CursoDetail },
   ];
-  
+
   const rutasProtegidas = [
-    "/StepByStep",
-    "/PanelCursos",
-    "/PanelCursos/panel-videos",
-    "/PanelCursos/panel-videos/subsecciones",
+    // "/StepByStep",
+    // "/PanelCursos",
+    // "/PanelCursos/panel-videos",
   ];
 
   const ProtectedRoute = ({ path, element }) => {

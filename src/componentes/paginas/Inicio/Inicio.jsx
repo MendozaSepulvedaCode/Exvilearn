@@ -36,9 +36,9 @@ function Inicio({ carrito, setCarrito }) {
   const tarjetas = [
     {
       imageSrc:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/1920x400.jpg",
+        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio.webp",
       imageSrcMobile:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/1920x400.jpg",
+        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio.webp",
       cardTitle: "Enfocate y aprende la nueva forma de estudiar",
       cardParagraph: "Conoce la forma de enseñar de diferentes instructores",
       buttonText: "Ir a cursos",
@@ -46,9 +46,9 @@ function Inicio({ carrito, setCarrito }) {
     },
     {
       imageSrc:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/1920x400_2.jpg",
+        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio2.webp",
       imageSrcMobile:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/1920x400_2.jpg",
+        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio2.webp",
       cardTitle: "Conviertete en instructor y genera conocimiento",
       cardParagraph:
         "En Exvilearn puedes revolcionar la forma en la que se aprende",

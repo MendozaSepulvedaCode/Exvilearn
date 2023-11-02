@@ -4,7 +4,7 @@ import "../../../estilos/detalles/cursodetail.css";
 
 let initialSeccionesData = [];
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 8; i++) {
   initialSeccionesData.push({
     seccion: `Sección ${i + 1}`,
     subsecciones: [
@@ -63,8 +63,13 @@ function SeccionesInfo() {
             className="seccion-acordion-title"
             onClick={() => handleClick(index)}
           >
-            {seccion.seccion} ({countCompletedSubsections(seccion.subsecciones)}{" "}
-            / {seccion.subsecciones.length})
+            <div>
+              <div>{seccion.seccion}</div>{" "}
+              <div className="secciones-count">
+                {countCompletedSubsections(seccion.subsecciones)} /{" "}
+                {seccion.subsecciones.length}
+              </div>
+            </div>
             {activeIndex === index ? (
               <BsChevronUp className="icon-section-course" />
             ) : (

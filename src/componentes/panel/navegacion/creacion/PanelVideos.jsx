@@ -8,7 +8,6 @@ import RightMenu from "../../../Navbar/RightMenu";
 import { AiFillDelete, AiOutlineInbox } from "react-icons/ai";
 import { FileOutlined, AudioOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import PanelSubsecciones from "./PanelSubsecciones";
 import Swal from "sweetalert2";
 
 const { Step } = Steps;
@@ -117,23 +116,43 @@ function PanelVideos() {
       return;
     }
 
-    const data = {
-      titulo: courseData.titulo,
-      precio: parseInt(courseData.precio.replace(/\D/g, ""), 10),
-      descripcion: courseData.descripcion,
-      categoria: courseData.categoria,
-      miniatura: courseData.miniatura,
-      palabrasClave: courseData.palabrasClave,
-      secciones: courseSections.map((seccion, index) => ({
-        id: `${index + 1}`,
-        titulo: seccion.titulo,
-        video: seccion.video ? seccion.video.name : null,
-        documentos: seccion.documento.map((doc) => doc.name) || [],
-        subsecciones: seccion.subsecciones || [],
-      })),
-    };
-    console.log(JSON.stringify(data, null, 2));
-    console.log(data);
+    const formData = new FormData();
+
+    formData.append("titulo", courseData.titulo);
+    formData.append(
+      "precio",
+      parseInt(courseData.precio.replace(/\D/g, ""), 10)
+    );
+    formData.append("descripcion", courseData.descripcion);
+    formData.append("categoria", courseData.categoria);
+    formData.append("palabrasClave", courseData.palabrasClave);
+    formData.append("miniatura", courseData.miniatura);
+
+    courseSections.forEach((seccion, index) => {
+      formData.append(`secciones[${index}][id]`, `${index + 1}`);
+      formData.append(`secciones[${index}][titulo]`, seccion.titulo);
+      formData.append(
+        `secciones[${index}][video]`,
+        seccion.video ? seccion.video.name : null
+      );
+      seccion.documento.forEach((doc, docIndex) => {
+        formData.append(
+          `secciones[${index}][documentos][${docIndex}]`,
+          doc.name
+        );
+      });
+      seccion.subsecciones.forEach((subseccion, subIndex) => {
+        formData.append(
+          `secciones[${index}][subsecciones][${subIndex}]`,
+          subseccion
+        );
+      });
+    });
+
+    console.log("FormData:");
+    for (let [key, value] of formData) {
+      console.log(key, value);
+    }
   };
 
   return (
