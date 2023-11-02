@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import "../../../../estilos/inicio/header.css";
 
-export function HeaderInicio({ tarjetas, currentCardIndex, onArrowClick }) {
+export function HeaderInicio({
+  tarjetas,
+  currentCardIndex,
+  onArrowClick,
+  redireccionar,
+}) {
   useEffect(() => {
     const interval = setInterval(() => {
       onArrowClick("right");
@@ -15,6 +20,10 @@ export function HeaderInicio({ tarjetas, currentCardIndex, onArrowClick }) {
 
   const handleArrowClick = (direction) => {
     onArrowClick(direction);
+  };
+
+  const handleButtonClick = async () => {
+    await redireccionar();
   };
 
   return (
@@ -46,9 +55,9 @@ export function HeaderInicio({ tarjetas, currentCardIndex, onArrowClick }) {
       <div className="content-card">
         <h5>{tarjetas[currentCardIndex].cardTitle}</h5>
         <p>{tarjetas[currentCardIndex].cardParagraph}</p>
-        <a href={tarjetas[currentCardIndex].buttonLink}>
-          <button>{tarjetas[currentCardIndex].buttonText}</button>
-        </a>
+        <button onClick={handleButtonClick}>
+          {tarjetas[currentCardIndex].buttonText}
+        </button>
       </div>
     </div>
   );

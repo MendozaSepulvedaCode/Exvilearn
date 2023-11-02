@@ -7,8 +7,13 @@ import {
   FaMedapps,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { validarProfesor } from "../../../ayudas/validarprofesor";
+import { useLoader } from "../../../ayudas/Loader";
 
 const IncentivoProfesor = () => {
+  const navigate = useNavigate();
+
   const aspectos = [
     {
       icono: (
@@ -56,6 +61,36 @@ const IncentivoProfesor = () => {
     },
   ];
 
+  const { showLoader, hideLoader } = useLoader();
+
+  const redireccionar = (ruta) => {
+    navigate(ruta);
+  };
+
+  const manejoValidacion = async () => {
+    showLoader();
+    try {
+      const resultado = await validarProfesor();
+
+      if (typeof resultado.isValid === "undefined") {
+        resultado.isValid = false;
+      }
+
+      if (!resultado.isValid) {
+        redireccionar("/VistaEnseña");
+        console.log("hola", resultado);
+        hideLoader();
+      } else {
+        redireccionar("/PanelCursos");
+        console.log(resultado);
+        hideLoader();
+      }
+    } catch (error) {
+      console.error("Ocurrió un error durante la validación:", error);
+      hideLoader();
+    }
+  };
+
   return (
     <div className="incentivo-profesor">
       <div className="contenido">
@@ -75,8 +110,10 @@ const IncentivoProfesor = () => {
           ))}
         </div>
 
-        <Link to="/VistaEnseña" onClick={() => window.scrollTo(0, 0)}>
-          <button className="btn-unirse">Únete como Profesor</button>
+        <Link onClick={() => window.scrollTo(0, 0)}>
+          <button className="btn-unirse" onClick={manejoValidacion}>
+            Únete como Profesor
+          </button>
         </Link>
       </div>
       <div className="imagen-profesor"></div>

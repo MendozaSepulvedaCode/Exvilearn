@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import LeftMenu from "../Navbar/LeftMenu";
 import RightMenu from "../Navbar/RightMenu";
 import { Input } from "antd";
+import { Link } from "react-router-dom";
 
 function NavBar({ userData }) {
   const [visible, setVisible] = React.useState(false);
@@ -28,11 +29,13 @@ function NavBar({ userData }) {
       <Layout>
         <Layout.Header className="nav-header">
           <div className="logo">
-            <img
-              src="https://storagexvilearn.blob.core.windows.net/imagenes/variante-logo.png"
-              alt="Exvilearn"
-              className="logo-exvi"
-            />
+            <Link to="/">
+              <img
+                src="https://storagexvilearn.blob.core.windows.net/imagenes/variante-logo.png"
+                alt="Exvilearn"
+                className="logo-exvi"
+              />
+            </Link>
           </div>
           <div className="navbar-menu">
             <div className={"leftMenu"}>

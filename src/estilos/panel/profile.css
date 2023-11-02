@@ -6,7 +6,6 @@
   background-color: rgb(255, 255, 255);
   background-clip: border-box;
   border: 0px solid rgba(0, 0, 0, 0.125);
-  border-radius: 1rem;
   box-shadow: rgba(20, 20, 20, 0.12) 0rem 0.25rem 0.375rem -0.0625rem,
     rgba(20, 20, 20, 0.07) 0rem 0.125rem 0.25rem -0.0625rem;
   justify-content: center;
@@ -32,7 +31,6 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-image: url(https://storagexvilearn.blob.core.windows.net/imagenes/joven.png);
   background-size: cover;
   background-position: center;
   margin-bottom: 8px;

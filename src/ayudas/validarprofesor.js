@@ -3,7 +3,7 @@ import { decode } from "./decode";
 
 const { valid } = autenticar();
 
-export const validarProfesor = () => {
+export const validarProfesor = async () => {
   if (!valid) {
     return { redireccionar: true, error: null };
   } else {
@@ -14,29 +14,30 @@ export const validarProfesor = () => {
       ID_Azure: decodeToken.sub,
     };
 
-    return fetch("https://apiuserprofe.azurewebsites.net/validate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error en la solicitud a la API");
+    try {
+      const response = await fetch(
+        "https://apiuserprofe.azurewebsites.net/validate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.Nombre && data.Apellido) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-        return false;
-      });
+      );
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud a la API");
+      }
+
+      const responseData = await response.json();
+
+      const isValid = responseData.Nombre && responseData.Apellido;
+
+      return { isValid, data: responseData };
+    } catch (error) {
+      console.error("Error:", error.message);
+      return { isValid: false, data: null, error: error.message };
+    }
   }
 };

@@ -33,9 +33,9 @@ function Rutas() {
   ];
 
   const rutasProtegidas = [
-    // "/StepByStep",
-    // "/PanelCursos",
-    // "/PanelCursos/panel-videos",
+    "/StepByStep",
+    "/PanelCursos",
+    "/PanelCursos/panel-videos",
   ];
 
   const ProtectedRoute = ({ path, element }) => {

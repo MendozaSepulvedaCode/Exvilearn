@@ -28,7 +28,13 @@ const MenuLateral = () => {
   const items = [
     {
       key: "companyName",
-      icon: <HomeOutlined />,
+      icon: (
+        <img
+          src="https://storagexvilearn.blob.core.windows.net/imagenes/logo.png"
+          alt="logo"
+          style={{ width: '20px' }}
+        />
+      ),
       label: "Exvilearn",
     },
     {

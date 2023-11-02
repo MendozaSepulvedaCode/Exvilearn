@@ -22,7 +22,11 @@ const LeftMenu = ({ mode }) => {
     try {
       const resultado = await validarProfesor();
 
-      if (!resultado || resultado.redireccionar) {
+      if (typeof resultado.isValid === "undefined") {
+        resultado.isValid = false;
+      }
+
+      if (!resultado.isValid) {
         redireccionar("/VistaEnseña");
         hideLoader();
       } else {

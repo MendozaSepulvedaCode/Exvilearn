@@ -1,4 +1,9 @@
 /* Para el panel de videos*/
+.panel-videos-final {
+  display: flex;
+  flex-direction: column;
+}
+
 .curso-steps-container {
   width: 70%;
 }
@@ -167,7 +172,7 @@
   width: 100%;
   height: auto;
   min-height: 70vh;
-  margin-top: 6rem;
+  margin-top: 1rem;
 }
 
 .ant-input-group .ant-input-group-addon:first-child {

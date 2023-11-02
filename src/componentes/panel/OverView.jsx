@@ -6,65 +6,45 @@ import {
   FaCertificate,
   FaStar,
   FaStarHalfAlt,
+  FaRegCalendarAlt,
 } from "react-icons/fa";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineInbox } from "react-icons/ai";
 import Profile from "./Profile";
 import MenuLateral from "./navegacion/MenuLateral";
 import { Progress } from "antd";
 import { Input } from "antd";
 import RightMenu from "../Navbar/RightMenu";
-import Chart from "chart.js/auto";
 import { Link } from "react-router-dom";
+import { validarProfesor } from "../../ayudas/validarprofesor";
+import { useLoader } from "../../ayudas/Loader";
+import { useNavigate } from "react-router-dom";
 
 function OverView() {
   const { Search } = Input;
   const onSearch = (value) => console.log(value);
-
-  const chartRef = useRef(null);
+  const { showLoader, hideLoader } = useLoader();
+  const navigate = useNavigate();
+  const [profesorData, setProfesorData] = useState(null);
 
   useEffect(() => {
-    if (chartRef.current) {
-      chartRef.current.destroy();
-    }
+    const fetchData = async () => {
+      showLoader();
+      try {
+        const response = await validarProfesor();
+        if (!response || response.redireccionar) {
+          navigate("/");
+        } else {
+          setProfesorData(response);
+        }
+        hideLoader();
+      } catch (error) {
+        console.error("Ocurrió un error durante la validación:", error);
+        hideLoader();
+      }
+    };
 
-    const ctx = document.getElementById("balance-points").getContext("2d");
-    chartRef.current = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
-        datasets: [
-          {
-            label: "Balance Mensual",
-            data: [2000, 1500, 3000, 2000, 1200, 2600],
-            borderColor: "rgba(75, 192, 192, 1)",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            tension: 0.4,
-            pointRadius: 5,
-            borderWidth: 2,
-            fill: true,
-          },
-        ],
-      },
-      options: {
-        indexAxis: "x",
-        maintainAspectRatio: false,
-        height: "50",
-        scales: {
-          y: {
-            display: false,
-          },
-          x: {
-            display: false,
-          },
-        },
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-      },
-    });
-  }, []);
+    fetchData();
+  }, [navigate]);
 
   const getCurrentDate = () => {
     const months = [
@@ -111,30 +91,30 @@ function OverView() {
 
   const overUser = [
     {
-      icon: <FaChalkboardTeacher />,
-      itemNumber: 5,
+      icon: <FaCertificate />,
+      itemNumber: 0,
       text: "Cursos",
     },
     {
       icon: <FaLaptop />,
-      itemNumber: 190,
+      itemNumber: 0,
       text: "Lesiones",
     },
     {
-      icon: <FaCertificate />,
-      itemNumber: 1981,
+      icon: <FaChalkboardTeacher />,
+      itemNumber: 0,
       text: "Estudiantes",
     },
     {
-      icon: <FaCertificate />,
-      itemNumber: 1981,
-      text: "Estudiantes",
+      icon: <FaRegCalendarAlt />,
+      itemNumber: 0,
+      text: "Reuniones",
     },
   ];
 
   const data = [];
 
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= 0; i++) {
     const item = {
       id: i,
       image: "https://storagexvilearn.blob.core.windows.net/imagenes/joven.png",
@@ -150,126 +130,143 @@ function OverView() {
       <MenuLateral />
       <div className="over-with-nav">
         <div className="nav-over">
-        <h5>Panel - Vista general</h5>
+          <h5 className="over-panel-h5">Panel - Vista general</h5>
           <RightMenu />
         </div>
-        <div className="over-container">
-          <div className="over-container-left">
-            <div className="over-encabezado">
-              <div className="over-header-title">
-                <h4 className="over-nombre-persona">Hola, Jose</h4>
-                <p>{getCurrentDate()}</p>
+        {profesorData && profesorData.data && (
+          <div className="over-container">
+            <div className="over-container-left">
+              <div className="over-encabezado">
+                <div className="over-header-title">
+                  <h4 className="over-nombre-persona">
+                    Hola, {profesorData.data.Nombre}
+                  </h4>
+                  <p>{getCurrentDate()}</p>
+                </div>
+                <div className="over-header-button">
+                  <Link
+                    to="/PanelCursos/panel-videos"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <button>
+                      Crear curso <AiOutlinePlus />
+                    </button>
+                  </Link>
+                </div>
               </div>
-              <div className="over-header-button">
-                <Link to="/PanelCursos/panel-videos">
-                  <button>
-                    Crear curso <AiOutlinePlus />
-                  </button>
-                </Link>
+              <div className="over-detail-user">
+                {overUser.map((overUser, index) => (
+                  <div key={index} className="over-detail-card">
+                    <div>
+                      <h5 className="over-text-detail">{overUser.text}</h5>
+                      <p className="over-number-detail">
+                        {overUser.itemNumber} <span>+0%</span>
+                      </p>
+                    </div>
+                    <div className="over-detail-icon">{overUser.icon}</div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div className="over-detail-user">
-              {overUser.map((overUser, index) => (
-                <div key={index} className="over-detail-card">
+              <div className="over-stats">
+                <div className="header-stats">
+                  <h5>Usuarios</h5>
                   <div>
-                    <h5 className="over-text-detail">{overUser.text}</h5>
-                    <p className="over-number-detail">
-                      {overUser.itemNumber} <span>+3%</span>
-                    </p>
+                    <Search
+                      placeholder="Buscar cursos"
+                      allowClear
+                      onSearch={onSearch}
+                      style={{
+                        width: "30vw",
+                        marginTop: "1.2rem",
+                      }}
+                      className="buscar-nav"
+                    />
                   </div>
-                  <div className="over-detail-icon">{overUser.icon}</div>
                 </div>
-              ))}
-            </div>
-            <div className="over-stats">
-              <div className="header-stats">
-                <h5>Usuarios</h5>
-                <div>
-                  <Search
-                    placeholder="Buscar cursos"
-                    allowClear
-                    onSearch={onSearch}
-                    style={{
-                      width: "30vw",
-                      marginTop: "1.2rem",
-                    }}
-                    className="buscar-nav"
-                  />
-                </div>
-              </div>
-              <div className="info-stats">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Estudiante</th>
-                      <th>Nombre del Curso</th>
-                      <th>Progreso</th>
-                      <th>Valoracion</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((item) => (
-                      <tr key={item.id}>
-                        <td>
-                          <img
-                            src={item.image}
-                            alt="Usuario"
-                            className="over-imagen-table"
-                          />
-                        </td>
-                        <td className="name-table-stats">{item.courseName}</td>
-                        <td className="progress-table-stats">
-                          <Progress percent={item.progress} />
-                        </td>
-                        <td>
-                          <div>
-                            {[...Array(Math.floor(item.rating))].map(
-                              (_, index) => (
-                                <FaStar
-                                  key={index}
-                                  style={{ marginRight: "5px" }}
-                                  color="#ffc107"
-                                />
-                              )
-                            )}
-                            {item.rating % 1 !== 0 && (
-                              <FaStarHalfAlt
-                                style={{ marginRight: "3px" }}
-                                color="#ffc107"
-                              />
-                            )}
-                          </div>
-                        </td>
+                <div className="info-stats">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Estudiante</th>
+                        <th>Nombre del Curso</th>
+                        <th>Progreso</th>
+                        <th>Valoracion</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {data.length === 0 ? (
+                        <tr>
+                          <td colSpan="4" className="empty-data">
+                            <div className="empty-data-content">
+                              <AiOutlineInbox
+                                style={{ fontSize: "20em", color: "#e9e9e9" }}
+                              />
+                              <p>Aun no hay usuarios</p>
+                            </div>
+                          </td>
+                        </tr>
+                      ) : (
+                        data.map((item) => (
+                          <tr key={item.id}>
+                            <td>
+                              <img
+                                src={item.image}
+                                alt="Usuario"
+                                className="over-imagen-table"
+                              />
+                            </td>
+                            <td className="name-table-stats">
+                              {item.courseName}
+                            </td>
+                            <td className="progress-table-stats">
+                              <Progress percent={item.progress} />
+                            </td>
+                            <td>
+                              <div>
+                                {[...Array(Math.floor(item.rating))].map(
+                                  (_, index) => (
+                                    <FaStar
+                                      key={index}
+                                      style={{ marginRight: "5px" }}
+                                      color="#ffc107"
+                                    />
+                                  )
+                                )}
+                                {item.rating % 1 !== 0 && (
+                                  <FaStarHalfAlt
+                                    style={{ marginRight: "3px" }}
+                                    color="#ffc107"
+                                  />
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="over-container-right">
-            <div>
-              <Profile />
-            </div>
-            <div className="over-balance">
+            <div className="over-container-right">
+              <div>
+                <Profile profesorData={profesorData.data} />
+              </div>
               <div className="over-balance">
-                <div className="balance-container">
-                  <div className="balance-header">
-                    <h5>Balance Total</h5>
-                    <p>$10,000</p>
-                  </div>
-                  <div className="chart-container">
-                    <canvas
-                      id="balance-points"
-                      width="150"
-                      height="100"
-                    ></canvas>
+                <div className="over-balance">
+                  <div className="balance-container">
+                    <div className="balance-header">
+                      <h5>Balance del mes</h5>
+                      <p>
+                        ${profesorData.data.Saldo} <span>+0%</span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

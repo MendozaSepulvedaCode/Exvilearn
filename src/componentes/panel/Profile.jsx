@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { BsGit, BsWhatsapp, BsDiscord } from "react-icons/bs";
 import { AiTwotoneDelete, AiOutlineEdit } from "react-icons/ai";
 
-function Profile() {
+function Profile({ profesorData }) {
   const [iconLinks, setIconLinks] = useState({});
   const [showInput, setShowInput] = useState({});
   const [inputValue, setInputValue] = useState({});
@@ -100,21 +100,26 @@ function Profile() {
     <div className="profile-container">
       <div className="profile-details">
         <div className="profile-left">
-          <div className="profile-image"></div>
+          <div
+            className="profile-image"
+            style={{ backgroundImage: `url(${profesorData.Url_foto})` }}
+          ></div>
           <div className="profile-name">
-            <h5>Jose Mendoza</h5>
+            <h5>
+              {profesorData.Nombre} {profesorData.Apellido}
+            </h5>
           </div>
           <div className="profile-stats">
             <div className="stats">
-              <h6>27</h6>
+              <h6>0</h6>
               <p>Cursos</p>
             </div>
             <div className="stats">
-              <h6>1550</h6>
+              <h6>0</h6>
               <p>Alumnos</p>
             </div>
             <div className="stats">
-              <h6>87</h6>
+              <h6>0</h6>
               <p>Lesiones</p>
             </div>
           </div>

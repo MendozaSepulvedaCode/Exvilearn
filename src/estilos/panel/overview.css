@@ -19,10 +19,14 @@
   width: auto;
 }
 
-.nav-over h5{
+.nav-over h5 {
   font-size: 1.4rem;
   padding-left: 2rem;
   padding-top: 1rem;
+}
+
+.over-panel-h5 {
+  padding-left: 0 !important;
 }
 
 .over-container {
@@ -82,6 +86,7 @@
   margin-top: 10px;
   display: flex;
   align-items: center;
+  text-decoration: none;
 }
 
 .over-header-button svg {
@@ -110,7 +115,6 @@
 
 .over-detail-card {
   color: rgba(0, 0, 0, 0.87);
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -120,8 +124,8 @@
   background-color: rgb(255, 255, 255);
   background-clip: border-box;
   border: 0px solid rgba(0, 0, 0, 0.125);
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem;
+  box-shadow: rgba(20, 20, 20, 0.12) 0rem 0.25rem 0.375rem -0.0625rem,
+    rgba(20, 20, 20, 0.07) 0rem 0.125rem 0.25rem -0.0625rem;
   width: 200px;
   height: 100px;
   justify-content: space-around;
@@ -168,12 +172,28 @@
   width: 80%;
 }
 
+.empty-data {
+  text-align: center;
+}
+
+.empty-data-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-data-content p {
+  font-weight: 600;
+  color: #d9d9d9;
+  font-size: 18px;
+}
+
 /* Stats */
 
 .over-stats {
   box-shadow: rgba(20, 20, 20, 0.12) 0rem 0.25rem 0.375rem -0.0625rem,
     rgba(20, 20, 20, 0.07) 0rem 0.125rem 0.25rem -0.0625rem;
-  border-radius: 0.5rem;
   margin-top: 2rem;
   padding: 10px;
 }
@@ -274,11 +294,10 @@ td {
   background-color: rgb(255, 255, 255);
   background-clip: border-box;
   border: 0px solid rgba(0, 0, 0, 0.125);
-  border-radius: 1rem;
   box-shadow: rgba(20, 20, 20, 0.12) 0rem 0.25rem 0.375rem -0.0625rem,
     rgba(20, 20, 20, 0.07) 0rem 0.125rem 0.25rem -0.0625rem;
   width: 100%;
-  height: 44vh;
+  min-height: 20vh;
   justify-content: center;
   align-items: center;
 }
@@ -287,20 +306,27 @@ td {
   display: flex;
   flex-direction: column;
   justify-content: left;
-  padding: 20px;
+  padding: 40px;
   align-items: flex-start;
 }
 
 .balance-header h5 {
   margin: 0;
   font-size: 1.4rem;
+  color: #333;
 }
 
 .balance-header p {
   font-size: 2rem;
   font-weight: bold;
-  color: #5cb85c;
+  color: #107acc;
   margin: 0;
+  margin-top: 0.3em;
+}
+
+.balance-header span {
+  font-size: 1.3rem;
+  color: green;
 }
 
 .menu-button {

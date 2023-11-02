@@ -22,6 +22,7 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
   const [nuevaPalabra, setNuevaPalabra] = useState("");
   const [coloresFondo, setColoresFondo] = useState([]);
   const [palabraContador, setPalabraContador] = useState(0);
+  const [previewURL, setPreviewURL] = useState(null);
 
   const agregarComas = (value) => {
     const parts = value.replace(/[^\d]/g, "").split(".");
@@ -54,38 +55,6 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
         confirmButtonColor: "#107acc",
       });
     }
-  };
-
-  const elegirImagen = () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      if (
-        file &&
-        (file.type === "image/jpeg" ||
-          file.type === "image/jpg" ||
-          file.type === "image/png")
-      ) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-          setInfoCurso((prevInfoCurso) => ({
-            ...prevInfoCurso,
-            miniatura: event.target.result,
-          }));
-        };
-        reader.readAsDataURL(file);
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Archivo no válido",
-          text: "Por favor, selecciona un archivo de imagen en formato JPEG, JPG o PNG.",
-          confirmButtonColor: "#107acc",
-        });
-      }
-    };
-    input.click();
   };
 
   const manejarArrastre = (e) => {
@@ -127,6 +96,39 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
       ...infoCurso,
       categoria: value,
     });
+  };
+
+  const elegirImagen = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (
+        file &&
+        (file.type === "image/jpeg" ||
+          file.type === "image/jpg" ||
+          file.type === "image/png")
+      ) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          setPreviewURL(event.target.result); // Agregar el estado para almacenar la URL de la vista previa
+          setInfoCurso((prevInfoCurso) => ({
+            ...prevInfoCurso,
+            miniatura: file,
+          }));
+        };
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Archivo no válido",
+          text: "Por favor, selecciona un archivo de imagen en formato JPEG, JPG o PNG.",
+          confirmButtonColor: "#107acc",
+        });
+      }
+    };
+    input.click();
   };
 
   const manejarCambioMiniatura = (e) => {
@@ -289,9 +291,9 @@ function PanelInfo({ setCurrentStep, manejoCursoData }) {
             width: infoCurso.miniatura ? "20%" : "auto",
           }}
         >
-          {infoCurso.miniatura ? (
+          {previewURL ? (
             <img
-              src={infoCurso.miniatura}
+              src={previewURL}
               alt="miniatura arrastrada"
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />

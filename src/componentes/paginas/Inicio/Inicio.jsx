@@ -6,10 +6,14 @@ import IncentivoProfesor from "./IncentivoProfesor";
 import Categorias from "./Categorias";
 import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
+import { validarProfesor } from "../../../ayudas/validarprofesor";
+import { useLoader } from "../../../ayudas/Loader";
 
 function Inicio({ carrito, setCarrito }) {
   const cantidadCursos = 20;
   const cursos = [];
+  const navigate = useNavigate();
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
@@ -33,6 +37,32 @@ function Inicio({ carrito, setCarrito }) {
     }
   };
 
+  const { showLoader, hideLoader } = useLoader();
+
+  const manejoValidacion = async () => {
+    showLoader();
+    try {
+      const resultado = await validarProfesor();
+
+      if (typeof resultado.isValid === "undefined") {
+        resultado.isValid = false;
+      }
+
+      if (!resultado.isValid) {
+        redireccionar("/VistaEnseña");
+        console.log("hola", resultado);
+        hideLoader();
+      } else {
+        redireccionar("/PanelCursos");
+        console.log(resultado);
+        hideLoader();
+      }
+    } catch (error) {
+      console.error("Ocurrió un error durante la validación:", error);
+      hideLoader();
+    }
+  };
+
   const tarjetas = [
     {
       imageSrc:
@@ -42,7 +72,6 @@ function Inicio({ carrito, setCarrito }) {
       cardTitle: "Enfocate y aprende la nueva forma de estudiar",
       cardParagraph: "Conoce la forma de enseñar de diferentes instructores",
       buttonText: "Ir a cursos",
-      buttonLink: "/",
     },
     {
       imageSrc:
@@ -53,7 +82,6 @@ function Inicio({ carrito, setCarrito }) {
       cardParagraph:
         "En Exvilearn puedes revolcionar la forma en la que se aprende",
       buttonText: "Ir a Enseñar",
-      buttonLink: "/VistaEnseña",
     },
   ];
 
@@ -81,6 +109,7 @@ function Inicio({ carrito, setCarrito }) {
         tarjetas={tarjetas}
         currentCardIndex={currentCardIndex}
         onArrowClick={handleArrowClick}
+        redireccionar={manejoValidacion}
       />
       <CursosBackHeader />
       <CursoRecomendadoContainer
