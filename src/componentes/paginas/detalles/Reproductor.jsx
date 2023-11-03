@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../../estilos/detalles/cursodetail.css";
 import { useLoader } from "../../../ayudas/Loader";
+import { BiPlay } from "react-icons/bi";
 
 const Reproductor = () => {
   const { showLoader, hideLoader } = useLoader();
@@ -75,7 +76,7 @@ const Reproductor = () => {
       {playButtonVisible && (
         <div className="custom-video-controls">
           <button className="custom-play-button" onClick={handlePlay}>
-            ▶
+            <BiPlay />
           </button>
         </div>
       )}

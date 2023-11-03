@@ -45,6 +45,7 @@ const RightMenu = ({ mode, userData }) => {
               label: "Panel de usuario",
               key: "submenu-item-2",
               icon: <AiOutlineDashboard />,
+              onClick: () => navigate("/panel-usuario"),
             },
             {
               label: "Cerrar sesion",

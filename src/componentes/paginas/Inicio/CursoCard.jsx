@@ -5,6 +5,7 @@ import { BsPeople } from "react-icons/bs";
 import { BsBookmarks } from "react-icons/bs";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import "../../../estilos/inicio/cursoContainer.css";
 
 const CursoCard = ({ curso, agregarAlCarrito }) => {
@@ -45,6 +46,13 @@ const CursoCard = ({ curso, agregarAlCarrito }) => {
     if (!existeEnCarrito) {
       carritoFromCookie.push(curso);
       Cookies.set("carrito", JSON.stringify(carritoFromCookie));
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Producto agregado al carrito",
+        showConfirmButton: false,
+        timer: 800,
+      });
     }
 
     setAgregado(true);

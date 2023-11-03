@@ -25,7 +25,7 @@ const LeftMenu = ({ mode }) => {
       if (typeof resultado.isValid === "undefined") {
         resultado.isValid = false;
       }
-
+      
       if (!resultado.isValid) {
         redireccionar("/VistaEnseña");
         hideLoader();

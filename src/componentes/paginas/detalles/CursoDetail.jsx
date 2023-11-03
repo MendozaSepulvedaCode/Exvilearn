@@ -21,7 +21,7 @@ function CursoDetail() {
               <BsSuitHeart />
             </div>
           </div>
-          <div className="container-info-curso">
+          <div className="container-info-curso-detail">
             <Reproductor />
             <DetailInfo />
           </div>

@@ -16,7 +16,7 @@ function Categorias() {
       hideLoader();
     }, 2000);
   };
-
+  
   return (
     <div style={{ position: "relative" }}>
       <Navbar />

@@ -59,9 +59,8 @@ function CursoRecomendadoContainer({ cursos, carrito, setCarrito }) {
     if (!existeEnCarrito) {
       const nuevoCarrito = [...carrito, curso];
       setCarrito(nuevoCarrito);
-      Cookies.set("carrito", JSON.stringify(nuevoCarrito), { expires: 7 });
+      Cookies.set("carrito", JSON.stringify(nuevoCarrito), { expires: 30 });
     } else {
-      // Agrega lógica si el elemento ya está en el carrito
     }
   };
 
