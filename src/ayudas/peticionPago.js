@@ -18,7 +18,7 @@ export function peticionPago(callback) {
   const carritoFromCookie = Cookies.get("carrito");
   const carrito = carritoFromCookie ? JSON.parse(carritoFromCookie) : [];
 
-  const url = "http://localhost:3000/crear-orden";
+  const url = import.meta.env.VITE_API_PAGO;
 
   const items = carrito.map((producto) => ({
     id: producto.id,

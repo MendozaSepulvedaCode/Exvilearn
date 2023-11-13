@@ -66,18 +66,18 @@ function Inicio({ carrito, setCarrito }) {
   const tarjetas = [
     {
       imageSrc:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio.webp",
+        "https://blobstorageexvi.blob.core.windows.net/imagenes/escritorio.webp",
       imageSrcMobile:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio.webp",
+        "https://blobstorageexvi.blob.core.windows.net/imagenes/escritorio.webp",
       cardTitle: "Enfocate y aprende la nueva forma de estudiar",
       cardParagraph: "Conoce la forma de enseñar de diferentes instructores",
       buttonText: "Ir a cursos",
     },
     {
       imageSrc:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio2.webp",
+        "https://blobstorageexvi.blob.core.windows.net/imagenes/escritorio2.webp",
       imageSrcMobile:
-        "https://storagexvilearn.blob.core.windows.net/imagenes/escritorio2.webp",
+        "https://blobstorageexvi.blob.core.windows.net/imagenes/escritorio2.webp",
       cardTitle: "Conviertete en instructor y genera conocimiento",
       cardParagraph:
         "En Exvilearn puedes revolcionar la forma en la que se aprende",

@@ -44,7 +44,7 @@ function StepByStep() {
 
     showLoader();
 
-    fetch("https://apiuserprofe.azurewebsites.net/new_profe", {
+    fetch(import.meta.env.VITE_API_NEW_PROFE, {
       method: "POST",
       body: formData,
     })

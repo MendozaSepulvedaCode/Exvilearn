@@ -6,7 +6,7 @@ function ContactEnseña() {
     <div className="contact-container">
       <div className="left-section-end">
         <img
-          src="https://storagexvilearn.blob.core.windows.net/imagenes/3dprofesor.png"
+          src="https://blobstorageexvi.blob.core.windows.net/imagenes/3dprofesor.webp"
           alt="Estudiantes"
           className="image-contact"
         />

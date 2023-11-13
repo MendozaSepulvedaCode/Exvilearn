@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Bars, SearchIcon } from "./navStyles";
-import "../../estilos/navbar/NavBar.css";
 import { Layout, Button, Drawer } from "antd";
 import { useLocation } from "react-router-dom";
 import LeftMenu from "../Navbar/LeftMenu";
 import RightMenu from "../Navbar/RightMenu";
 import { Input } from "antd";
 import { Link } from "react-router-dom";
+import "../../estilos/navbar/Navbar.css";
 
 function NavBar({ userData }) {
   const [visible, setVisible] = React.useState(false);
@@ -31,7 +31,7 @@ function NavBar({ userData }) {
           <div className="logo">
             <Link to="/">
               <img
-                src="https://storagexvilearn.blob.core.windows.net/imagenes/variante-logo.png"
+                src="https://blobstorageexvi.blob.core.windows.net/imagenes/variante-logo.png"
                 alt="Exvilearn"
                 className="logo-exvi"
               />

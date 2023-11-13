@@ -40,7 +40,7 @@ const Almacenar = () => {
             Idp: decodedToken.idp,
           };
 
-          fetch("https://apiuserazure.azurewebsites.net/new_user", {
+          fetch(import.meta.env.VITE_API_USER, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
