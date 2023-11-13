@@ -10,7 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  appName: 'exvilearn' 
+  appName: 'exvilearn-inside'
 
 stages:
 - stage: Build
@@ -45,7 +45,7 @@ stages:
       displayName: 'Deploy to Azure App Service'
       inputs:
         azureSubscription: 'Azure'
-        appName: 'exvilearn-inside'
+        appName: '$(appName)'
         containers: 'josems135/cursoweb:latest'
         containerCommand: 'npm run dev'
         enableCustomDeployment: true
