@@ -45,7 +45,7 @@ stages:
       displayName: 'Deploy to Azure App Service'
       inputs:
         azureSubscription: 'Azure'
-        appName: 'exvilearn-web'
+        appName: 'exvilearn-inside'
         containers: 'josems135/cursoweb:latest'
         containerCommand: 'npm run dev'
         enableCustomDeployment: true
