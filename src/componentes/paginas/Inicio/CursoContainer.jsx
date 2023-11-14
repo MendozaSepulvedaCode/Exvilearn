@@ -68,7 +68,7 @@ function CursoRecomendadoContainer({ cursos, carrito, setCarrito }) {
     <div className="container-after-header">
       <div className="titulo-container">
         <h3 className="titulo-destacado">
-          Explora nuestros{" "}
+          Exploa nuestros{" "}
           <span className="texto-destacado">cursos más recientes</span> <br />y{" "}
           <span className="texto-destacado">expande tus conocimientos</span>
         </h3>
