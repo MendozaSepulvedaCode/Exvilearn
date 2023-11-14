@@ -10,7 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  appName: 'exvilearn-inside'
+  appName: 'exvilearnapp'
 
 stages:
 - stage: Build
