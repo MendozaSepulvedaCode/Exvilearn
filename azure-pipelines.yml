@@ -3,7 +3,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+  branches:
+    include:
+      - '*'
 
 resources:
 - repo: self
@@ -25,7 +27,7 @@ stages:
       displayName: Build Docker image
       inputs:
         command: build
-        dockerfile: '$(Build.SourcesDirectory)/DockerFile'
+        dockerfile: 'Dockerfile'
         tags: |
           $(tag)
 
