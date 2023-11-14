@@ -41,8 +41,8 @@ stages:
         command: push
         imageName: 'josems135/cursoweb:latest'
 
-    - task: AzureWebApp@1
-      displayName: 'Deploy to Azure App Service'
+    - task: Docker@2
+      displayName: Deploy to Azure App Service
       inputs:
         azureSubscription: 'Azure'
         appName: '$(appName)'
