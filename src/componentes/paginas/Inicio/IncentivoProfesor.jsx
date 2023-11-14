@@ -78,11 +78,9 @@ const IncentivoProfesor = () => {
 
       if (!resultado.isValid) {
         redireccionar("/VistaEnseña");
-        console.log("hola", resultado);
         hideLoader();
       } else {
         redireccionar("/PanelCursos");
-        console.log(resultado);
         hideLoader();
       }
     } catch (error) {
