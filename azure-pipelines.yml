@@ -6,7 +6,7 @@ resources:
 
 variables:
   imageName: 'josems135/cursoweb'
-  tag: '$(Build.BuildId)'
+  tag: 'latest'
 
 stages:
   - stage: Build
@@ -34,3 +34,11 @@ stages:
               containerCommand: 'npm run dev'
               enableCustomDeployment: true
               deploymentType: 'dockerContainer'
+
+          - task: AzureCLI@2
+            displayName: 'Restart Azure App Service'
+            inputs:
+              azureSubscription: 'Azure'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: 'az webapp restart --name exvilearnapp --resource-group Exvilearninfra'
