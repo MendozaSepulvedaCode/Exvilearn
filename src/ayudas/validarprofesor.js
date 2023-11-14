@@ -16,7 +16,7 @@ export const validarProfesor = async () => {
 
     try {
       const response = await fetch(
-        import.meta.env.VITE_API_PROFE_VALIDAR,
+        `${import.meta.env.VITE_API_PROFE}/validate`,
         {
           method: "POST",
           headers: {
