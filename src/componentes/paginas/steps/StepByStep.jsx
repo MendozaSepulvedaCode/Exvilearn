@@ -37,6 +37,7 @@ function StepByStep() {
 
     const formData = new FormData();
     formData.append("ID_Azure", decodeToken.sub);
+    // formData.append("ID_Azure", "81b8cab7-eb88-4227-887c-3a522f33b010")
     formData.append("Pais", selectedCountry);
     formData.append("Contacto", phoneNumber);
     formData.append("Biografia", bio);
@@ -44,7 +45,7 @@ function StepByStep() {
 
     showLoader();
 
-    fetch(`${import.meta.env.VITE_API_PROFE}/new_profe`, {
+    fetch(`${import.meta.env.VITE_API_PROFE}new_profe`, {
       method: "POST",
       body: formData,
     })
