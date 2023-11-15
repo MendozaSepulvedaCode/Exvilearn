@@ -33,11 +33,11 @@ function StepByStep() {
     }
 
     const cookieName = "n2s8t9p1q6z7w";
-    // const decodeToken = decode(cookieName);
+    const decodeToken = decode(cookieName);
 
     const formData = new FormData();
-    // formData.append("ID_Azure", decodeToken.sub);
-    formData.append("ID_Azure", "1bcfa0ed-d7e7-41bc-a4f8-7a83edb5ef39");
+    formData.append("ID_Azure", decodeToken.sub);
+    // formData.append("ID_Azure", "1bcfa0ed-d7e7-41bc-a4f8-7a83edb5ef39");
     formData.append("Pais", selectedCountry);
     formData.append("Contacto", phoneNumber);
     formData.append("Biografia", bio);
