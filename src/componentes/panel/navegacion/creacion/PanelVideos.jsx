@@ -130,54 +130,54 @@ function PanelVideos() {
       return result;
     };
 
-    const infoCurso = {
-      ID_profe: "1829",
-      titulo: courseData.titulo,
-      precio: parseInt(courseData.precio.replace(/\D/g, ""), 10),
-      categoria: courseData.categoria,
-      descripcion: courseData.descripcion,
-      palabrasClave: courseData.palabrasClave,
-      // miniatura: courseData.miniatura,
-      secciones: [],
-    };
-
-    const seccionesFormData = new FormData();
+    const infoCursoFormData = new FormData();
+    const seccionObjURL = `${import.meta.env.VITE_API_BLOBS}/upload`;
 
     courseSections.forEach((seccion, index) => {
       const randomStr = getRandomString(8);
       const categoryInitial = courseData.categoria.charAt(0).toUpperCase();
       const ID_Seccion = `${categoryInitial}-${randomStr}`;
-      const seccionObj = {
-        ID_Seccion,
-        video: seccion.video ? seccion.video.name : null,
-        documentos: seccion.documento.map((doc) => doc.name),
-      };
-      infoCurso.secciones.push(seccionObj);
-      if (seccion.video) {
-        seccionesFormData.append(
-          `secciones[${ID_Seccion}][video]`,
-          seccion.video
-        );
-      }
+
+      const seccionFormData = new FormData();
+      seccionFormData.append("ID_Seccion", ID_Seccion);
+      seccionFormData.append("video", seccion.video);
 
       seccion.documento.forEach((documento, docIndex) => {
-        seccionesFormData.append(
-          `secciones[${ID_Seccion}][documentos][${docIndex}]`,
-          documento
-        );
+        seccionFormData.append(`documentos[${docIndex}]`, documento);
       });
+
+      infoCursoFormData.append(
+        `secciones[${ID_Seccion}][ID_Seccion]`,
+        ID_Seccion
+      );
+      infoCursoFormData.append(
+        `secciones[${ID_Seccion}][seccionTitulo]`,
+        seccion.seccionTitulo
+      ); // Agrega seccionTitulo
+
+      // Envía la solicitud con la información de la sección actual
+      try {
+        const responseSeccion = fetch(seccionObjURL, {
+          method: "POST",
+          body: seccionFormData,
+        });
+
+        if (responseSeccion.ok) {
+          console.log(`SeccionObj ${ID_Seccion} enviado con éxito`);
+        } else {
+          console.error(`Error al enviar SeccionObj ${ID_Seccion}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     });
 
     const infoCursoURL = `${import.meta.env.VITE_API_BLOBS}/newcourse`;
-    const seccionObjURL = `${import.meta.env.VITE_API_BLOBS}/upload`;
 
     try {
       const responseInfoCurso = await fetch(infoCursoURL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(infoCurso),
+        body: infoCursoFormData,
       });
 
       if (responseInfoCurso.ok) {
@@ -185,34 +185,14 @@ function PanelVideos() {
       } else {
         console.error("Error al enviar infoCurso");
       }
-
-      const promises = infoCurso.secciones.map((seccion) => {
-        return fetch(seccionObjURL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(seccion),
-        }).then((responseSeccionObj) => {
-          if (responseSeccionObj.ok) {
-            console.log(`SeccionObj ${seccion.ID_Seccion} enviado con éxito`);
-          } else {
-            console.error(`Error al enviar SeccionObj ${seccion.ID_Seccion}`);
-          }
-        });
-      });
-
-      await Promise.all(promises);
     } catch (error) {
       console.error("Error:", error);
     }
 
-    console.log("Secciones FormData:");
-    for (const [key, value] of seccionesFormData.entries()) {
+    console.log("Info Curso FormData:");
+    for (const [key, value] of infoCursoFormData.entries()) {
       console.log(key, value);
     }
-
-    console.log("Info Curso:", JSON.stringify(infoCurso, null, 2));
   };
 
   return (

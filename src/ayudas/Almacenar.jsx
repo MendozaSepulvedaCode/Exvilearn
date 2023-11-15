@@ -21,52 +21,51 @@ const Almacenar = () => {
 
       if (!esTokenValido) {
         console.error("Inicio de sesión fallido");
-      } else {
-        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        return;
+      }
 
-        if (
-          decodedToken &&
-          decodedToken.sub &&
-          decodedToken.given_name &&
-          decodedToken.family_name &&
-          decodedToken.emails &&
-          decodedToken.idp
-        ) {
-          const data = {
-            ID_Azure: decodedToken.sub,
-            Nombre: decodedToken.given_name,
-            Apellido: decodedToken.family_name,
-            Correo: decodedToken.emails[0],
-            Idp: decodedToken.idp,
-          };
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
 
-          fetch(`${import.meta.env.VITE_API_USER}/new_user`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+      if (
+        decodedToken &&
+        decodedToken.sub &&
+        decodedToken.given_name &&
+        decodedToken.family_name &&
+        decodedToken.emails &&
+        decodedToken.idp
+      ) {
+        const data = {
+          ID_Azure: decodedToken.sub,
+          Nombre: decodedToken.given_name,
+          Apellido: decodedToken.family_name,
+          Correo: decodedToken.emails[0],
+          Idp: decodedToken.idp,
+        };
+
+        fetch(`${import.meta.env.VITE_API_USER}/new_user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error(
+                "Error en la solicitud POST HTTP: " + response.status
+              );
+            }
           })
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error(
-                  "Error en la solicitud POST HTTP: " + response.status
-                );
-              }
-            })
-
-            .then((data) => {
-              window.location.reload();
-            })
-
-            .catch((error) =>
-              console.error("Error en la solicitud POST:", error)
-            );
-        } else {
-          console.error("Error al decodificar el token");
-        }
+          .then((data) => {
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error en la solicitud POST:", error);
+          });
+      } else {
+        console.error("Error al decodificar el token");
       }
     }
   }, []);

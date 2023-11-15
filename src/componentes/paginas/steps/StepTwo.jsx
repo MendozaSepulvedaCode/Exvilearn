@@ -92,7 +92,7 @@ function StepTwo({
         return;
       }
     } else {
-      if (!isCountrySelected || !phoneNumber) {
+      if (!isCountrySelected || !phoneNumber || !bio) {
         Swal.fire(
           "Error",
           "Por favor llene todos los campos requeridos.",
