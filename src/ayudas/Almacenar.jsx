@@ -40,7 +40,7 @@ const Almacenar = () => {
             Idp: decodedToken.idp,
           };
 
-          fetch("https://exviapimanagent.azure-api.net/api-user/new_user", {
+          fetch(`${import.meta.env.VITE_API_USER}/new_user`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

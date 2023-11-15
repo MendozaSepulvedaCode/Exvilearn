@@ -168,8 +168,8 @@ function PanelVideos() {
       });
     });
 
-    const infoCursoURL = `${import.meta.env.VITE_API_BLOBS}newcourse`;
-    const seccionObjURL = `${import.meta.env.VITE_API_BLOBS}upload`;
+    const infoCursoURL = `${import.meta.env.VITE_API_BLOBS}/newcourse`;
+    const seccionObjURL = `${import.meta.env.VITE_API_BLOBS}/upload`;
 
     try {
       const responseInfoCurso = await fetch(infoCursoURL, {
