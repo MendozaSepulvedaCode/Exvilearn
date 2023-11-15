@@ -45,7 +45,7 @@ function StepByStep() {
 
     showLoader();
 
-    fetch(`${import.meta.env.VITE_API_PROFE}new_profe`, {
+    fetch(`${import.meta.env.VITE_API_PROFE}/new_profe`, {
       method: "POST",
       body: formData,
     })

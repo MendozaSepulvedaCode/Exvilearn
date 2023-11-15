@@ -30,7 +30,7 @@ const MenuLateral = () => {
       key: "companyName",
       icon: (
         <img
-          src="https://storagexvilearn.blob.core.windows.net/imagenes/logo.png"
+          src="https://blobstorageexvi.blob.core.windows.net/imagenes/logo.png"
           alt="logo"
           style={{ width: '20px' }}
         />

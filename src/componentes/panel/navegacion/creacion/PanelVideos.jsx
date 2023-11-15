@@ -106,7 +106,7 @@ function PanelVideos() {
     setCourseSections(nuevasSecciones);
   };
 
-  const finalizarCreacion = () => {
+  const finalizarCreacion = async () => {
     if (!courseData || !courseSections || courseSections.length === 0) {
       Swal.fire({
         icon: "error",
@@ -117,37 +117,102 @@ function PanelVideos() {
       return;
     }
 
-    const formData = new FormData();
+    const getRandomString = (length) => {
+      const characters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const charactersLength = characters.length;
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      return result;
+    };
 
-    formData.append("titulo", courseData.titulo);
-    formData.append(
-      "precio",
-      parseInt(courseData.precio.replace(/\D/g, ""), 10)
-    );
-    formData.append("descripcion", courseData.descripcion);
-    formData.append("categoria", courseData.categoria);
-    formData.append("palabrasClave", courseData.palabrasClave);
-    formData.append("miniatura", courseData.miniatura);
+    const infoCurso = {
+      ID_profe: "1829",
+      titulo: courseData.titulo,
+      precio: parseInt(courseData.precio.replace(/\D/g, ""), 10),
+      categoria: courseData.categoria,
+      descripcion: courseData.descripcion,
+      palabrasClave: courseData.palabrasClave,
+      // miniatura: courseData.miniatura,
+      secciones: [],
+    };
+
+    const seccionesFormData = new FormData();
 
     courseSections.forEach((seccion, index) => {
-      formData.append(`secciones[${index}][id]`, `${index + 1}`);
-      formData.append(`secciones[${index}][titulo]`, seccion.titulo);
-      formData.append(
-        `secciones[${index}][video]`,
-        seccion.video ? seccion.video.name : null
-      );
-      seccion.documento.forEach((doc, docIndex) => {
-        formData.append(
-          `secciones[${index}][documentos][${docIndex}]`,
-          doc.name
+      const randomStr = getRandomString(8);
+      const categoryInitial = courseData.categoria.charAt(0).toUpperCase();
+      const ID_Seccion = `${categoryInitial}-${randomStr}`;
+      const seccionObj = {
+        ID_Seccion,
+        video: seccion.video ? seccion.video.name : null,
+        documentos: seccion.documento.map((doc) => doc.name),
+      };
+      infoCurso.secciones.push(seccionObj);
+      if (seccion.video) {
+        seccionesFormData.append(
+          `secciones[${ID_Seccion}][video]`,
+          seccion.video
+        );
+      }
+
+      seccion.documento.forEach((documento, docIndex) => {
+        seccionesFormData.append(
+          `secciones[${ID_Seccion}][documentos][${docIndex}]`,
+          documento
         );
       });
     });
 
-    console.log("FormData:");
-    for (let [key, value] of formData) {
+    const infoCursoURL = `${import.meta.env.VITE_API_BLOBS}newcourse`;
+    const seccionObjURL = `${import.meta.env.VITE_API_BLOBS}upload`;
+
+    try {
+      const responseInfoCurso = await fetch(infoCursoURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(infoCurso),
+      });
+
+      if (responseInfoCurso.ok) {
+        console.log("InfoCurso enviado con éxito");
+      } else {
+        console.error("Error al enviar infoCurso");
+      }
+
+      const promises = infoCurso.secciones.map((seccion) => {
+        return fetch(seccionObjURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(seccion),
+        }).then((responseSeccionObj) => {
+          if (responseSeccionObj.ok) {
+            console.log(`SeccionObj ${seccion.ID_Seccion} enviado con éxito`);
+          } else {
+            console.error(`Error al enviar SeccionObj ${seccion.ID_Seccion}`);
+          }
+        });
+      });
+
+      await Promise.all(promises);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    console.log("Secciones FormData:");
+    for (const [key, value] of seccionesFormData.entries()) {
       console.log(key, value);
     }
+
+    console.log("Info Curso:", JSON.stringify(infoCurso, null, 2));
   };
 
   return (
