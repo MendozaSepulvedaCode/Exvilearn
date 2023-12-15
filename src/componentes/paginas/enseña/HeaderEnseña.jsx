@@ -57,7 +57,7 @@ function HeaderEnseña() {
 
         <div className="right-section">
           <img
-            src="https://blobstorageexvi.blob.core.windows.net/imagenes/viejo3d.webp"
+            src="https://blobstorageexv.blob.core.windows.net/imagenes/viejo3d.webp"
             alt="Profesor"
             className="visual"
           />

@@ -31,7 +31,7 @@ function NavBar({ userData }) {
           <div className="logo">
             <Link to="/">
               <img
-                src="https://blobstorageexvi.blob.core.windows.net/imagenes/variante-logo.png"
+                src="https://blobstorageexv.blob.core.windows.net/imagenes/variante-logo.png"
                 alt="Exvilearn"
                 className="logo-exvi"
               />

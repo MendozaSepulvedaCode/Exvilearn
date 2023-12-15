@@ -14,7 +14,7 @@ export function peticionPago(callback) {
     });
     return;
   }
-
+  
   const carritoFromCookie = Cookies.get("carrito");
   const carrito = carritoFromCookie ? JSON.parse(carritoFromCookie) : [];
 

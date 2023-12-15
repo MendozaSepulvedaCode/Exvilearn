@@ -40,7 +40,7 @@ function FaqEnseña() {
   return (
     <div className="faq-container">
       <div className="faq-left">
-        <img src="https://blobstorageexvi.blob.core.windows.net/imagenes/faqwebp.webp" alt="faq" />
+        <img src="https://blobstorageexv.blob.core.windows.net/imagenes/faqwebp.webp" alt="faq" />
         <h5 className="faq-text">
           Preguntas <br />
           <span>Frecuentes</span>

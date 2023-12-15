@@ -12,7 +12,7 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-section">
           <img
-            src="https://blobstorageexvi.blob.core.windows.net/imagenes/logo-completo.png"
+            src="https://blobstorageexv.blob.core.windows.net/imagenes/logo-completo.png"
             alt="Logo"
             className="logo-completo-footer"
           />
