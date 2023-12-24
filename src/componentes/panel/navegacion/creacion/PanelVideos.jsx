@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../../../estilos/panel/panelcursos.css";
 import { Steps, Button } from "antd";
 import PanelInfo from "./PanelInfo";
@@ -10,6 +10,7 @@ import { FileOutlined, AudioOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Footer from "../../../Footer/Footer";
+import { decode } from "../../../../ayudas/decode";
 
 const { Step } = Steps;
 
@@ -19,6 +20,34 @@ function PanelVideos() {
   const [courseSections, setCourseSections] = useState([]);
   const [deletedSections, setDeletedSections] = useState(0);
   const [duracionVideo, setDuracionVideo] = useState("");
+  const [ID_profe, setIDProfe] = useState("");
+
+  const cookieName = "n2s8t9p1q6z7w";
+  const decodeToken = decode(cookieName);
+
+  const idAzure = decodeToken.sub;
+  const profeBuscarUrl = "https://apiprofexv.azurewebsites.net/user/profes/";
+
+  useEffect(() => {
+    console.log("ID Azure:", idAzure);
+    const fetchData = async () => {
+      try {
+        console.log("Haciendo solicitud a la API...");
+        const response = await fetch(`${profeBuscarUrl}${idAzure}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Datos obtenidos:", data);
+          setIDProfe(data.ID_profe);
+        } else {
+          console.error("Error al obtener los datos");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [idAzure, profeBuscarUrl]);
 
   const manejoCursoData = (data) => {
     setCourseData(data);
@@ -89,6 +118,10 @@ function PanelVideos() {
     const nuevasSecciones = [...courseSections];
     let duracion;
 
+    console.log("Evento:", e);
+    console.log("Sección:", seccion);
+    console.log("Índice:", index);
+
     const extension = seccion.video.name.split(".").pop();
     const isAudio =
       extension === "mp3" ||
@@ -130,49 +163,60 @@ function PanelVideos() {
       return result;
     };
 
+    const generateRandomId = (length) => {
+      const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      const charactersLength = characters.length;
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      return result;
+    };
+
     const infoCursoFormData = new FormData();
-    const seccionObjURL = `${import.meta.env.VITE_API_BLOBS}/upload`;
+    const infoCursoURL = `${import.meta.env.VITE_API_BLOBS}/newcourse`;
+
+    const infoCursoArchivos = new FormData();
+    const infoCursoUrlArchivos = `${import.meta.env.VITE_API_BLOBS}/upload`;
+
+    const precioSinComas = parseFloat(courseData.precio.replace(/,/g, ''));
+
+    const ID_profeP = ID_profe;
+    const ID_curso = generateRandomId(16);
+    infoCursoFormData.append("ID_profe", ID_profeP);
+    infoCursoFormData.append("ID_curso", ID_curso);
+    infoCursoArchivos.append(`ID_Seccion`, ID_curso);
+
+    infoCursoFormData.append("titulo", courseData.titulo);
+    infoCursoFormData.append("precio", Math.floor(precioSinComas));
+    infoCursoFormData.append("categoria", courseData.categoria);
+    infoCursoFormData.append("miniatura", courseData.miniatura);
+    infoCursoFormData.append("descripcion", courseData.descripcion);
+
+    courseData.palabrasClave.forEach((palabra, index) => {
+      infoCursoFormData.append(`palabrasClave[${index}]`, palabra);
+    });
 
     courseSections.forEach((seccion, index) => {
       const randomStr = getRandomString(8);
       const categoryInitial = courseData.categoria.charAt(0).toUpperCase();
       const ID_Seccion = `${categoryInitial}-${randomStr}`;
 
-      const seccionFormData = new FormData();
-      seccionFormData.append("ID_Seccion", ID_Seccion);
-      seccionFormData.append("video", seccion.video);
-
-      seccion.documento.forEach((documento, docIndex) => {
-        seccionFormData.append(`documentos[${docIndex}]`, documento);
-      });
+      infoCursoFormData.append(`secciones[${index}][ID_Seccion]`, ID_Seccion);
+      infoCursoArchivos.append(`video`, seccion.video);
+      infoCursoArchivos.append(`documento`, seccion.documento);
 
       infoCursoFormData.append(
-        `secciones[${ID_Seccion}][ID_Seccion]`,
-        ID_Seccion
+        `secciones[${index}][seccionTitulo]`,
+        seccion.titulo
       );
-      infoCursoFormData.append(
-        `secciones[${ID_Seccion}][seccionTitulo]`,
-        seccion.seccionTitulo
-      ); // Agrega seccionTitulo
-
-      // Envía la solicitud con la información de la sección actual
-      try {
-        const responseSeccion = fetch(seccionObjURL, {
-          method: "POST",
-          body: seccionFormData,
-        });
-
-        if (responseSeccion.ok) {
-          console.log(`SeccionObj ${ID_Seccion} enviado con éxito`);
-        } else {
-          console.error(`Error al enviar SeccionObj ${ID_Seccion}`);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
     });
 
-    const infoCursoURL = `${import.meta.env.VITE_API_BLOBS}/newcourse`;
+    console.log("Información del curso:", courseData);
+    console.log("Secciones del curso:", courseSections);
 
     try {
       const responseInfoCurso = await fetch(infoCursoURL, {
@@ -180,18 +224,35 @@ function PanelVideos() {
         body: infoCursoFormData,
       });
 
-      if (responseInfoCurso.ok) {
-        console.log("InfoCurso enviado con éxito");
-      } else {
-        console.error("Error al enviar infoCurso");
-      }
+      setTimeout(async () => {
+        if (responseInfoCurso.ok) {
+          console.log("Enviado con exito", infoCursoFormData);
+          console.log(ID_profe);
+          setTimeout(async () => {
+            try {
+              const responseInfoCursoArchivos = await fetch(
+                infoCursoUrlArchivos,
+                {
+                  method: "POST",
+                  body: infoCursoArchivos,
+                }
+              );
+
+              if (responseInfoCursoArchivos.ok) {
+                window.location.reload();
+              } else {
+                console.error("Error al enviar infoCursoArchivos");
+              }
+            } catch (error) {
+              console.error("Error:", error);
+            }
+          }, 2000);
+        } else {
+          console.error("Error al enviar infoCurso");
+        }
+      }, 2000);
     } catch (error) {
       console.error("Error:", error);
-    }
-
-    console.log("Info Curso FormData:");
-    for (const [key, value] of infoCursoFormData.entries()) {
-      console.log(key, value);
     }
   };
 

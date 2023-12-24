@@ -16,13 +16,27 @@ function PanelSecciones({
   const [infoSeccion, setInfoSeccion] = useState({
     titulo: "",
     video: null,
-    documento: [],
+    documento: null,
     subsecciones: [],
   });
 
   const [palabraContador, setPalabraContador] = useState(0);
 
-  const [documentosPorSeccion, setDocumentosPorSeccion] = useState([]);
+  const manejarCambioDocumento = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type === "application/pdf") {
+      setInfoSeccion({
+        ...infoSeccion,
+        documento: file,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Archivo no válido",
+        text: "Por favor, selecciona un archivo PDF.",
+      });
+    }
+  };
 
   const manejarCamvbioTitulo = (name, value) => {
     const palabras = value.trim().split(/\s+/);
@@ -105,7 +119,7 @@ function PanelSecciones({
   };
 
   const agregarDocumento = (e) => {
-    const limiteDocumentosPorSeccion = 3;
+    const limiteDocumentosPorSeccion = 1;
     const documentosEnEstaSeccion = infoSeccion.documento.length || [];
     if (documentosEnEstaSeccion < limiteDocumentosPorSeccion) {
       const input = document.createElement("input");
@@ -138,7 +152,7 @@ function PanelSecciones({
   };
 
   const validarCampos = () => {
-    if (!infoSeccion.titulo || !infoSeccion.video) {
+    if (!infoSeccion.titulo || !infoSeccion.video || !infoSeccion.documento) {
       Swal.fire({
         icon: "error",
         title: "Campos incompletos",
@@ -160,15 +174,10 @@ function PanelSecciones({
       setInfoSeccion({
         titulo: "",
         video: null,
-        documento: [],
+        documento: null,
       });
 
       setPalabraContador(0);
-
-      setDocumentosPorSeccion([
-        ...documentosPorSeccion,
-        infoSeccion.documento || [],
-      ]);
 
       Swal.fire({
         icon: "success",
@@ -226,35 +235,6 @@ function PanelSecciones({
     nuevosDocumentos.splice(index, 1);
     setInfoSeccion({ ...infoSeccion, documento: nuevosDocumentos });
   };
-  const manejarCambioDocumento = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === "application/pdf") {
-      if (!infoSeccion.documento) {
-        setInfoSeccion({
-          ...infoSeccion,
-          documento: [file],
-        });
-      } else if (infoSeccion.documento.length < 3) {
-        const nuevosDocumentos = [...infoSeccion.documento, file];
-        setInfoSeccion({
-          ...infoSeccion,
-          documento: nuevosDocumentos,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Límite de documentos alcanzado",
-          text: "Ya ha alcanzado el límite de 3 documentos.",
-        });
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Archivo no válido",
-        text: "Por favor, selecciona un archivo PDF.",
-      });
-    }
-  };
 
   return (
     <div className="panel-secciones-container">
@@ -307,26 +287,30 @@ function PanelSecciones({
         </div>
 
         <div className="document-container">
-          {infoSeccion.documento && infoSeccion.documento.length > 0
-            ? infoSeccion.documento.map((documento, index) => (
-                <div className="document-info" key={index}>
-                  <FileOutlined />
-                  <span>{documento.name}</span>
-                  <button
-                    className="delete-video-button-documento btn btn-danger"
-                    onClick={() => eliminarDocumento(index)}
-                  >
-                    <DeleteOutlined />
-                  </button>
-                </div>
-              ))
-            : null}
-          {infoSeccion.documento && infoSeccion.documento.length < 3 && (
-            <Button icon={<FileOutlined />} onClick={agregarDocumento}>
+          {infoSeccion.documento && (
+            <div className="document-info">
+              <FileOutlined />
+              <span>{infoSeccion.documento.name}</span>
+              <button
+                className="delete-video-button-documento btn btn-danger"
+                onClick={() =>
+                  setInfoSeccion({ ...infoSeccion, documento: null })
+                }
+              >
+                <DeleteOutlined />
+              </button>
+            </div>
+          )}
+          {!infoSeccion.documento && (
+            <Button
+              icon={<FileOutlined />}
+              onClick={() => document.getElementById("fileInput").click()}
+            >
               Añadir Documento
             </Button>
           )}
           <input
+            id="fileInput"
             type="file"
             accept=".pdf"
             style={{ display: "none" }}

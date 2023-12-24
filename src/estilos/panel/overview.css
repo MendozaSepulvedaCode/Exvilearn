@@ -338,6 +338,15 @@ td {
   height: 7vh;
 }
 
+.panel-movil {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
 @media only screen and (max-width: 1300px) {
   .over-container {
     padding-right: 0;
@@ -367,6 +376,13 @@ td {
 }
 
 @media only screen and (max-width: 768px) {
+  .over-view {
+    display: none;
+  }
+
+  .panel-movil {
+    display: flex;
+  }
   .over-container {
     flex-direction: column;
   }

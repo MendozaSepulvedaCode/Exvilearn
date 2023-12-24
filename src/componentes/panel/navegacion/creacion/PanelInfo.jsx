@@ -9,7 +9,7 @@ import {
   KeyOutlined,
 } from "@ant-design/icons";
 
-function PanelInfo({ setCurrentStep, manejoCursoData }) {
+function PanelInfo({ setCurrentStep, manejoCursoData,}) {
   const [infoCurso, setInfoCurso] = useState({
     titulo: "",
     descripcion: "",
