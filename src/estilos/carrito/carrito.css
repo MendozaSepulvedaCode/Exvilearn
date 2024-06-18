@@ -5,7 +5,7 @@
   border-radius: 5px;
   padding: 20px;
   margin: 0 auto;
-  width: 90%;
+  width: 95%;
   max-width: 1200px;
   min-height: 32vh;
   margin-top: 3rem;
@@ -28,7 +28,7 @@
 }
 
 .info-card {
-  width: 20vw;
+  width: 26.5vw;
 }
 
 .carrito-titulo {
@@ -119,7 +119,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  width: 90%;
+  width: 95%;
 }
 
 .acciones-curso {

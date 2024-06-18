@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import CursoCard from "./CursoCard";
+import { AiOutlinePlus, AiOutlineInbox } from "react-icons/ai";
 import "../../../estilos/inicio/cursoContainer.css";
 import Cookies from "js-cookie";
 
@@ -75,13 +76,29 @@ function CursoRecomendadoContainer({ cursos, carrito, setCarrito }) {
       </div>
       <div className="curso-container" ref={scrollContainerRef}>
         <div className="curso-list">
-          {cursos.map((curso) => (
-            <CursoCard
-              key={curso.id}
-              curso={curso}
-              agregarAlCarrito={agregarAlCarrito}
-            />
-          ))}
+          {cursos.length > 0 ? (
+            cursos.map((curso) => (
+              <CursoCard
+                key={curso.Detalles.Curso.ID_curso}
+                curso={curso}
+                agregarAlCarrito={agregarAlCarrito}
+              />
+            ))
+          ) : (
+            <div
+              className="empty-data-content"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "90vw",
+              }}
+            >
+              <AiOutlineInbox style={{ fontSize: "20em", color: "#d3d3d3" }} />
+              <p style={{ textAlign: "center" }}>
+                Aun no hay cursos disponibles
+              </p>
+            </div>
+          )}
         </div>
       </div>
       <div className="scroll-buttons">

@@ -14,7 +14,7 @@ export function peticionPago(callback) {
     });
     return;
   }
-  
+
   const carritoFromCookie = Cookies.get("carrito");
   const carrito = carritoFromCookie ? JSON.parse(carritoFromCookie) : [];
 
@@ -24,15 +24,18 @@ export function peticionPago(callback) {
     id: producto.id,
     title: producto.titulo,
     description: "Descripcion del curso",
-    quantity: 1,
     unit_price: parseFloat(producto.precio),
+    quantity: 1,
   }));
 
   const data = {
-    name: `Jose Mendoza`,
-    correo: "correo@gmail.com",
     items: items,
+    azureId: 1321321,
+    name: `Jose Mendoza`,
+    email: "correo@gmail.com",
   };
+
+  console.log(data);
 
   fetch(url, {
     method: "POST",

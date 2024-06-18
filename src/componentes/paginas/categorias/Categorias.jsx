@@ -1,33 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
 import VistaCategorias from "./VistaCategorias";
 import Sort from "./Sort";
 import { useLoader } from "../../../ayudas/Loader";
+import { useParams } from "react-router-dom";
 import "../../../estilos/categorias/categorias.css";
 
-function Categorias() {
+function Categorias({ cursos }) {
   const { showLoader, hideLoader } = useLoader();
+  const [cursoInfo, setCursoInfo] = useState(null);
+  const { categoria } = useParams();
 
-  const handleFiltrarClick = () => {
+  const formatCategory = (category) => {
+    return category
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
+  const formattedCategory = categoria ? formatCategory(categoria) : "";
+
+  useEffect(() => {
     showLoader();
 
-    setTimeout(() => {
+    if (categoria && Array.isArray(cursos)) {
+      const selectedCourse = cursos.filter(
+        (curso) => curso.Detalles.Curso.Categoria === categoria
+      );
+
+      if (selectedCourse.length > 0) {
+        setCursoInfo(selectedCourse[0]);
+      } else {
+        setCursoInfo(null);
+      }
+
       hideLoader();
-    }, 2000);
-  };
-  
+    } else {
+      setCursoInfo(null);
+      hideLoader();
+    }
+  }, [cursos, categoria, showLoader, hideLoader]);
+
   return (
     <div style={{ position: "relative" }}>
       <Navbar />
       <div className="container-full-categorias">
         <div className="header-categorias">
-          <h5>Cursos de Trading</h5>
-          <button onClick={handleFiltrarClick}>Filtrar por</button>
+          <h5>Cursos de {formattedCategory}</h5>
+          <button>Filtrar por</button>
         </div>
         <div className="container-categorias">
           <Sort />
-          <VistaCategorias />
+          <VistaCategorias cursos={cursos} />
         </div>
       </div>
       <Footer />

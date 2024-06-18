@@ -20,25 +20,53 @@ import { autenticar } from "../../ayudas/autenticar";
 
 function Rutas() {
   const [carrito, setCarrito] = useState([]);
+  const [cursos, setCursos] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://apicargablo.azurewebsites.net/course"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        setCursos(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const routes = [
-    { path: "/", component: Inicio, props: { carrito, setCarrito } },
+    { path: "/", component: Inicio, props: { carrito, setCarrito, cursos } },
     { path: "/VistaEnseña", component: VistaEnseña },
     { path: "/Carrito", component: Carrito, props: { carrito, setCarrito } },
     { path: "/StepByStep", component: StepByStep },
     { path: "/PanelCursos", component: PanelCursos },
     { path: "/PanelCursos/panel-videos", component: PanelVideos },
 
-    { path: "/categorias", component: Categorias },
-    { path: "/detalle-curso", component: CursoDetail },
-    { path: "/panel-usuario", component: CursoUsuario },
+    { path: "/categorias/:categoria", component: Categorias, props: { cursos } },
+    {
+      path: "/detalle-curso/id/:id",
+      component: CursoDetail,
+      props: { cursos },
+    },
+    {
+      path: "/panel-usuario",
+      component: CursoUsuario,
+    },
   ];
 
   const rutasProtegidas = [
-    // "/StepByStep",
-    // "/PanelCursos",
-    // "/PanelCursos/panel-videos",
-    // "/panel-usuario",
+    "/StepByStep",
+    "/PanelCursos",
+    "/PanelCursos/panel-videos",
+    "/panel-usuario",
   ];
 
   const ProtectedRoute = ({ path, element }) => {

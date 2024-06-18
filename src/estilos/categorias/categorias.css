@@ -47,6 +47,20 @@
   width: 30%;
 }
 
+.cursos-container-categorias {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.card-categoria {
+  width: 45%;
+  margin-bottom: 20px;
+  margin-left: 40px;
+}
+
 .sort-container {
   display: flex;
   flex-direction: column;
@@ -95,4 +109,29 @@
 
 .accordion-item-body input[type="checkbox"] {
   margin-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .container-categorias {
+    flex-direction: column;
+  }
+
+  .container-sort-categorias-left {
+    display: none;
+  }
+
+  .header-categorias button {
+    height: auto;
+  }
+
+  .cursos-container-categorias {
+    width: 90vw;
+    margin-top: 3em;
+  }
+
+  .card-categoria {
+    margin: 0;
+    margin-bottom: 20px;
+    margin-right: 6px;
+  }
 }

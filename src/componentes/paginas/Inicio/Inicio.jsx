@@ -10,10 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { validarProfesor } from "../../../ayudas/validarprofesor";
 import { useLoader } from "../../../ayudas/Loader";
 
-function Inicio({ carrito, setCarrito }) {
-  const cantidadCursos = 20;
-  const cursos = [];
+function Inicio({ carrito, setCarrito, cursos }) {
   const navigate = useNavigate();
+
+  const cantidadCursos = cursos.length;
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
@@ -26,6 +26,19 @@ function Inicio({ carrito, setCarrito }) {
       clearInterval(interval);
     };
   }, []);
+
+  // const cursosDesdeAPI = data.map((curso, index) => ({
+  //   id: curso.ID_curso,
+  //   nombre: `${curso.Nombre} ${curso.Apellido}`,
+  //   avatar: curso.Miniatura,
+  //   precio: curso.Precio,
+  //   categoria: curso.Categoria,
+  //   duracion: "20h 57m",
+  //   participantes: "2067",
+  //   lesiones: curso.Secciones.length,
+  //   titulo: [curso["Titulo Curso"]],
+  //   imagen: curso.Miniatura,
+  // }));
 
   const handleArrowClick = (direction) => {
     if (direction === "left") {
@@ -84,23 +97,6 @@ function Inicio({ carrito, setCarrito }) {
       buttonText: "Ir a Enseñar",
     },
   ];
-
-  for (let i = 1; i <= cantidadCursos; i++) {
-    cursos.push({
-      id: i,
-      nombre: `Jose Mendoza ${i}`,
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe8_XyeX7Dd698Jzt9mDMzd-x4vZOJ2i96bw&usqp=CAU",
-      precio: `50000`,
-      categoria: "Trading",
-      duracion: "20h 57m",
-      participantes: "2067",
-      lesiones: `20`,
-      titulo: "Aprende estrategias de trading avanzadas",
-      imagen:
-        "https://www.tradingybolsaparatorpes.com/wp-content/uploads/2022/10/Curso-de-Trading-Gratis.jpg",
-    });
-  }
 
   return (
     <div>

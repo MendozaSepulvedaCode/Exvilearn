@@ -15,6 +15,12 @@ const LeftMenu = ({ mode }) => {
 
   const redireccionar = (ruta) => {
     navigate(ruta);
+    window.location.href = window.location.href;
+  };
+
+  const reCategoria = (ruta, categoriaNombre) => {
+    navigate(`${ruta}/${categoriaNombre}`);
+    window.location.reload();
   };
 
   const manejoValidacion = async () => {
@@ -25,7 +31,7 @@ const LeftMenu = ({ mode }) => {
       if (typeof resultado.isValid === "undefined") {
         resultado.isValid = false;
       }
-      
+
       if (!resultado.isValid) {
         redireccionar("/VistaEnseña");
         hideLoader();
@@ -88,51 +94,32 @@ const LeftMenu = ({ mode }) => {
         {
           label: "Trading",
           key: "subitem-1",
-          onClick: () => redireccionar("/categorias"),
+          onClick: () => reCategoria("/categorias", "trading"),
         },
         {
           label: "Programacion",
           key: "subitem-2",
-          children: [
-            {
-              label: "Desarollo Web",
-              key: "subitem2-1",
-            },
-            {
-              label: "Fundamentos de programacion",
-              key: "subitem2-2",
-            },
-          ],
+          onClick: () => reCategoria("/categorias", "programacion"),
         },
         {
           label: "Idiomas",
           key: "subitem-3",
-          children: [
-            {
-              label: "Ingles",
-              key: "subitem3-1",
-            },
-            {
-              label: "Frances",
-              key: "subitem3-2",
-            },
-            {
-              label: "Portugues",
-              key: "subitem3-3",
-            },
-          ],
+          onClick: () => reCategoria("/categorias", "idiomas"),
         },
         {
           label: "Deporte",
           key: "subitem-4",
+          onClick: () => reCategoria("/categorias", "deporte"),
         },
         {
           label: "Finanzas",
           key: "subitem-5",
+          onClick: () => reCategoria("/categorias", "finanzas"),
         },
         {
           label: "Estilo de vida",
           key: "subitem-6",
+          onClick: () => reCategoria("/categorias", "estilo-de-vida"),
         },
       ],
     },

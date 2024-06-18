@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { useParams } from "react-router-dom";
 import "../../../estilos/detalles/cursodetail.css";
 
-function DetailInfo() {
+function DetailInfo({ cursos }) {
   const [activeTab, setActiveTab] = useState("descripcion");
+  const [cursoInfo, setCursoInfo] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      const selectedCourse = cursos.find(
+        (curso) => curso.Detalles.Curso.ID_curso === id
+      );
+
+      if (selectedCourse) {
+        setCursoInfo(selectedCourse);
+      }
+    }
+  }, [cursos, id]);
 
   const valoracionesGenerales = [
     { estrellas: 5, porcentaje: 60 },
@@ -90,12 +105,32 @@ function DetailInfo() {
         return (
           <div className="info-section">
             <div className="container-info-curso-detail">
-              {infoCurso.map((info, index) => (
-                <div key={index} className="info-detalle-curso">
-                  <h6>{info.subtitulo}</h6>
-                  <p>{info.lista}</p>
-                </div>
-              ))}
+              <div className="info-detalle-curso">
+                <h6>Duracion del curso</h6>
+                <p>20hr</p>
+              </div>
+              <div className="info-detalle-curso">
+                <h6>Descripcion del curso</h6>
+                {cursoInfo &&
+                cursoInfo.Detalles &&
+                cursoInfo.Detalles.Curso &&
+                cursoInfo.Detalles.Curso.Descripcion ? (
+                  <p>{cursoInfo.Detalles.Curso.Descripcion}</p>
+                ) : (
+                  <p>No hay descripción disponible</p>
+                )}
+              </div>
+              <div className="info-detalle-curso">
+                <h6>Secciones</h6>
+                <p>
+                  {cursoInfo &&
+                  cursoInfo.Detalles &&
+                  cursoInfo.Detalles.Curso &&
+                  cursoInfo.Detalles.Curso.Secciones
+                    ? Object.keys(cursoInfo.Detalles.Curso.Secciones).length
+                    : 0}
+                </p>
+              </div>
             </div>
           </div>
         );
@@ -139,11 +174,7 @@ function DetailInfo() {
               {reseñas.map((resena, index) => (
                 <div key={index} className="reseña-container">
                   <div className="user-info-reseña">
-                    <img
-                      src={resena.imagen}
-                      alt="User"
-                      className="user-reseña-img"
-                    />
+                    <img src="" alt="User" className="user-reseña-img" />
                     <div>
                       <span className="user-reseña-nombre">
                         {resena.nombre}
@@ -176,31 +207,26 @@ function DetailInfo() {
             <h6>Instructor</h6>
             <div className="instructor-info">
               <img
-                src="https://storagexvilearn.blob.core.windows.net/imagenes/13877441320054662-joven.png"
+                src={cursoInfo ? cursoInfo.Detalles.Profesor.ProfeUrl : ""}
                 alt="Foto de perfil"
                 className="instructor-img"
               />
               <div className="instructor-details">
-                <h3>Jose Mendoza</h3>
+                <h3>{`${cursoInfo.Detalles.Profesor.Nombre} ${cursoInfo.Detalles.Profesor.Apellido}`}</h3>
+                <p>{cursoInfo.Detalles.Profesor.Biografia}</p>
                 <p>
-                  Soy un apasionado desarrollador de software con más de 10 años
-                  de experiencia en la creación de aplicaciones web y móviles.
-                  Mi enfoque principal ha sido el desarrollo de aplicaciones con
-                  tecnologías de vanguardia como React, Node.js y MongoDB. Me
-                  encanta compartir mis conocimientos y experiencias con otros y
-                  ayudar a los estudiantes a comprender los conceptos más
-                  complejos de una manera simple y práctica. Mi objetivo es
-                  asegurarme de que mis cursos no solo enseñen habilidades
-                  técnicas, sino también la mentalidad y las mejores prácticas
-                  necesarias para tener éxito en el mundo del desarrollo de
-                  software moderno. ¡Espero verte en mis cursos y ayudarte a
-                  alcanzar tus metas de desarrollo profesional!
+                  <span>País de nacimiento:</span> {}{" "}
+                  {cursoInfo.Detalles.Profesor.Pais}
                 </p>
                 <p>
-                  <span>País de nacimiento:</span> Colombia
-                </p>
-                <p>
-                  <span>Cursos publicados:</span> 70
+                  <span>Cursos publicados:</span>{" "}
+                  {
+                    cursos.filter(
+                      (curso) =>
+                        curso.Detalles.Profesor.ID_profe ===
+                        cursoInfo.Detalles.Profesor.ID_profe
+                    ).length
+                  }
                 </p>
                 <p>
                   <span>Rating:</span> 15

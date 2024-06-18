@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../../../estilos/detalles/cursodetail.css";
 import { useLoader } from "../../../ayudas/Loader";
 import { BiPlay } from "react-icons/bi";
 
-const Reproductor = () => {
+const Reproductor = ({ selectedVideo }) => {
   const { showLoader, hideLoader } = useLoader();
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
   const [playButtonVisible, setPlayButtonVisible] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
 
   const handleVideoLoad = () => {
@@ -21,50 +21,48 @@ const Reproductor = () => {
     const video = videoRef.current;
     if (video.paused) {
       video.play();
+      setIsPlaying(true);
       setControlsVisible(true);
       setPlayButtonVisible(false);
     } else {
       video.pause();
+      setIsPlaying(false);
       setControlsVisible(true);
       setPlayButtonVisible(true);
     }
   };
 
-  const handleRecord = () => {
-    const videoOverlay = document.querySelector(".video-overlay");
-    videoOverlay.style.display = "block";
-  };
+  useEffect(() => {
+    const video = videoRef.current;
+    video.src = selectedVideo;
+
+    if (selectedVideo) {
+      const video = videoRef.current;
+      video.src = selectedVideo;
+      video.pause();
+      setControlsVisible(true);
+      setPlayButtonVisible(true);
+    }
+  }, [selectedVideo]);
 
   useEffect(() => {
     const video = videoRef.current;
-    video.setAttribute("disablePictureInPicture", "true");
+
+    if (videoLoaded) {
+      hideLoader();
+    }
 
     const updateButtonVisibility = () => {
       setPlayButtonVisible(video.paused);
     };
 
-    const checkRecording = () => {
-      const videoOverlay = document.querySelector(".video-overlay");
-      if (document.pictureInPictureElement) {
-        videoOverlay.style.display = "block";
-      } else {
-        videoOverlay.style.display = "none";
-      }
+    video.addEventListener("play", updateButtonVisibility);
+    video.addEventListener("pause", updateButtonVisibility);
+
+    return () => {
+      video.removeEventListener("play", updateButtonVisibility);
+      video.removeEventListener("pause", updateButtonVisibility);
     };
-
-    document.addEventListener("fullscreenchange", checkRecording);
-
-    if (videoLoaded) {
-      hideLoader();
-      video.addEventListener("play", updateButtonVisibility);
-      video.addEventListener("pause", updateButtonVisibility);
-
-      return () => {
-        video.removeEventListener("play", updateButtonVisibility);
-        video.removeEventListener("pause", updateButtonVisibility);
-        document.removeEventListener("fullscreenchange", checkRecording);
-      };
-    }
   }, [videoLoaded, hideLoader]);
 
   return (
@@ -76,7 +74,7 @@ const Reproductor = () => {
       {playButtonVisible && (
         <div className="custom-video-controls">
           <button className="custom-play-button" onClick={handlePlay}>
-            <BiPlay />
+            <BiPlay className="play-icon-video" />
           </button>
         </div>
       )}
@@ -87,10 +85,7 @@ const Reproductor = () => {
         onCanPlay={handleVideoLoad}
         controls={controlsVisible}
       >
-        <source
-          src="https://storagexvilearn.blob.core.windows.net/videos/5837747187741467-obs_comprimido.mp4"
-          type="video/mp4"
-        />
+        <source src={selectedVideo} type="video/mp4" />
         Tu navegador no soporta videos
       </video>
     </div>

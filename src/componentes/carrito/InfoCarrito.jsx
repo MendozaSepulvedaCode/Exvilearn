@@ -4,6 +4,7 @@ import { ImPriceTag } from "react-icons/im";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { peticionPago } from "../../ayudas/peticionPago";
+import { tiempoTranscurrido } from "../../ayudas/tiempoTranscurrido";
 
 function InfoCarrito({ carrito, setCarrito }) {
   const [codigoPromocional, setCodigoPromocional] = useState("");
@@ -11,7 +12,7 @@ function InfoCarrito({ carrito, setCarrito }) {
 
   const calcularTotal = () => {
     return carrito.reduce(
-      (total, producto) => total + parseInt(producto.precio),
+      (total, producto) => total + parseInt(producto.Detalles.Curso.Precio, 10),
       0
     );
   };
@@ -32,7 +33,9 @@ function InfoCarrito({ carrito, setCarrito }) {
   };
 
   const eliminarProducto = (id) => {
-    const updatedCarrito = carrito.filter((producto) => producto.id !== id);
+    const updatedCarrito = carrito.filter(
+      (producto) => producto.Detalles.Curso.ID_curso !== id
+    );
     setCarrito([...updatedCarrito]);
 
     const carritoString = JSON.stringify(updatedCarrito);
@@ -72,35 +75,56 @@ function InfoCarrito({ carrito, setCarrito }) {
         {carrito.length > 0 && (
           <div className="items-carrito">
             {carrito.map((producto) => (
-              <div key={producto.id}>
+              <div key={producto.Detalles.Curso.ID_curso}>
                 <div className="container-info-card">
                   <div className="curso-card-info">
                     <div>
                       <img
-                        src={producto.imagen}
-                        alt={producto.titulo}
+                        src={producto.Detalles.Curso.Miniatura}
+                        alt={producto.Detalles.Curso.Titulo}
                         className="img-curso"
                       />
                     </div>
                     <div className="info-card">
-                      <p className="nombre-curso">{producto.titulo}</p>
-                      <p className="autor-curso">Por {producto.nombre}</p>
+                      <p className="nombre-curso">
+                        {producto.Detalles.Curso.Titulo}
+                      </p>
+                      <p className="autor-curso">
+                        Por{" "}
+                        {`${producto.Detalles.Profesor.Nombre} ${producto.Detalles.Profesor.Apellido}`}
+                      </p>
                       <div
                         className="foot-curso"
                         style={{ display: "flex", alignItems: "center" }}
                       >
-                        <p className="categoria-curso">{producto.categoria}</p>
-                        <span style={{ margin: "0 5px", color: "#bdbfc1" }}>
-                          &bull;
-                        </span>
-                        <p className="lesiones-curso">
-                          {producto.lesiones} clases
+                        <p className="categoria-curso">
+                          {producto.Detalles.Curso.Categoria}
                         </p>
                         <span style={{ margin: "0 5px", color: "#bdbfc1" }}>
                           &bull;
                         </span>
+                        {producto &&
+                        producto.Detalles &&
+                        producto.Detalles.Curso &&
+                        producto.Detalles.Curso.Secciones ? (
+                          <p className="lesiones-curso">
+                            {
+                              Object.keys(producto.Detalles.Curso.Secciones)
+                                .length
+                            }{" "}
+                            clases
+                          </p>
+                        ) : (
+                          <p>No se encontraron clases</p>
+                        )}
+                        <span style={{ margin: "0 5px", color: "#bdbfc1" }}>
+                          &bull;
+                        </span>
                         <p className="horas-curso">
-                          {producto.duracion} en total
+                          Publicado hace{" "}
+                          {tiempoTranscurrido(
+                            producto.Detalles.Curso.FechaPubliBlob
+                          )}
                         </p>
                       </div>
                     </div>
@@ -109,13 +133,16 @@ function InfoCarrito({ carrito, setCarrito }) {
                     <div>
                       <button
                         className="eliminar-button"
-                        onClick={() => eliminarProducto(producto.id)}
+                        onClick={() =>
+                          eliminarProducto(producto.Detalles.Curso.ID_curso)
+                        }
                       >
                         Eliminar
                       </button>
                     </div>
                     <div className="precio-curso">
-                      <p>${formatearPrecio(producto.precio)}</p> <ImPriceTag />
+                      <p>${formatearPrecio(producto.Detalles.Curso.Precio)}</p>{" "}
+                      <ImPriceTag />
                     </div>
                   </div>
                 </div>

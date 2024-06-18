@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../../../estilos/panel/panelcursos.css";
 import { Steps, Button } from "antd";
 import PanelInfo from "./PanelInfo";
@@ -11,6 +12,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Footer from "../../../Footer/Footer";
 import { decode } from "../../../../ayudas/decode";
+import { useLoader } from "../../../../ayudas/Loader";
 
 const { Step } = Steps;
 
@@ -21,12 +23,15 @@ function PanelVideos() {
   const [deletedSections, setDeletedSections] = useState(0);
   const [duracionVideo, setDuracionVideo] = useState("");
   const [ID_profe, setIDProfe] = useState("");
+  const { showLoader, hideLoader } = useLoader();
 
   const cookieName = "n2s8t9p1q6z7w";
   const decodeToken = decode(cookieName);
 
+  const navigate = useNavigate();
+
   const idAzure = decodeToken.sub;
-  const profeBuscarUrl = "https://apiprofexv.azurewebsites.net/user/profes/";
+  const profeBuscarUrl = `${import.meta.env.VITE_API_PROFE}/user/profes/`;
 
   useEffect(() => {
     console.log("ID Azure:", idAzure);
@@ -118,10 +123,6 @@ function PanelVideos() {
     const nuevasSecciones = [...courseSections];
     let duracion;
 
-    console.log("Evento:", e);
-    console.log("Sección:", seccion);
-    console.log("Índice:", index);
-
     const extension = seccion.video.name.split(".").pop();
     const isAudio =
       extension === "mp3" ||
@@ -139,6 +140,28 @@ function PanelVideos() {
     setCourseSections(nuevasSecciones);
   };
 
+  const getRandomString = (length) => {
+    const characters =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const charactersLength = characters.length;
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+
+  const generateRandomId = (length) => {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+
   const finalizarCreacion = async () => {
     if (!courseData || !courseSections || courseSections.length === 0) {
       Swal.fire({
@@ -150,45 +173,15 @@ function PanelVideos() {
       return;
     }
 
-    const getRandomString = (length) => {
-      const characters =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      const charactersLength = characters.length;
-      let result = "";
-      for (let i = 0; i < length; i++) {
-        result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
-        );
-      }
-      return result;
-    };
-
-    const generateRandomId = (length) => {
-      const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      const charactersLength = characters.length;
-      let result = "";
-      for (let i = 0; i < length; i++) {
-        result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
-        );
-      }
-      return result;
-    };
-
     const infoCursoFormData = new FormData();
     const infoCursoURL = `${import.meta.env.VITE_API_BLOBS}/newcourse`;
 
-    const infoCursoArchivos = new FormData();
-    const infoCursoUrlArchivos = `${import.meta.env.VITE_API_BLOBS}/upload`;
-
-    const precioSinComas = parseFloat(courseData.precio.replace(/,/g, ''));
+    const precioSinComas = parseFloat(courseData.precio.replace(/,/g, ""));
 
     const ID_profeP = ID_profe;
     const ID_curso = generateRandomId(16);
     infoCursoFormData.append("ID_profe", ID_profeP);
     infoCursoFormData.append("ID_curso", ID_curso);
-    infoCursoArchivos.append(`ID_Seccion`, ID_curso);
 
     infoCursoFormData.append("titulo", courseData.titulo);
     infoCursoFormData.append("precio", Math.floor(precioSinComas));
@@ -200,35 +193,60 @@ function PanelVideos() {
       infoCursoFormData.append(`palabrasClave[${index}]`, palabra);
     });
 
+    const IDsSecciones = [];
+
     courseSections.forEach((seccion, index) => {
       const randomStr = getRandomString(8);
       const categoryInitial = courseData.categoria.charAt(0).toUpperCase();
-      const ID_Seccion = `${categoryInitial}-${randomStr}`;
+      const ID_Seccion = `${categoryInitial}-${randomStr}-${index}`;
 
       infoCursoFormData.append(`secciones[${index}][ID_Seccion]`, ID_Seccion);
-      infoCursoArchivos.append(`video`, seccion.video);
-      infoCursoArchivos.append(`documento`, seccion.documento);
-
       infoCursoFormData.append(
         `secciones[${index}][seccionTitulo]`,
         seccion.titulo
       );
+
+      // Almacenar el ID de sección generado
+      IDsSecciones.push(ID_Seccion);
     });
 
-    console.log("Información del curso:", courseData);
-    console.log("Secciones del curso:", courseSections);
+    console.log("Información del curso:");
+    for (let pair of infoCursoFormData.entries()) {
+      console.log(pair[0] + ": " + pair[1]);
+    }
 
     try {
       const responseInfoCurso = await fetch(infoCursoURL, {
         method: "POST",
         body: infoCursoFormData,
       });
+      showLoader();
 
-      setTimeout(async () => {
-        if (responseInfoCurso.ok) {
-          console.log("Enviado con exito", infoCursoFormData);
-          console.log(ID_profe);
-          setTimeout(async () => {
+      if (responseInfoCurso.ok) {
+        console.log("Información del curso enviada con éxito");
+
+        setTimeout(async () => {
+          const infoCursoUrlArchivos = `${
+            import.meta.env.VITE_API_BLOBS
+          }/upload`;
+
+          let allFilesSentSuccessfully = true;
+
+          for (let i = 0; i < courseSections.length; i++) {
+            const infoCursoArchivos = new FormData();
+            const seccion = courseSections[i];
+
+            const ID_Seccion = IDsSecciones[i];
+
+            infoCursoArchivos.append(`video`, seccion.video);
+            infoCursoArchivos.append(`documento`, seccion.documento);
+            infoCursoArchivos.append(`ID_Seccion`, ID_Seccion);
+
+            console.log("Información de archivos:");
+            for (let pair of infoCursoArchivos.entries()) {
+              console.log(pair[0] + ": " + pair[1]);
+            }
+
             try {
               const responseInfoCursoArchivos = await fetch(
                 infoCursoUrlArchivos,
@@ -239,20 +257,43 @@ function PanelVideos() {
               );
 
               if (responseInfoCursoArchivos.ok) {
-                window.location.reload();
+                console.log(
+                  `Archivos de la sección ${i + 1} enviados con éxito`
+                );
+                setTimeout(() => {
+                  hideLoader();
+                  navigate(`/detalle-curso/id/${ID_curso}`);
+                  window.location.href = window.location.href;
+                }, 8000);
               } else {
-                console.error("Error al enviar infoCursoArchivos");
+                console.error(
+                  `Error al enviar archivos de la sección ${i + 1}`
+                );
+                hideLoader();
+                await fetch(
+                  `https://apicargablo.azurewebsites.net/info/course/${ID_curso}`,
+                  {
+                    method: "DELETE",
+                  }
+                );
+                Swal.fire({
+                  icon: "error",
+                  title: "Error al enviar información del curso",
+                  confirmButtonColor: "#107acc",
+                });
               }
             } catch (error) {
               console.error("Error:", error);
             }
-          }, 2000);
-        } else {
-          console.error("Error al enviar infoCurso");
-        }
-      }, 2000);
+          }
+        }, 3000);
+      } else {
+        console.error("Error al enviar información del curso");
+        hideLoader();
+      }
     } catch (error) {
       console.error("Error:", error);
+      hideLoader();
     }
   };
 

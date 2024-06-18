@@ -199,37 +199,6 @@ function PanelSecciones({
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
-  // const finalizarCreacion = () => {
-  //   if (!validarCampos()) {
-  //     return;
-  //   }
-
-  //   const nuevaSeccion = {
-  //     titulo: infoSeccion.titulo,
-  //     video: infoSeccion.video ? infoSeccion.video.name : null,
-  //     documento: infoSeccion.documento ? infoSeccion.documento.name : null,
-  //   };
-
-  //   // Agregar la nueva sección al array de secciones
-  //   setSecciones([...secciones, nuevaSeccion]);
-  //   console.log("Secciones actuales:", JSON.stringify(secciones, null, 2));
-
-  //   // Limpiar la información actual
-  //   setInfoSeccion({
-  //     titulo: "",
-  //     video: null,
-  //     documento: null,
-  //     subsecciones: [],
-  //   });
-
-  //   // Mostrar alerta de éxito
-  //   Swal.fire({
-  //     icon: "success",
-  //     title: "Curso creado",
-  //     text: "El curso se ha creado exitosamente.",
-  //   });
-  // };
-
   const eliminarDocumento = (index) => {
     const nuevosDocumentos = [...infoSeccion.documento];
     nuevosDocumentos.splice(index, 1);
